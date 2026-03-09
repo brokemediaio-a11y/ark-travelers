@@ -107,6 +107,18 @@ section.ark-fly-hero-banner {
 
 /* Fly page hero & form – mobile */
 @media (max-width: 768px) {
+    .ark-fly-hero-banner {
+        height: auto;
+        min-height: 100svh;
+        min-height: 100dvh;
+        overflow: visible;
+        padding-top: calc(var(--header-height, 80px) + var(--space-sm));
+        padding-bottom: var(--space-lg);
+    }
+    .ark-fly-hero-form-wrap {
+        margin-top: 0;
+        align-items: flex-start;
+    }
     .ark-fly-form-row {
         grid-template-columns: 1fr;
     }
@@ -318,7 +330,7 @@ section.ark-fly-hero-banner {
 
 /* Contact row: name + email in two columns */
 .ark-fly-form-row.ark-fly-contact {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
 }
 
 /* Phone: country code inside the same field as the number (single combined input) */
@@ -335,6 +347,11 @@ section.ark-fly-hero-banner {
     border-radius: 8px 0 0 8px;
     border-right: none;
     margin: 0;
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", var(--font-body), sans-serif;
+}
+
+.ark-fly-phone-inline .ark-fly-country-code option {
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", var(--font-body), sans-serif;
 }
 
 .ark-fly-phone-inline .ark-fly-country-code:focus {
@@ -418,7 +435,7 @@ section.ark-fly-hero-banner {
     max-width: 320px;
 }
 
-/* ========== Popular Routes – improved section UI ========== */
+/* ========== Popular Destinations – visual cards ========== */
 .ark-fly-popular {
     padding: var(--space-2xl) 0;
     background: var(--color-bg-primary);
@@ -434,37 +451,56 @@ section.ark-fly-hero-banner {
 
 .ark-fly-routes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: var(--space-lg);
 }
 
 .ark-route-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: var(--space-lg);
-    min-height: 100px;
+    justify-content: flex-end;
+    padding: var(--space-md);
+    min-height: 220px;
     text-decoration: none;
-    color: var(--color-charcoal);
+    color: var(--color-white);
     border-radius: 16px;
-    border: 1px solid var(--color-border);
-    background: var(--color-white);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-image:
+        linear-gradient(180deg, rgba(10, 14, 20, 0.15) 0%, rgba(10, 14, 20, 0.78) 85%),
+        var(--route-bg);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), filter var(--transition-base);
 }
 
 .ark-route-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-    border-color: var(--color-accent);
+    transform: translateY(-6px);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+    border-color: rgba(174, 209, 226, 0.7);
+    filter: saturate(1.08);
 }
 
-.ark-route-card span {
+.ark-route-city {
     display: block;
-    margin-top: var(--space-sm);
+    margin-top: auto;
+    font-size: 1.15rem;
     font-weight: 600;
-    font-size: 1rem;
-    color: var(--color-accent);
+    letter-spacing: -0.01em;
+    color: var(--color-white);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.ark-route-country {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
 /* ========== Why Book With Us – improved section UI ========== */

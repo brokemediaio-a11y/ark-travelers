@@ -48,6 +48,8 @@ if ( ! defined( 'ABSPATH' ) ) {
             <label for="ark-fly-name"><?php echo esc_html( ark_t( 'form_name' ) ); ?></label>
             <input type="text" id="ark-fly-name" name="contact_name" placeholder="<?php echo esc_attr( ark_t( 'form_name_placeholder' ) ); ?>" autocomplete="name" required>
         </div>
+    </div>
+    <div class="ark-fly-form-row ark-fly-contact">
         <div class="ark-fly-field">
             <label for="ark-fly-email"><?php echo esc_html( ark_t( 'form_email' ) ); ?></label>
             <input type="email" id="ark-fly-email" name="contact_email" placeholder="<?php echo esc_attr( ark_t( 'form_email_placeholder' ) ); ?>" autocomplete="email" required>
@@ -58,33 +60,33 @@ if ( ! defined( 'ABSPATH' ) ) {
             <label for="ark-fly-phone"><?php echo esc_html( ark_t( 'form_phone' ) ); ?></label>
             <div class="ark-fly-phone-inline">
                 <select id="ark-fly-country" name="contact_country_code" class="ark-fly-country-code" aria-label="<?php echo esc_attr( ark_t( 'form_country_code' ) ); ?>">
-                    <option value="+46" selected>&#127480;&#127482; +46</option>
-                    <option value="+47">&#127475;&#127476; +47</option>
-                    <option value="+45">&#127465;&#127472; +45</option>
-                    <option value="+358">&#127467;&#127470; +358</option>
-                    <option value="+1">&#127482;&#127480; +1</option>
-                    <option value="+44">&#127468;&#127463; +44</option>
-                    <option value="+49">&#127465;&#127466; +49</option>
-                    <option value="+33">&#127467;&#127479; +33</option>
-                    <option value="+39">&#127470;&#127481; +39</option>
-                    <option value="+34">&#127466;&#127484; +34</option>
-                    <option value="+90">&#127481;&#127479; +90</option>
-                    <option value="+966">&#127480;&#127462; +966</option>
-                    <option value="+971">&#127462;&#127466; +971</option>
-                    <option value="+20">&#127466;&#127468; +20</option>
-                    <option value="+31">&#127475;&#127473; +31</option>
-                    <option value="+32">&#127463;&#127466; +32</option>
-                    <option value="+41">&#127464;&#127469; +41</option>
-                    <option value="+43">&#127462;&#127481; +43</option>
-                    <option value="+48">&#127477;&#127473; +48</option>
-                    <option value="+351">&#127477;&#127481; +351</option>
-                    <option value="+7">&#127479;&#127482; +7</option>
-                    <option value="+91">&#127470;&#127475; +91</option>
-                    <option value="+92">&#127477;&#127472; +92</option>
-                    <option value="+60">&#127474;&#127486; +60</option>
-                    <option value="+62">&#127470;&#127465; +62</option>
-                    <option value="+234">&#127475;&#127468; +234</option>
-                    <option value="+27">&#127487;&#127462; +27</option>
+                    <option value="+46" selected>🇸🇪 +46</option>
+                    <option value="+47">🇳🇴 +47</option>
+                    <option value="+45">🇩🇰 +45</option>
+                    <option value="+358">🇫🇮 +358</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+44">🇬🇧 +44</option>
+                    <option value="+49">🇩🇪 +49</option>
+                    <option value="+33">🇫🇷 +33</option>
+                    <option value="+39">🇮🇹 +39</option>
+                    <option value="+34">🇪🇸 +34</option>
+                    <option value="+90">🇹🇷 +90</option>
+                    <option value="+966">🇸🇦 +966</option>
+                    <option value="+971">🇦🇪 +971</option>
+                    <option value="+20">🇪🇬 +20</option>
+                    <option value="+31">🇳🇱 +31</option>
+                    <option value="+32">🇧🇪 +32</option>
+                    <option value="+41">🇨🇭 +41</option>
+                    <option value="+43">🇦🇹 +43</option>
+                    <option value="+48">🇵🇱 +48</option>
+                    <option value="+351">🇵🇹 +351</option>
+                    <option value="+7">🇷🇺 +7</option>
+                    <option value="+91">🇮🇳 +91</option>
+                    <option value="+92">🇵🇰 +92</option>
+                    <option value="+60">🇲🇾 +60</option>
+                    <option value="+62">🇮🇩 +62</option>
+                    <option value="+234">🇳🇬 +234</option>
+                    <option value="+27">🇿🇦 +27</option>
                 </select>
                 <input type="tel" id="ark-fly-phone" name="contact_phone" placeholder="<?php echo esc_attr( ark_t( 'form_phone_placeholder' ) ); ?>" autocomplete="tel" required>
             </div>

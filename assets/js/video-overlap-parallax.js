@@ -19,17 +19,18 @@
         if (!panels.length) return;
 
         // Pin each panel when it reaches the top; shorter-than-viewport panels pin at top.
-        // The airplane-scroll hero remains pinned (custom scroll logic),
-        // but the video panel scrolls normally so there is no long \"dead\" scroll
-        // zone and the transition into the next section stays smooth.
+        // IMPORTANT: do not pin the airplane hero panel here because it already has
+        // its own wheel/touch scroll controller. Double pinning (custom + ScrollTrigger)
+        // can eventually desync and leave a blank hero area when scrolling back up.
         panels.forEach(function (panel) {
             var isVideoPanel = panel.classList.contains('ark-video-section');
+            var isAirplanePanel = panel.id === 'airplane-scroll';
             ScrollTrigger.create({
                 trigger: panel,
                 start: function () {
                     return panel.offsetHeight < window.innerHeight ? 'top top' : 'bottom bottom';
                 },
-                pin: !isVideoPanel,
+                pin: !isVideoPanel && !isAirplanePanel,
                 pinSpacing: false,
             });
         });

@@ -3,7 +3,7 @@
  * ARK Travelers Child Theme Functions
  *
  * @package ARK_Travelers
- * @version 2.3.42
+ * @version 2.3.68
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -971,3 +971,39 @@ function ark_save_umrah_meta_boxes( $post_id ) {
     }
 }
 add_action( 'save_post', 'ark_save_umrah_meta_boxes' );
+
+/**
+ * On the cart page: replace the default "Browse store" link in the empty-cart block
+ * with "Browse packages" pointing to the Umrah packages page.
+ */
+function ark_empty_cart_browse_packages_script() {
+    if ( ! function_exists( 'is_cart' ) || ! is_cart() ) {
+        return;
+    }
+    $umrah_url = esc_url( home_url( '/umrah/' ) );
+    ?>
+    <script>
+    (function() {
+        function arkFixEmptyCartLink() {
+            var block = document.querySelector('.wp-block-woocommerce-empty-cart-block');
+            if ( ! block ) { return; }
+            var links = block.querySelectorAll('p a, a');
+            links.forEach(function(a) {
+                if ( a.textContent.trim().toLowerCase() === 'browse store' || a.href.indexOf('/shop') !== -1 ) {
+                    a.textContent = '<?php echo esc_js( function_exists( 'ark_t' ) ? ark_t( 'browse_packages' ) : 'Browse packages' ); ?>';
+                    a.href = '<?php echo $umrah_url; ?>';
+                }
+            });
+        }
+        if ( document.readyState === 'loading' ) {
+            document.addEventListener('DOMContentLoaded', arkFixEmptyCartLink);
+        } else {
+            arkFixEmptyCartLink();
+        }
+        /* Also run after WooCommerce blocks re-render (e.g. React hydration) */
+        setTimeout(arkFixEmptyCartLink, 800);
+    })();
+    </script>
+    <?php
+}
+add_action( 'wp_footer', 'ark_empty_cart_browse_packages_script', 20 );

@@ -61,8 +61,8 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="ark-lang-switcher" role="group" aria-label="<?php esc_attr_e( 'Language', 'ark-travelers' ); ?>">
                 <label for="ark-lang-select" class="screen-reader-text"><?php esc_html_e( 'Select language', 'ark-travelers' ); ?></label>
                 <select id="ark-lang-select" class="ark-lang-select" aria-label="<?php esc_attr_e( 'Language', 'ark-travelers' ); ?>">
-                    <option value="<?php echo esc_url( $en_url ); ?>" <?php selected( $current_lang, 'en' ); ?>>&#127468;&#127463; EN</option>
-                    <option value="<?php echo esc_url( $sv_url ); ?>" <?php selected( $current_lang, 'sv' ); ?>>&#127480;&#127482; SV</option>
+                    <option value="<?php echo esc_url( $en_url ); ?>" <?php selected( $current_lang, 'en' ); ?>>🇬🇧 English</option>
+                    <option value="<?php echo esc_url( $sv_url ); ?>" <?php selected( $current_lang, 'sv' ); ?>>🇸🇪 Svenska</option>
                 </select>
             </div>
             <?php endif; ?>

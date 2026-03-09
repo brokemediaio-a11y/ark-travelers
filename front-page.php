@@ -84,14 +84,13 @@ get_header();
         </div>
     </section>
 
-    <!-- Featured package -->
+    <!-- Umrah packages (general) -->
     <section class="ark-section ark-featured-package ark-parallax ark-section-parallax" data-parallax-section>
         <div class="ark-parallax-layer ark-parallax-speed-mid"></div>
         <div class="ark-container ark-featured-inner">
-            <span class="ark-badge"><?php echo esc_html( ark_t( 'home_most_popular' ) ); ?></span>
-            <h2 class="ark-featured-title"><?php echo esc_html( ark_t( 'home_ramadan_2026' ) ); ?></h2>
-            <p class="ark-featured-highlights"><?php echo esc_html( ark_t( 'home_15_days' ) ); ?> &middot; <?php echo esc_html( ark_t( 'home_5_star' ) ); ?> &middot; <?php echo esc_html( ark_t( 'home_expert_guides' ) ); ?></p>
-            <p class="ark-featured-price"><?php echo esc_html( ark_t( 'home_starting_sek' ) ); ?></p>
+            <span class="ark-badge"><?php echo esc_html( ark_t( 'home_umrah_section_badge' ) ); ?></span>
+            <h2 class="ark-featured-title"><?php echo esc_html( ark_t( 'home_umrah_section_title' ) ); ?></h2>
+            <p class="ark-featured-highlights"><?php echo esc_html( ark_t( 'home_umrah_section_desc' ) ); ?></p>
             <div class="ark-featured-ctas">
                 <a href="<?php echo esc_url( ark_url( '/fly/' ) ); ?>" class="btn-primary"><?php echo esc_html( ark_t( 'home_book_flights_now' ) ); ?></a>
                 <a href="<?php echo esc_url( ark_url( '/umrah/' ) ); ?>" class="btn-glass"><?php echo esc_html( ark_t( 'home_view_umrah' ) ); ?></a>

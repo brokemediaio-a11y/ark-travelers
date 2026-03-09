@@ -115,7 +115,6 @@ get_header();
                     <div class="ark-accordion-body"><p><?php echo esc_html( ark_t( 'contact_faq_5_a' ) ); ?></p></div>
                 </div>
             </div>
-            <p class="ark-contact-faq-more"><a href="<?php echo esc_url( ark_url( '/faq/' ) ); ?>" class="ark-faq-link"><?php echo esc_html( ark_t( 'contact_view_all_faq' ) ); ?></a></p>
         </div>
     </section>
 </main>

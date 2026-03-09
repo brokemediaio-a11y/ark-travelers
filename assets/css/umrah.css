@@ -5,7 +5,7 @@
 .ark-umrah-hero {
     position: relative;
     padding: var(--space-2xl) var(--space-md);
-    background: url('https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1920') center/cover;
+    background: url('https://images.unsplash.com/photo-1513072064285-240f87fa81e8?w=1920&q=85&fit=crop') center/cover;
     color: var(--color-white);
     text-align: center;
 }

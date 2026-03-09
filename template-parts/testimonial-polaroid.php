@@ -9,15 +9,16 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Polaroid images: pilgrimage (Makkah/Medina, pilgrims, praying) + tourism mix. All from Unsplash.
 $testimonials = array(
-    array( 'name' => 'Ahmed K.', 'location' => 'Stockholm', 'date' => 'Ramadan 2025', 'categories' => array( 'ramadan', 'family' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=400&fit=crop' ),
-    array( 'name' => 'Fatima L.', 'location' => 'Malmö', 'date' => 'December 2024', 'categories' => array( 'family' ), 'verified' => true, 'video' => true, 'img' => 'https://images.unsplash.com/photo-1547483238-f400e65ccd56?w=400&h=400&fit=crop' ),
-    array( 'name' => 'Ibrahim M.', 'location' => 'Göteborg', 'date' => 'October 2024', 'categories' => array( 'family' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=400&h=400&fit=crop' ),
-    array( 'name' => 'Sara N.', 'location' => 'Uppsala', 'date' => 'March 2025', 'categories' => array( 'first-time' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1564769625905-b8d0e2c2c8e5?w=400&h=400&fit=crop' ),
-    array( 'name' => 'Omar & Layla', 'location' => 'Stockholm', 'date' => 'January 2025', 'categories' => array( 'hajj-prep', 'family' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1529156069898-49953e7b2a2a?w=400&h=400&fit=crop' ),
-    array( 'name' => 'Yusuf A.', 'location' => 'Malmö', 'date' => 'Ramadan 2025', 'categories' => array( 'ramadan' ), 'verified' => false, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1518684079-3c2d00c513ff?w=400&h=400&fit=crop' ),
-    array( 'name' => 'Amina & Hassan', 'location' => 'Göteborg', 'date' => 'November 2024', 'categories' => array( 'family', 'first-time' ), 'verified' => true, 'video' => true, 'img' => 'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=400&h=400&fit=crop' ),
-    array( 'name' => 'Khalid R.', 'location' => 'Stockholm', 'date' => 'February 2025', 'categories' => array( 'hajj-prep' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=400&fit=crop' ),
+    array( 'name' => 'Ahmed K.', 'location' => 'Stockholm', 'date' => 'Ramadan 2025', 'categories' => array( 'ramadan', 'family' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1770786106021-52580470e31e?w=400&h=400&fit=crop' ),
+    array( 'name' => 'Fatima L.', 'location' => 'Malmö', 'date' => 'December 2024', 'categories' => array( 'family' ), 'verified' => true, 'video' => true, 'img' => 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=400&fit=crop' ),
+    array( 'name' => 'Ibrahim M.', 'location' => 'Göteborg', 'date' => 'October 2024', 'categories' => array( 'family' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1554794470-42d3cd193ecc?w=400&h=400&fit=crop' ),
+    array( 'name' => 'Sara N.', 'location' => 'Uppsala', 'date' => 'March 2025', 'categories' => array( 'first-time' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1736240624842-c13db7ba4275?w=400&h=400&fit=crop' ),
+    array( 'name' => 'Omar & Layla', 'location' => 'Stockholm', 'date' => 'January 2025', 'categories' => array( 'hajj-prep', 'family' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1742465294457-3c405ef99c23?w=400&h=400&fit=crop' ),
+    array( 'name' => 'Yusuf A.', 'location' => 'Malmö', 'date' => 'Ramadan 2025', 'categories' => array( 'ramadan' ), 'verified' => false, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1513072064285-240f87fa81e8?w=400&h=400&fit=crop' ),
+    array( 'name' => 'Amina & Hassan', 'location' => 'Göteborg', 'date' => 'November 2024', 'categories' => array( 'family', 'first-time' ), 'verified' => true, 'video' => true, 'img' => 'https://images.unsplash.com/photo-1692566123227-0f68f1b9dac6?w=400&h=400&fit=crop' ),
+    array( 'name' => 'Khalid R.', 'location' => 'Stockholm', 'date' => 'February 2025', 'categories' => array( 'hajj-prep' ), 'verified' => true, 'video' => false, 'img' => 'https://images.unsplash.com/photo-1768001863885-fd5bad96ebfc?w=400&h=400&fit=crop' ),
 );
 ?>
 <!-- Testimonials – Polaroid Wall of Memories -->

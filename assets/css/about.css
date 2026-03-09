@@ -201,6 +201,24 @@
     margin-bottom: 0;
 }
 
+.ark-about-trust-heading {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-charcoal);
+    margin: var(--space-md) 0 var(--space-xs);
+}
+
+.ark-about-trust-list {
+    margin: 0 0 var(--space-md);
+    padding-left: 1.25rem;
+    color: var(--color-text-secondary);
+}
+
+.ark-about-trust-list li {
+    margin-bottom: 0.35em;
+}
+
 .ark-about-story-image-wrap {
     position: relative;
     border-radius: 12px;

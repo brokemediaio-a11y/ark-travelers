@@ -58,11 +58,10 @@
             this.rafId = null;
             this.lastOverlayUpdate = 0;
             this.lastDispatchedProgress = 0;
+            this.lastFrameDrawAt = 0;
             this._dispatchScheduled = false;
             this.contentShown = false;
             this.loadStartTime = performance.now();
-            this.contentShown = false;
-            this.loadStartTime = Date.now();
             this.loadingPromises = [];
             this.framesLoaded = false;
             this.isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -89,6 +88,10 @@
         setupCanvas() {
             const dpr = Math.min(window.devicePixelRatio || 1, 2);
             const rect = this.container.getBoundingClientRect();
+            if (rect.width < 2 || rect.height < 2) {
+                // Avoid collapsing canvas to 0x0 during transient viewport/layout changes.
+                return;
+            }
             const w = Math.floor(rect.width * dpr);
             const h = Math.floor(rect.height * dpr);
             
@@ -122,14 +125,14 @@
 
             const showContent = () => {
                 if (contentShown) return;
-                contentShown = true;
-                this.contentShown = true;
                 
                 // Get all loaded frames so far
                 const loadedFrames = images.filter(img => img !== null && img.complete);
                 
                 // Show content if we have at least one frame OR timeout reached
                 if (loadedFrames.length > 0) {
+                    contentShown = true;
+                    this.contentShown = true;
                     this.frames = images; // Use sparse array, will fill as more load
                     this.hideLoading();
                     this.showSticky();
@@ -248,7 +251,13 @@
                 } else {
                     // All frames processed - ensure content is shown
                     if (!contentShown) {
-                        showContent();
+                        const loadedFrames = images.filter(img => img !== null && img.complete);
+                        if (loadedFrames.length > 0) {
+                            showContent();
+                        } else {
+                            this.loadError = true;
+                            this.showError();
+                        }
                     }
                     // Final update
                     this.frames = images;
@@ -331,6 +340,13 @@
                 if (this.frames.length > 0) {
                     this.drawFrame(this.lastFrameIndex >= 0 ? this.lastFrameIndex : 0);
                 }
+            });
+
+            // Self-healing repaint for long sessions / tab switches / GPU canvas drops.
+            window.addEventListener('scroll', () => this.ensureHeroVisible(), { passive: true });
+            window.addEventListener('focus', () => this.ensureHeroVisible(), { passive: true });
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) this.ensureHeroVisible();
             });
 
             // Initial progress event so header state is correct on load
@@ -504,6 +520,23 @@
             
             // Draw cropped image - use willReadFrequently: false for better performance
             ctx.drawImage(img, sourceX, 0, sourceWidth, img.naturalHeight, 0, 0, w, h);
+            this.lastFrameDrawAt = performance.now();
+        }
+
+        ensureHeroVisible() {
+            if (!this.contentShown || this.loadError || !this.stickyEl) return;
+            if (!this.isInView()) return;
+            if (this.stickyEl.style.display === 'none') {
+                this.showSticky();
+            }
+            this.setupCanvas();
+            const frameCount = this.frames.length;
+            if (frameCount > 0) {
+                const frameIndex = this.lastFrameIndex >= 0
+                    ? this.lastFrameIndex
+                    : Math.floor(this.progress * (frameCount - 1));
+                this.drawFrame(frameIndex);
+            }
         }
 
         updateOverlays() {
@@ -566,6 +599,11 @@
                 if (currentFrame !== this.lastFrameIndex) {
                     this.lastFrameIndex = currentFrame;
                     this.drawFrame(frameIndex);
+                }
+                // Keep-alive repaint if a browser drops canvas content while frame is unchanged.
+                const now = performance.now();
+                if (this.isInView() && now - this.lastFrameDrawAt > 1200) {
+                    this.drawFrame(this.lastFrameIndex >= 0 ? this.lastFrameIndex : currentFrame);
                 }
             }
 

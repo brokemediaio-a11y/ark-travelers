@@ -516,7 +516,8 @@ body.page-fly .ark-header:not(.scrolled) {
     border: 1px solid transparent;
     border-radius: 8px;
     padding: 6px 28px 6px 10px;
-    font-family: inherit;
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", var(--font-body), sans-serif;
+    min-width: 128px;
     font-size: inherit;
     font-weight: 600;
     color: inherit;
@@ -531,6 +532,10 @@ body.page-fly .ark-header:not(.scrolled) {
 .ark-lang-select:focus {
     background-color: rgba(0, 0, 0, 0.1);
     outline: none;
+}
+
+.ark-lang-select option {
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", var(--font-body), sans-serif;
 }
 
 .ark-header:not(.scrolled) .ark-lang-select {

@@ -572,7 +572,7 @@
 }
 
 .ark-service-card-3 .ark-service-parallax-card-inner {
-    background-image: url('https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800');
+    background-image: url('https://images.unsplash.com/photo-1513072064285-240f87fa81e8?w=800&q=85&fit=crop');
 }
 
 .ark-service-parallax-card:hover .ark-service-parallax-card-inner::before {
@@ -678,7 +678,7 @@
 .ark-featured-package .ark-parallax-layer {
     position: absolute;
     inset: 0;
-    background: url('https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1920') center/cover;
+    background: url('https://images.unsplash.com/photo-1692566123227-0f68f1b9dac6?w=1920&q=85&fit=crop') center/cover;
     opacity: 0.35;
 }
 

@@ -32,13 +32,22 @@ get_header();
             <div class="ark-about-story-content">
                 <h2 id="about-story-heading" class="ark-about-story-title ark-reveal"><?php echo esc_html( ark_t( 'about_story' ) ); ?></h2>
                 <div class="ark-about-story-text ark-reveal">
-                    <p><?php echo esc_html( ark_t( 'about_story_p1' ) ); ?></p>
-                    <p><?php echo esc_html( ark_t( 'about_story_p2' ) ); ?></p>
+                    <p><?php echo esc_html( ark_t( 'about_story_intro' ) ); ?></p>
+                    <p><?php echo esc_html( ark_t( 'about_story_history' ) ); ?></p>
+                    <p><?php echo esc_html( ark_t( 'about_story_services' ) ); ?></p>
+                    <h3 class="ark-about-trust-heading"><?php echo esc_html( ark_t( 'about_trust_heading' ) ); ?></h3>
+                    <ul class="ark-about-trust-list">
+                        <li><?php echo esc_html( ark_t( 'about_trust_1' ) ); ?></li>
+                        <li><?php echo esc_html( ark_t( 'about_trust_2' ) ); ?></li>
+                        <li><?php echo esc_html( ark_t( 'about_trust_3' ) ); ?></li>
+                        <li><?php echo esc_html( ark_t( 'about_trust_4' ) ); ?></li>
+                    </ul>
+                    <p><?php echo esc_html( ark_t( 'about_story_commitment' ) ); ?></p>
                 </div>
             </div>
             <div class="ark-about-story-visual ark-reveal">
                 <div class="ark-about-story-image-wrap">
-                    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800" alt="" width="800" height="533" loading="lazy">
+                    <img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/arkoffice.jpg' ); ?>" alt="<?php echo esc_attr( ark_t( 'about_office_alt' ) ); ?>" width="800" height="533" loading="lazy">
                 </div>
             </div>
         </div>
