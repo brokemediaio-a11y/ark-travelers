@@ -17,57 +17,83 @@ define( 'ARK_LANG_SV', 'sv' );
 /** @var array|null Cached translations for current language */
 $GLOBALS['ark_translations'] = null;
 
+/* -----------------------------------------------------------------------
+ * Internal helpers
+ * -------------------------------------------------------------------- */
+
 /**
- * Detect if current request URL is Swedish (/sv or /sv/...). Handles root and subdirectory installs.
+ * Return the raw request path, trimmed of slashes. No home_url() call so it
+ * is safe to use at init priority 1-2.
  *
- * @param string $path Path from REQUEST_URI (no query, slashes trimmed).
+ * @return string e.g. 'sv', 'sv/fly', 'about', ''
+ */
+function ark_multilang_raw_path() {
+    $uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '';
+    $path = (string) parse_url( $uri, PHP_URL_PATH );
+    return trim( $path, '/' );
+}
+
+/**
+ * Return the request path, stripped of a WordPress subdirectory prefix if
+ * WP is installed in a folder (safe to call from request/template_redirect).
+ *
+ * @return string e.g. 'sv', 'sv/fly', 'about', ''
+ */
+function ark_multilang_request_path() {
+    $path      = ark_multilang_raw_path();
+    $home_path = trim( (string) parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+    if ( $home_path !== '' ) {
+        if ( $path === $home_path ) {
+            return '';
+        }
+        if ( strpos( $path, $home_path . '/' ) === 0 ) {
+            return trim( substr( $path, strlen( $home_path ) + 1 ), '/' );
+        }
+    }
+    return $path;
+}
+
+/**
+ * True when the given (already trimmed) path belongs to the Swedish version.
+ *
+ * @param string $path Trimmed path, e.g. 'sv', 'sv/fly'.
  * @return bool
  */
 function ark_multilang_uri_is_swedish( $path ) {
-    if ( $path === 'sv' ) {
-        return true;
-    }
-    if ( strpos( $path, 'sv/' ) === 0 ) {
-        return true;
-    }
-    if ( substr( $path, -3 ) === '/sv' || $path === 'sv' ) {
-        return true;
-    }
-    if ( strpos( $path, '/sv/' ) !== false ) {
-        return true;
-    }
-    return false;
+    return ( $path === 'sv' )
+        || ( strpos( $path, 'sv/' ) === 0 )
+        || ( substr( $path, -3 ) === '/sv' )
+        || ( strpos( $path, '/sv/' ) !== false );
 }
 
+/* -----------------------------------------------------------------------
+ * Language detection — runs as early as possible so ARK_LANG is set
+ * before any template or translation call.
+ * -------------------------------------------------------------------- */
+
 /**
- * Set Swedish from URL immediately (does not rely on query_vars or request filter).
- * Ensures /sv/ always shows Swedish even if caching or host alters query vars.
+ * Detect Swedish from the raw REQUEST_URI path at init priority 1.
+ * Uses ark_multilang_raw_path() — no home_url() dependency.
  */
 function ark_multilang_set_lang_from_uri() {
-    if ( is_admin() ) {
+    if ( is_admin() || defined( 'ARK_LANG' ) ) {
         return;
     }
-    if ( defined( 'ARK_LANG' ) ) {
-        return;
-    }
-    $uri  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
-    $path = trim( parse_url( $uri, PHP_URL_PATH ), '/' );
-    if ( ark_multilang_uri_is_swedish( $path ) ) {
+    if ( ark_multilang_uri_is_swedish( ark_multilang_raw_path() ) ) {
         define( 'ARK_LANG', ARK_LANG_SV );
     }
 }
-add_action( 'init', 'ark_multilang_set_lang_from_uri', 2 );
+add_action( 'init', 'ark_multilang_set_lang_from_uri', 1 );
 
 /**
- * Fallback: set Swedish on template_redirect if URL is /sv/ or main query has ark_lang=sv (so all /sv/.../ pages show Swedish).
+ * Fallback detection on template_redirect (catches cases where init ran in
+ * a weird order or ark_lang query var was set by rewrite rules).
  */
 function ark_multilang_set_lang_on_template_redirect() {
     if ( defined( 'ARK_LANG' ) ) {
         return;
     }
-    $uri  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
-    $path = trim( parse_url( $uri, PHP_URL_PATH ), '/' );
-    if ( ark_multilang_uri_is_swedish( $path ) ) {
+    if ( ark_multilang_uri_is_swedish( ark_multilang_raw_path() ) ) {
         define( 'ARK_LANG', ARK_LANG_SV );
         $GLOBALS['ark_translations'] = null;
         return;
@@ -80,31 +106,102 @@ function ark_multilang_set_lang_on_template_redirect() {
 add_action( 'template_redirect', 'ark_multilang_set_lang_on_template_redirect', 0 );
 
 /**
- * Set Swedish from main query as soon as query is parsed (before template). Ensures subpages like /sv/fly/ get Swedish.
+ * Extra fallback: set from WP_Query vars once they're available.
  */
 function ark_multilang_set_lang_from_wp_query() {
     if ( is_admin() || defined( 'ARK_LANG' ) ) {
         return;
     }
     global $wp_query;
-    if ( ! $wp_query instanceof WP_Query ) {
-        return;
-    }
-    if ( $wp_query->get( 'ark_lang' ) === ARK_LANG_SV ) {
+    if ( $wp_query instanceof WP_Query && $wp_query->get( 'ark_lang' ) === ARK_LANG_SV ) {
         define( 'ARK_LANG', ARK_LANG_SV );
         $GLOBALS['ark_translations'] = null;
     }
 }
 add_action( 'wp', 'ark_multilang_set_lang_from_wp_query', 0 );
 
+/* -----------------------------------------------------------------------
+ * Routing — set correct WP query vars for Swedish URLs.
+ * Runs on the 'request' filter so it works regardless of whether the WP
+ * rewrite rules are in the database.
+ * -------------------------------------------------------------------- */
+
 /**
- * Prevent WordPress from redirecting /sv/ to / (canonical redirect would strip language).
+ * Primary routing: reads REQUEST_URI directly and sets query vars for ALL
+ * Swedish pages. Priority 5 = runs before any other 'request' filter.
+ */
+function ark_multilang_route_sv( $query_vars ) {
+    if ( is_admin() ) {
+        return $query_vars;
+    }
+
+    // Use the subdirectory-aware path for routing (home_url is safe here).
+    $path = ark_multilang_request_path();
+
+    if ( ! ark_multilang_uri_is_swedish( $path ) ) {
+        return $query_vars;
+    }
+
+    // Ensure ARK_LANG is set (belt-and-suspenders — init already did this).
+    if ( ! defined( 'ARK_LANG' ) ) {
+        define( 'ARK_LANG', ARK_LANG_SV );
+    }
+    $query_vars['ark_lang'] = ARK_LANG_SV;
+
+    // Extract the slug that follows 'sv/'.
+    $slug = '';
+    if ( $path !== 'sv' && strpos( $path, 'sv/' ) === 0 ) {
+        $slug = trim( substr( $path, 3 ), '/' );
+    }
+
+    if ( $slug === '' ) {
+        // --- Swedish homepage ---
+        $front_page_id = (int) get_option( 'page_on_front' );
+        if ( get_option( 'show_on_front' ) === 'page' && $front_page_id > 0 ) {
+            // Replace vars so no stale pagename/error leaks from WP's default routing.
+            $query_vars = array(
+                'ark_lang' => ARK_LANG_SV,
+                'page_id'  => $front_page_id,
+            );
+        }
+        return $query_vars;
+    }
+
+    // --- Umrah single: sv/package/{name} ---
+    if ( strpos( $slug, 'package/' ) === 0 ) {
+        $pkg_name = trim( substr( $slug, 8 ), '/' );
+        unset( $query_vars['pagename'], $query_vars['error'], $query_vars['name'] );
+        $query_vars['post_type'] = 'umrah';
+        $query_vars['name']      = $pkg_name;
+        return $query_vars;
+    }
+
+    // --- Umrah archive: sv/package ---
+    if ( $slug === 'package' ) {
+        unset( $query_vars['pagename'], $query_vars['error'] );
+        $query_vars['post_type'] = 'umrah';
+        return $query_vars;
+    }
+
+    // --- Regular page: sv/fly, sv/about, sv/contact, sv/umrah … ---
+    unset( $query_vars['error'] );
+    $query_vars['pagename'] = $slug;
+    return $query_vars;
+}
+add_filter( 'request', 'ark_multilang_route_sv', 5 );
+
+/* -----------------------------------------------------------------------
+ * Canonical redirect prevention
+ * -------------------------------------------------------------------- */
+
+/**
+ * Stop WordPress redirecting /sv/... to the English canonical URL.
  */
 function ark_multilang_prevent_canonical_redirect( $redirect_url, $requested_url ) {
     if ( empty( $redirect_url ) ) {
         return $redirect_url;
     }
-    $path = trim( parse_url( $requested_url, PHP_URL_PATH ), '/' );
+    $path = trim( (string) parse_url( $requested_url, PHP_URL_PATH ), '/' );
     if ( ark_multilang_uri_is_swedish( $path ) ) {
         return false;
     }
@@ -112,9 +209,10 @@ function ark_multilang_prevent_canonical_redirect( $redirect_url, $requested_url
 }
 add_filter( 'redirect_canonical', 'ark_multilang_prevent_canonical_redirect', 10, 2 );
 
-/**
- * Prevent caching of Swedish pages so /sv/ is never served as cached English.
- */
+/* -----------------------------------------------------------------------
+ * Cache-busting for Swedish pages
+ * -------------------------------------------------------------------- */
+
 function ark_multilang_no_cache_sv() {
     if ( ! function_exists( 'ark_lang' ) || ark_lang() !== ARK_LANG_SV ) {
         return;
@@ -128,10 +226,11 @@ function ark_multilang_no_cache_sv() {
 }
 add_action( 'send_headers', 'ark_multilang_no_cache_sv', 1 );
 
-/**
- * Register rewrite rules for /sv/ and /sv/.../
- * More specific rules first so /sv/package/ doesn't become pagename=package.
- */
+/* -----------------------------------------------------------------------
+ * Rewrite rules (fallback for when the request filter isn't enough, e.g.
+ * REST API, sitemaps). Priority 1 = registered before everything else.
+ * -------------------------------------------------------------------- */
+
 function ark_multilang_rewrite_rules() {
     add_rewrite_rule( 'sv/package/([^/]+)/?$', 'index.php?ark_lang=sv&post_type=umrah&name=$matches[1]', 'top' );
     add_rewrite_rule( 'sv/package/?$', 'index.php?ark_lang=sv&post_type=umrah', 'top' );
@@ -141,42 +240,42 @@ function ark_multilang_rewrite_rules() {
 add_action( 'init', 'ark_multilang_rewrite_rules', 1 );
 
 /**
- * Flush rewrite rules once so /sv/ and /sv/.../ work (e.g. after theme update or first install).
+ * Flush rules once per version so /sv/ rules reach the WP DB.
  */
+define( 'ARK_MULTILANG_RULES_VERSION', 4 );
+
 function ark_multilang_maybe_flush_rules() {
-    if ( is_admin() ) {
+    if ( (int) get_option( 'ark_multilang_rules_version', 0 ) >= ARK_MULTILANG_RULES_VERSION ) {
         return;
     }
-    if ( get_option( 'ark_multilang_rules_flushed', false ) ) {
-        return;
-    }
-    flush_rewrite_rules();
-    update_option( 'ark_multilang_rules_flushed', true );
+    flush_rewrite_rules( false );
+    update_option( 'ark_multilang_rules_version', ARK_MULTILANG_RULES_VERSION );
 }
 add_action( 'init', 'ark_multilang_maybe_flush_rules', 99 );
+add_action( 'admin_init', 'ark_multilang_maybe_flush_rules' );
 
 /**
- * If user hits /sv/ or /sv/.../ and gets 404 (rules not flushed yet), flush and redirect so next load works.
+ * If a /sv/… page 404s (rules not yet flushed), flush and redirect once.
  */
 function ark_multilang_404_flush_and_redirect() {
     if ( ! is_404() ) {
         return;
     }
-    $uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
-    $path = trim( parse_url( $uri, PHP_URL_PATH ), '/' );
+    $path = ark_multilang_raw_path();
     if ( $path !== 'sv' && strpos( $path, 'sv/' ) !== 0 ) {
         return;
     }
     flush_rewrite_rules();
-    update_option( 'ark_multilang_rules_flushed', true );
+    update_option( 'ark_multilang_rules_version', ARK_MULTILANG_RULES_VERSION );
     wp_safe_redirect( home_url( '/' . $path . '/' ) );
     exit;
 }
 add_action( 'template_redirect', 'ark_multilang_404_flush_and_redirect', 1 );
 
-/**
- * Register query var for ark_lang
- */
+/* -----------------------------------------------------------------------
+ * Registered query var
+ * -------------------------------------------------------------------- */
+
 function ark_multilang_query_vars( $vars ) {
     $vars[] = 'ark_lang';
     return $vars;
@@ -184,7 +283,7 @@ function ark_multilang_query_vars( $vars ) {
 add_filter( 'query_vars', 'ark_multilang_query_vars' );
 
 /**
- * Set ARK_LANG constant when request is Swedish (front-end only).
+ * Set ARK_LANG from parse_request vars (belt-and-suspenders).
  */
 function ark_multilang_set_lang( $wp ) {
     if ( is_admin() || ! isset( $wp->query_vars['ark_lang'] ) ) {
@@ -196,48 +295,23 @@ function ark_multilang_set_lang( $wp ) {
 }
 add_action( 'parse_request', 'ark_multilang_set_lang', 5 );
 
-/**
- * When request has ark_lang=sv, ensure ARK_LANG is set and handle Swedish home.
- * This runs on 'request' so language is set before any template uses ark_t().
- */
-function ark_multilang_request_swedish_home( $query_vars ) {
-    if ( is_admin() ) {
-        return $query_vars;
-    }
-    if ( empty( $query_vars['ark_lang'] ) || $query_vars['ark_lang'] !== ARK_LANG_SV ) {
-        return $query_vars;
-    }
-    // Ensure Swedish is active for this request (in case parse_request ran in wrong order)
-    if ( ! defined( 'ARK_LANG' ) ) {
-        define( 'ARK_LANG', ARK_LANG_SV );
-    }
-    // Already requesting a specific page or post type (e.g. /sv/fly/, /sv/package/slug/)
-    if ( ! empty( $query_vars['pagename'] ) || ! empty( $query_vars['post_type'] ) ) {
-        return $query_vars;
-    }
-    // Swedish home: force main query to load the front page so content is shown
-    $front_page_id = (int) get_option( 'page_on_front' );
-    if ( get_option( 'show_on_front' ) === 'page' && $front_page_id > 0 ) {
-        $query_vars['page_id'] = $front_page_id;
-    }
-    return $query_vars;
-}
-add_filter( 'request', 'ark_multilang_request_swedish_home', 10, 1 );
+/* -----------------------------------------------------------------------
+ * Public API functions — used by templates and header.php
+ * -------------------------------------------------------------------- */
 
 /**
- * Current language code: 'en' or 'sv'
+ * Current language code: 'en' or 'sv'.
  */
 function ark_lang() {
     return defined( 'ARK_LANG' ) && ARK_LANG === ARK_LANG_SV ? ARK_LANG_SV : ARK_LANG_EN;
 }
 
 /**
- * Current path without language prefix (e.g. 'fly', 'about', '' for home)
+ * Current page path without the language prefix, e.g. 'fly', 'about', ''.
  */
 function ark_current_path() {
-    $uri  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
-    $uri  = strtok( $uri, '?' );
-    $path = trim( parse_url( $uri, PHP_URL_PATH ), '/' );
+    // Use subdirectory-aware path (home_url is safe at template/header time).
+    $path = ark_multilang_request_path();
     if ( $path === 'sv' ) {
         return '';
     }
@@ -250,10 +324,10 @@ function ark_current_path() {
 }
 
 /**
- * URL for the current language (internal links). Use for all internal navigation.
+ * Language-prefixed URL for internal links (use instead of home_url()).
  *
- * @param string $path Path with leading slash, e.g. '/', '/fly/', '/about/'
- * @return string Full URL
+ * @param string $path e.g. '/', '/fly/', '/about/'
+ * @return string
  */
 function ark_url( $path ) {
     $path = $path === '' ? '/' : $path;
@@ -264,10 +338,10 @@ function ark_url( $path ) {
 }
 
 /**
- * URL for the other language (for language switcher). Preserves current page.
+ * URL for the other language, preserving the current page.
  *
  * @param string $lang 'en' or 'sv'
- * @return string Full URL
+ * @return string
  */
 function ark_switch_url( $lang ) {
     $current = ark_current_path();
@@ -277,9 +351,10 @@ function ark_switch_url( $lang ) {
     return $current ? home_url( '/' . $current . '/' ) : home_url( '/' );
 }
 
-/**
- * Load translation array for current language (cached in $GLOBALS['ark_translations']).
- */
+/* -----------------------------------------------------------------------
+ * Translations
+ * -------------------------------------------------------------------- */
+
 function ark_load_translations() {
     if ( is_array( $GLOBALS['ark_translations'] ) ) {
         return $GLOBALS['ark_translations'];
@@ -293,28 +368,23 @@ function ark_load_translations() {
     return $GLOBALS['ark_translations'];
 }
 
-/**
- * Get translated string by key. Use in templates instead of esc_html_e().
- *
- * @param string $key Key from languages/en.php or languages/sv.php
- * @return string
- */
 function ark_t( $key ) {
     $translations = ark_load_translations();
     return isset( $translations[ $key ] ) ? $translations[ $key ] : $key;
 }
 
-/**
- * Output hreflang and canonical in head (SEO).
- */
+/* -----------------------------------------------------------------------
+ * SEO / hreflang
+ * -------------------------------------------------------------------- */
+
 function ark_multilang_seo_head() {
     if ( is_admin() || ! function_exists( 'ark_url' ) ) {
         return;
     }
     $current_path = ark_current_path();
-    $base = $current_path ? '/' . $current_path . '/' : '/';
-    $sv_base = $current_path ? '/sv/' . $current_path . '/' : '/sv/';
-    $canonical = ark_lang() === ARK_LANG_SV ? home_url( $sv_base ) : home_url( $base );
+    $base         = $current_path ? '/' . $current_path . '/' : '/';
+    $sv_base      = $current_path ? '/sv/' . $current_path . '/' : '/sv/';
+    $canonical    = ark_lang() === ARK_LANG_SV ? home_url( $sv_base ) : home_url( $base );
     echo '<link rel="canonical" href="' . esc_url( $canonical ) . '">' . "\n";
     echo '<link rel="alternate" hreflang="en" href="' . esc_url( home_url( $base ) ) . '">' . "\n";
     echo '<link rel="alternate" hreflang="sv" href="' . esc_url( home_url( $sv_base ) ) . '">' . "\n";
@@ -322,9 +392,10 @@ function ark_multilang_seo_head() {
 }
 add_action( 'wp_head', 'ark_multilang_seo_head', 5 );
 
-/**
- * Filter Umrah single and archive URLs so they use /sv/ when language is Swedish.
- */
+/* -----------------------------------------------------------------------
+ * Permalink filters — keep Umrah URLs in /sv/package/ when Swedish
+ * -------------------------------------------------------------------- */
+
 function ark_multilang_umrah_permalink( $url, $post ) {
     if ( ! function_exists( 'ark_lang' ) || ark_lang() !== ARK_LANG_SV ) {
         return $url;
@@ -336,9 +407,6 @@ function ark_multilang_umrah_permalink( $url, $post ) {
 }
 add_filter( 'post_type_link', 'ark_multilang_umrah_permalink', 10, 2 );
 
-/**
- * Filter Umrah archive URL for Swedish.
- */
 function ark_multilang_umrah_archive_link( $url, $post_type ) {
     if ( ! function_exists( 'ark_lang' ) || ark_lang() !== ARK_LANG_SV || $post_type !== 'umrah' ) {
         return $url;
@@ -347,38 +415,53 @@ function ark_multilang_umrah_archive_link( $url, $post_type ) {
 }
 add_filter( 'post_type_archive_link', 'ark_multilang_umrah_archive_link', 10, 2 );
 
-/**
- * Rewrite nav menu item URLs to /sv/... when viewing in Swedish so menu clicks stay in Swedish.
- */
+/* -----------------------------------------------------------------------
+ * Nav menu — rewrite all internal links to /sv/… when viewing Swedish
+ * -------------------------------------------------------------------- */
+
 function ark_multilang_nav_menu_links( $items, $args ) {
     if ( ! function_exists( 'ark_lang' ) || ark_lang() !== ARK_LANG_SV ) {
         return $items;
     }
-    $home = rtrim( home_url(), '/' );
+    $home      = rtrim( home_url(), '/' );
+    $home_host = (string) parse_url( $home, PHP_URL_HOST );
+
     foreach ( $items as $item ) {
         if ( empty( $item->url ) ) {
             continue;
         }
-        $item_host = parse_url( $item->url, PHP_URL_HOST );
-        $home_host = parse_url( $home, PHP_URL_HOST );
-        if ( $item_host !== $home_host ) {
+        $parsed    = wp_parse_url( $item->url );
+        if ( ! is_array( $parsed ) ) {
             continue;
         }
-        $path = trim( (string) parse_url( $item->url, PHP_URL_PATH ), '/' );
+        $item_host = isset( $parsed['host'] ) ? (string) $parsed['host'] : '';
+        if ( $item_host !== '' && $item_host !== $home_host ) {
+            continue; // external link — leave alone
+        }
+
+        // Normalise path relative to home.
+        $raw_path  = isset( $parsed['path'] ) ? trim( $parsed['path'], '/' ) : '';
+        $home_path = trim( (string) parse_url( $home . '/', PHP_URL_PATH ), '/' );
+        if ( $home_path !== '' && strpos( $raw_path, $home_path . '/' ) === 0 ) {
+            $raw_path = trim( substr( $raw_path, strlen( $home_path ) + 1 ), '/' );
+        } elseif ( $raw_path === $home_path ) {
+            $raw_path = '';
+        }
+        $path = $raw_path;
+
         if ( $path === '' || $path === 'sv' ) {
             $item->url = home_url( '/sv/' );
             continue;
         }
         if ( strpos( $path, 'sv/' ) === 0 ) {
-            continue;
+            continue; // already Swedish
         }
         if ( $path === 'umrah' ) {
             $item->url = home_url( '/sv/package/' );
             continue;
         }
         if ( strpos( $path, 'umrah/' ) === 0 ) {
-            $slug = substr( $path, 6 );
-            $item->url = home_url( '/sv/package/' . $slug . '/' );
+            $item->url = home_url( '/sv/package/' . substr( $path, 6 ) . '/' );
             continue;
         }
         $item->url = home_url( '/sv/' . $path . '/' );
@@ -387,9 +470,10 @@ function ark_multilang_nav_menu_links( $items, $args ) {
 }
 add_filter( 'wp_nav_menu_objects', 'ark_multilang_nav_menu_links', 10, 2 );
 
-/**
- * Add body class and ensure html lang attribute for Swedish (helps debugging and accessibility).
- */
+/* -----------------------------------------------------------------------
+ * Body class & HTML lang attribute
+ * -------------------------------------------------------------------- */
+
 function ark_multilang_body_class( $classes ) {
     if ( function_exists( 'ark_lang' ) && ark_lang() === ARK_LANG_SV ) {
         $classes[] = 'ark-lang-sv';
@@ -398,9 +482,6 @@ function ark_multilang_body_class( $classes ) {
 }
 add_filter( 'body_class', 'ark_multilang_body_class' );
 
-/**
- * Set correct lang attribute on <html> for Swedish pages.
- */
 function ark_multilang_html_lang( $output ) {
     if ( function_exists( 'ark_lang' ) && ark_lang() === ARK_LANG_SV ) {
         return 'lang="sv" dir="ltr"';
@@ -409,12 +490,14 @@ function ark_multilang_html_lang( $output ) {
 }
 add_filter( 'language_attributes', 'ark_multilang_html_lang' );
 
-/**
- * Flush rewrite rules on theme activation so /sv/ works.
- */
+/* -----------------------------------------------------------------------
+ * Theme activation
+ * -------------------------------------------------------------------- */
+
 function ark_multilang_activation() {
     ark_multilang_rewrite_rules();
     flush_rewrite_rules();
-    delete_option( 'ark_multilang_rules_flushed' );
+    delete_option( 'ark_multilang_rules_version' );
+    delete_option( 'ark_multilang_rules_flushed' ); // legacy cleanup
 }
 add_action( 'after_switch_theme', 'ark_multilang_activation' );

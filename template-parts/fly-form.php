@@ -60,33 +60,44 @@ if ( ! defined( 'ABSPATH' ) ) {
             <label for="ark-fly-phone"><?php echo esc_html( ark_t( 'form_phone' ) ); ?></label>
             <div class="ark-fly-phone-inline">
                 <select id="ark-fly-country" name="contact_country_code" class="ark-fly-country-code" aria-label="<?php echo esc_attr( ark_t( 'form_country_code' ) ); ?>">
-                    <option value="+46" selected>🇸🇪 +46</option>
-                    <option value="+47">🇳🇴 +47</option>
-                    <option value="+45">🇩🇰 +45</option>
-                    <option value="+358">🇫🇮 +358</option>
-                    <option value="+1">🇺🇸 +1</option>
-                    <option value="+44">🇬🇧 +44</option>
-                    <option value="+49">🇩🇪 +49</option>
-                    <option value="+33">🇫🇷 +33</option>
-                    <option value="+39">🇮🇹 +39</option>
-                    <option value="+34">🇪🇸 +34</option>
-                    <option value="+90">🇹🇷 +90</option>
-                    <option value="+966">🇸🇦 +966</option>
-                    <option value="+971">🇦🇪 +971</option>
-                    <option value="+20">🇪🇬 +20</option>
-                    <option value="+31">🇳🇱 +31</option>
-                    <option value="+32">🇧🇪 +32</option>
-                    <option value="+41">🇨🇭 +41</option>
-                    <option value="+43">🇦🇹 +43</option>
-                    <option value="+48">🇵🇱 +48</option>
-                    <option value="+351">🇵🇹 +351</option>
-                    <option value="+7">🇷🇺 +7</option>
-                    <option value="+91">🇮🇳 +91</option>
-                    <option value="+92">🇵🇰 +92</option>
-                    <option value="+60">🇲🇾 +60</option>
-                    <option value="+62">🇮🇩 +62</option>
-                    <option value="+234">🇳🇬 +234</option>
-                    <option value="+27">🇿🇦 +27</option>
+                    <option value="+46" data-flag="se" selected>+46</option>
+                    <option value="+47" data-flag="no">+47</option>
+                    <option value="+45" data-flag="dk">+45</option>
+                    <option value="+358" data-flag="fi">+358</option>
+                    <option value="+1" data-flag="us">+1</option>
+                    <option value="+44" data-flag="gb">+44</option>
+                    <option value="+49" data-flag="de">+49</option>
+                    <option value="+33" data-flag="fr">+33</option>
+                    <option value="+39" data-flag="it">+39</option>
+                    <option value="+34" data-flag="es">+34</option>
+                    <option value="+90" data-flag="tr">+90</option>
+                    <option value="+966" data-flag="sa">+966</option>
+                    <option value="+971" data-flag="ae">+971</option>
+                    <option value="+974" data-flag="qa">+974</option>
+                    <option value="+965" data-flag="kw">+965</option>
+                    <option value="+968" data-flag="om">+968</option>
+                    <option value="+962" data-flag="jo">+962</option>
+                    <option value="+973" data-flag="bh">+973</option>
+                    <option value="+20" data-flag="eg">+20</option>
+                    <option value="+212" data-flag="ma">+212</option>
+                    <option value="+216" data-flag="tn">+216</option>
+                    <option value="+213" data-flag="dz">+213</option>
+                    <option value="+93" data-flag="af">+93</option>
+                    <option value="+880" data-flag="bd">+880</option>
+                    <option value="+94" data-flag="lk">+94</option>
+                    <option value="+31" data-flag="nl">+31</option>
+                    <option value="+32" data-flag="be">+32</option>
+                    <option value="+41" data-flag="ch">+41</option>
+                    <option value="+43" data-flag="at">+43</option>
+                    <option value="+48" data-flag="pl">+48</option>
+                    <option value="+351" data-flag="pt">+351</option>
+                    <option value="+7" data-flag="ru">+7</option>
+                    <option value="+91" data-flag="in">+91</option>
+                    <option value="+92" data-flag="pk">+92</option>
+                    <option value="+60" data-flag="my">+60</option>
+                    <option value="+62" data-flag="id">+62</option>
+                    <option value="+234" data-flag="ng">+234</option>
+                    <option value="+27" data-flag="za">+27</option>
                 </select>
                 <input type="tel" id="ark-fly-phone" name="contact_phone" placeholder="<?php echo esc_attr( ark_t( 'form_phone_placeholder' ) ); ?>" autocomplete="tel" required>
             </div>

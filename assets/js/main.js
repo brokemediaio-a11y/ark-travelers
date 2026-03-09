@@ -218,10 +218,122 @@
     function initLangSelect() {
         var select = document.getElementById('ark-lang-select');
         if (!select) return;
+
+        // Core behavior: when the underlying <select> value changes, navigate.
         select.addEventListener('change', function () {
             var url = this.value;
             if (url) window.location.href = url;
         });
+
+        // Progressive enhancement: replace the visible UI with a flag + label
+        // dropdown backed by FlagCDN, while keeping the native <select> for
+        // accessibility and change handling.
+        if (select.dataset.enhanced === 'true') {
+            return;
+        }
+
+        var options = Array.prototype.slice.call(select.options || []);
+        if (!options.length) return;
+
+        var wrapper = document.createElement('div');
+        wrapper.className = 'ark-lang-select-wrapper';
+
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'ark-lang-select-button';
+        button.setAttribute('aria-haspopup', 'listbox');
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', select.getAttribute('aria-label') || 'Language');
+
+        var menu = document.createElement('div');
+        menu.className = 'ark-lang-select-menu';
+        menu.setAttribute('role', 'listbox');
+
+        function buildLangOption(flag, label) {
+            var container = document.createElement('div');
+            container.className = 'country-option';
+
+            var img = document.createElement('img');
+            img.src = 'https://flagcdn.com/24x18/' + flag.toLowerCase() + '.png';
+            img.alt = '';
+            img.loading = 'lazy';
+            img.decoding = 'async';
+
+            var span = document.createElement('span');
+            span.textContent = label;
+
+            container.appendChild(img);
+            container.appendChild(span);
+            return container;
+        }
+
+        function getSelectedOption() {
+            return select.options[select.selectedIndex >= 0 ? select.selectedIndex : 0];
+        }
+
+        function syncButton() {
+            var current = getSelectedOption();
+            if (!current) return;
+            button.innerHTML = '';
+            var flag = current.dataset.flag || 'gb';
+            var label = current.textContent.trim() || 'Language';
+            button.appendChild(buildLangOption(flag, label));
+        }
+
+        function closeMenu() {
+            wrapper.classList.remove('is-open');
+            button.setAttribute('aria-expanded', 'false');
+        }
+
+        options.forEach(function (opt, index) {
+            var flag = (opt.dataset.flag || 'gb').toLowerCase();
+            var label = (opt.textContent || '').trim();
+            var item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'ark-lang-option-item';
+            item.setAttribute('role', 'option');
+            item.appendChild(buildLangOption(flag, label));
+
+            item.addEventListener('click', function () {
+                select.selectedIndex = index;
+                select.dispatchEvent(new Event('change', { bubbles: true }));
+                syncButton();
+                closeMenu();
+            });
+
+            menu.appendChild(item);
+        });
+
+        button.addEventListener('click', function () {
+            var open = !wrapper.classList.contains('is-open');
+            wrapper.classList.toggle('is-open', open);
+            button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+
+        document.addEventListener('click', function (evt) {
+            if (!wrapper.contains(evt.target)) {
+                closeMenu();
+            }
+        });
+
+        document.addEventListener('keydown', function (evt) {
+            if (evt.key === 'Escape') {
+                closeMenu();
+            }
+        });
+
+        select.classList.add('is-enhanced');
+        select.dataset.enhanced = 'true';
+
+        wrapper.appendChild(button);
+        wrapper.appendChild(menu);
+
+        // Insert after the native select so layout stays in the same place.
+        if (select.parentNode) {
+            select.parentNode.insertBefore(wrapper, select.nextSibling);
+        }
+
+        syncButton();
     }
 
     function throttle(fn, delay) {

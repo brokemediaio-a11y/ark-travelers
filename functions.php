@@ -3,7 +3,7 @@
  * ARK Travelers Child Theme Functions
  *
  * @package ARK_Travelers
- * @version 2.3.68
+ * @version 2.3.74
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
