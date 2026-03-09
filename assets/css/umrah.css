@@ -1,0 +1,314 @@
+/**
+ * ARK Travelers – Umrah packages listing: hero, filter sidebar, grid
+ */
+
+.ark-umrah-hero {
+    position: relative;
+    padding: var(--space-2xl) var(--space-md);
+    background: url('https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1920') center/cover;
+    color: var(--color-white);
+    text-align: center;
+}
+
+.ark-umrah-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 14, 20, 0.6);
+}
+
+.ark-umrah-hero-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.ark-umrah-hero-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin: 0 0 var(--space-sm);
+    color: var(--color-white);
+}
+
+.ark-umrah-hero-subtitle {
+    margin: 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.ark-umrah-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-xl);
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md);
+}
+
+.ark-umrah-sidebar {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-md));
+    align-self: start;
+}
+
+.ark-filters-form {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: var(--space-md);
+}
+
+.ark-filters-title {
+    font-size: 1rem;
+    margin: 0 0 var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.ark-filter-group {
+    margin-bottom: var(--space-md);
+}
+
+.ark-filter-group label:not(.ark-checkbox),
+.ark-filter-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+    color: var(--color-charcoal);
+}
+
+.ark-filter-group select,
+.ark-filter-group input[type="number"] {
+    width: 100%;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
+.ark-price-range {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.ark-price-range input {
+    flex: 1;
+}
+
+.ark-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-xs);
+    cursor: pointer;
+}
+
+.ark-checkbox input {
+    margin: 0;
+}
+
+.ark-btn-reset {
+    width: 100%;
+    padding: var(--space-sm);
+    margin-top: var(--space-sm);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.ark-btn-reset:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.ark-packages-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.ark-packages-count {
+    margin: 0;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.ark-packages-sort {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.ark-packages-sort label {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.ark-packages-sort select {
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
+.ark-packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-lg);
+}
+
+.ark-package-card {
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base);
+}
+
+.ark-package-card.ark-filtered-out {
+    display: none;
+}
+
+.ark-package-card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.ark-package-card-link:hover .ark-package-card-cta {
+    background: var(--color-accent-dark);
+    color: var(--color-white);
+}
+
+.ark-package-card-image-wrap {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.ark-package-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.ark-package-card:hover .ark-package-card-image {
+    transform: scale(1.05);
+}
+
+.ark-package-badge {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-accent);
+    color: var(--color-white);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 6px;
+}
+
+.ark-package-card-body {
+    padding: var(--space-md);
+}
+
+.ark-package-card-title {
+    margin: 0 0 var(--space-xs);
+    font-size: 1.15rem;
+}
+
+.ark-package-card-meta {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--space-sm);
+}
+
+.ark-package-card-price {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-sm);
+}
+
+.ark-package-features {
+    list-style: none;
+    margin: 0 0 var(--space-sm);
+    padding: 0;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.ark-package-features li::before {
+    content: '✓ ';
+    color: var(--color-accent);
+}
+
+.ark-package-card-cta {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-accent);
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+@media (max-width: 992px) {
+    .ark-umrah-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .ark-umrah-sidebar {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .ark-umrah-hero {
+        padding: var(--space-xl) var(--space-sm);
+    }
+    .ark-umrah-hero-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+    .ark-umrah-layout {
+        padding: var(--space-md) var(--space-sm);
+    }
+    .ark-umrah-sidebar {
+        margin-bottom: var(--space-md);
+    }
+    .ark-filters-form {
+        padding: var(--space-sm);
+    }
+    .ark-packages-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .ark-packages-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+    .ark-package-card-body {
+        padding: var(--space-sm);
+    }
+    .ark-package-card-title {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ark-umrah-hero-title {
+        font-size: 1.5rem;
+    }
+    .ark-umrah-layout {
+        padding: var(--space-sm);
+    }
+}

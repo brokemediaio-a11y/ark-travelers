@@ -1,0 +1,1223 @@
+/**
+ * ARK Travelers – Global styles, design system, header, footer
+ */
+
+:root {
+    --color-bg-primary: #F8F9FA;
+    --color-bg-secondary: #E8EAED;
+    --color-charcoal: #2C3338;
+    --color-accent: #4A90A4;
+    --color-accent-dark: #3d7a8d;
+    --color-text-primary: #1A1D21;
+    --color-text-secondary: #6B7280;
+    --color-border: #D1D5DB;
+    --color-white: #FFFFFF;
+    --color-dark: #0a0e14;
+
+    --font-heading: 'Sora', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 40px;
+    --space-xl: 64px;
+    --space-2xl: 96px;
+
+    --transition-fast: 150ms ease-out;
+    --transition-base: 300ms ease-out;
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    --header-height: 80px;
+    --container-max: 1200px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+}
+
+/* Fly page: transparent background so hero image shows through */
+body.page-fly {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Single scrollbar: only html shows a scrollbar; no inner element may show one */
+html {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+body {
+    overflow-y: visible !important;
+}
+
+/* Prevent any wrapper from creating a scrollable area (parent theme / plugins) */
+#content,
+.ark-content,
+.site-content,
+.site,
+#page,
+.site-inner,
+.elementor-inner,
+.elementor-section-wrap,
+.ark-section,
+main.ark-main,
+body > div {
+    overflow-y: visible !important;
+    overflow-x: hidden;
+}
+
+/* Restore scroll only where needed (modal + mobile nav); their scrollbars are hidden below */
+.polaroid-modal-content,
+.ark-nav {
+    overflow-y: auto !important;
+}
+
+/* Hide scrollbars on body and every descendant – only html’s scrollbar is visible */
+body,
+body * {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+body::-webkit-scrollbar,
+body *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+body.ark-nav-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+p {
+    margin: 0 0 var(--space-md);
+    line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    margin: 0 0 var(--space-md);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+h1 { margin-bottom: var(--space-lg); }
+h2 { margin-bottom: var(--space-md); }
+h3 { margin-bottom: var(--space-sm); }
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-accent-dark);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.ark-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+    .ark-container {
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .ark-container {
+        padding-left: var(--space-sm);
+        padding-right: var(--space-sm);
+    }
+}
+
+/* Buttons */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+    color: var(--color-white);
+    height: 56px;
+    padding: 0 32px;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(74, 144, 164, 0.5);
+    color: var(--color-white) !important;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover::after {
+    left: 100%;
+}
+
+@media (max-width: 768px) {
+    .btn-primary,
+    .btn-glass {
+        min-height: 48px;
+        padding: 0 var(--space-md);
+    }
+}
+
+.btn-glass {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-white);
+    height: 56px;
+    padding: 0 32px;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-glass:hover,
+.btn-glass:focus,
+.btn-glass:active {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--color-white) !important;
+}
+
+/* Keep button links white (override global a color) */
+a.btn-primary,
+a.btn-primary:hover,
+a.btn-primary:focus,
+a.btn-primary:active,
+a.btn-glass,
+a.btn-glass:hover,
+a.btn-glass:focus,
+a.btn-glass:active {
+    color: var(--color-white) !important;
+}
+
+/* Cards */
+.card {
+    background: var(--color-white);
+    border-radius: 16px;
+    border: 1px solid var(--color-bg-secondary);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-accent);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Header – smooth not-scrolled to scrolled transition, content locked in place */
+.ark-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: var(--header-height);
+    padding-top: 0;
+    background-color: transparent;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease, -webkit-backdrop-filter 0.5s ease;
+}
+
+/* Full transparency when not scrolled – no dark/black tint (override any theme/plugin) */
+.ark-header:not(.scrolled),
+.ark-header:not(.scrolled) .ark-header-inner {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+body .ark-header:not(.scrolled),
+#masthead.ark-header:not(.scrolled),
+header.ark-header:not(.scrolled),
+body.page-fly .ark-header:not(.scrolled) {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.ark-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+}
+
+.ark-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.ark-header.scrolled::before {
+    opacity: 0.3;
+}
+
+.ark-header-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    position: relative;
+}
+
+.ark-logo-link {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.ark-logo-img {
+    height: 64px;
+    width: auto;
+    max-width: 260px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+    transition: transform var(--transition-fast), opacity 0.5s ease;
+}
+
+/* Two logos: crossfade so position stays locked */
+.ark-logo-default {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+.ark-logo-white-bg {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+.ark-header.scrolled .ark-logo-default {
+    opacity: 0;
+    pointer-events: none;
+}
+.ark-header.scrolled .ark-logo-white-bg {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.ark-logo-link:hover .ark-logo-img.ark-logo-default {
+    transform: scale(1.05);
+}
+.ark-logo-link:hover .ark-logo-img.ark-logo-white-bg {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.ark-header .custom-logo-link img {
+    height: 64px;
+    width: auto;
+    max-width: 260px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+    transition: filter 0.5s ease;
+}
+
+/* Constrain header logo so it never scales by viewport (fixes WooCommerce cart/checkout overlay) */
+.ark-header .ark-header-logo {
+    max-width: 260px;
+    flex-shrink: 0;
+}
+.ark-header .ark-logo-link {
+    overflow: hidden;
+    max-width: 260px;
+}
+.ark-header .ark-logo-img,
+.ark-header .custom-logo-link img {
+    max-height: 64px;
+    width: auto;
+    max-width: 260px;
+}
+
+/* Custom logo when scrolled: darken so visible on white */
+.ark-header.scrolled .custom-logo-link img {
+    filter: brightness(0);
+}
+
+/* Nav: centered in header, vertically aligned with logo and cart */
+.ark-nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: var(--space-lg);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+/* When header has white background (scrolled), nav is dark */
+.ark-header.scrolled .nav-menu .nav-link,
+.ark-header.scrolled .ark-header-cart {
+    color: var(--color-charcoal) !important;
+}
+
+.ark-header.scrolled .nav-menu .nav-link:hover {
+    color: var(--color-accent) !important;
+}
+
+.nav-menu .nav-link {
+    color: var(--color-charcoal);
+    font-weight: 500;
+    font-size: 0.95rem;
+    line-height: 1;
+    padding: var(--space-xs) var(--space-sm);
+    transition: color 0.5s ease, transform var(--transition-fast);
+    position: relative;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.nav-menu .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--space-sm);
+    right: var(--space-sm);
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transition: transform var(--transition-fast);
+}
+
+.nav-menu .nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+.ark-header:not(.scrolled) .nav-menu .nav-link {
+    color: var(--color-white);
+}
+
+.ark-header:not(.scrolled) .nav-menu .nav-link:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.ark-lang-switcher {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.ark-lang-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: rgba(0, 0, 0, 0.06);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 6px 28px 6px 10px;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 600;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+}
+
+.ark-lang-select:hover,
+.ark-lang-select:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.ark-header:not(.scrolled) .ark-lang-select {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-white);
+}
+
+.ark-header:not(.scrolled) .ark-lang-select:hover,
+.ark-header:not(.scrolled) .ark-lang-select:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.ark-header-cart {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: color 0.5s ease;
+}
+
+.ark-header-cart svg {
+    width: 24px;
+    height: 24px;
+}
+
+.ark-header:not(.scrolled) .ark-header-cart {
+    color: var(--color-white);
+}
+
+.ark-cart-count {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: var(--color-accent);
+    color: var(--color-white);
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ark-header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.ark-nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: 48px;
+    height: 48px;
+    transition: color 0.5s ease, background 0.5s ease;
+    padding: 0;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    cursor: pointer;
+    color: inherit;
+    position: relative;
+    transition: all var(--transition-base);
+}
+
+.ark-nav-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.ark-nav-toggle[aria-expanded="true"] {
+    background: var(--color-accent);
+    color: var(--color-white);
+}
+
+.ark-nav-toggle-bar {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: all var(--transition-base);
+}
+
+.ark-nav-toggle[aria-expanded="true"] .ark-nav-toggle-bar:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.ark-nav-toggle[aria-expanded="true"] .ark-nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.ark-nav-toggle[aria-expanded="true"] .ark-nav-toggle-bar:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.ark-header:not(.scrolled) .ark-nav-toggle {
+    color: var(--color-white);
+}
+
+/* On mobile: header bar layout – nav is the fixed drawer so no space reserved */
+@media (max-width: 768px) {
+    .ark-header-inner {
+        padding-left: var(--space-sm);
+        padding-right: var(--space-sm);
+    }
+    .ark-header-actions {
+        gap: var(--space-xs);
+    }
+    .ark-lang-switcher {
+        font-size: 0.75rem;
+    }
+    .ark-lang-select {
+        padding: 6px 24px 6px 8px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Tablet: keep nav items on one line */
+@media (min-width: 769px) and (max-width: 1100px) {
+    .nav-menu .nav-link {
+        font-size: 0.85rem;
+        padding: var(--space-xs) var(--space-xs);
+    }
+    .nav-menu {
+        gap: var(--space-sm);
+    }
+}
+
+/* Mobile menu – off-canvas drawer from right with backdrop; never visible when closed */
+@media (max-width: 768px) {
+    .ark-nav-toggle {
+        display: flex;
+        min-width: 48px;
+        min-height: 48px;
+        flex-shrink: 0;
+    }
+
+    /* Backdrop overlay when menu is open – tap to close */
+    body.ark-nav-open::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.25s ease;
+    }
+
+    /* Nav drawer: fixed to right edge, fully off-screen when closed, no overlap of content when closed */
+    .ark-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: auto;
+        width: min(320px, 88vw);
+        max-width: 320px;
+        height: 100vh;
+        height: 100dvh;
+        margin: 0;
+        background: var(--color-bg-secondary);
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: calc(var(--header-height) + var(--space-lg)) var(--space-lg) var(--space-lg);
+        box-shadow: -12px 0 40px rgba(0, 0, 0, 0.2);
+        transform: translate3d(100%, 0, 0);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 1002;
+        -webkit-overflow-scrolling: touch;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .ark-nav.is-open {
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .ark-nav .nav-menu {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    /* Force dark text and clear button background in open burger menu (override hero header white link color) */
+    .ark-nav .nav-menu .nav-link,
+    .ark-nav.is-open .nav-menu .nav-link {
+        color: var(--color-text-primary);
+        display: flex;
+        align-items: center;
+        padding: var(--space-md) var(--space-sm);
+        border-radius: 10px;
+        margin-bottom: var(--space-xs);
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+        font-size: 1.0625rem;
+        font-weight: 500;
+        min-height: 48px;
+    }
+
+    .ark-nav .nav-menu .nav-link::after {
+        display: none;
+    }
+
+    .ark-nav .nav-menu .nav-link:hover,
+    .ark-nav .nav-menu .nav-link:focus,
+    .ark-nav.is-open .nav-menu .nav-link:hover,
+    .ark-nav.is-open .nav-menu .nav-link:focus {
+        background: var(--color-accent);
+        color: var(--color-white);
+        border-color: var(--color-accent);
+        transform: none;
+    }
+
+    .ark-header-cart {
+        margin-left: auto;
+    }
+
+    .ark-header.scrolled .ark-nav-toggle,
+    .ark-header:not(.scrolled) .ark-nav-toggle {
+        color: var(--color-charcoal);
+    }
+
+    .ark-header:not(.scrolled) .ark-nav-toggle {
+        background: rgba(255, 255, 255, 0.2);
+        color: var(--color-white);
+    }
+}
+
+/* Extra narrow: drawer slightly narrower so it stays clearly right-edge */
+@media (max-width: 380px) {
+    .ark-nav {
+        width: 92vw;
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ark-header-inner {
+        padding: 0 var(--space-md);
+    }
+    
+    .ark-logo-img {
+        height: 50px;
+    }
+    .ark-header .custom-logo-link img {
+        height: 50px;
+    }
+}
+
+/* Footer */
+.ark-footer {
+    background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-charcoal) 100%);
+    color: rgba(255, 255, 255, 0.85);
+    padding: var(--space-2xl) 0 var(--space-md);
+    margin-top: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.ark-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    opacity: 0.5;
+}
+
+.ark-footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+    gap: var(--space-xl);
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.ark-footer-brand .ark-logo-img,
+.ark-footer-brand .custom-logo-link img {
+    height: 72px;
+    width: auto;
+    max-width: 280px;
+    object-fit: contain;
+}
+
+.ark-footer-tagline {
+    margin: var(--space-sm) 0 var(--space-md);
+    font-size: 0.9rem;
+    max-width: 260px;
+}
+
+.ark-footer-social {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.ark-footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.ark-footer-social a:hover {
+    background: var(--color-accent);
+    color: var(--color-white);
+}
+
+.ark-footer h4 {
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-sm);
+}
+
+.ark-footer-menu,
+.ark-footer-support-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ark-footer-menu li,
+.ark-footer-support-list li {
+    margin-bottom: var(--space-sm);
+}
+
+.ark-footer-menu a,
+.ark-footer-support-list a {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+    padding: var(--space-xs) 0;
+    display: inline-block;
+    transition: color var(--transition-fast);
+}
+
+.ark-footer-menu a:hover,
+.ark-footer-support-list a:hover {
+    color: var(--color-accent);
+}
+
+.ark-footer-newsletter input[type="email"] {
+    width: 100%;
+    max-width: 280px;
+    height: 48px;
+    padding: 0 var(--space-sm);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+}
+
+.ark-footer-newsletter input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.ark-footer-newsletter .btn-primary {
+    height: 48px;
+    padding: 0 var(--space-md);
+}
+
+.ark-footer-bottom {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-md) var(--space-md) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: var(--space-xl);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.ark-footer-bottom a {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.ark-footer-bottom a:hover {
+    color: var(--color-accent);
+}
+
+@media (max-width: 992px) {
+    .ark-footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .ark-footer {
+        padding: var(--space-xl) 0 var(--space-md);
+    }
+    .ark-footer-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+        padding: 0 var(--space-md);
+        text-align: center;
+    }
+    .ark-footer-brand .ark-logo-img,
+    .ark-footer-brand .custom-logo-link img {
+        height: 56px;
+        margin: 0 auto;
+    }
+    .ark-footer-brand .ark-footer-tagline {
+        max-width: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .ark-footer-social {
+        justify-content: center;
+    }
+    .ark-footer h4 {
+        margin-top: var(--space-md);
+        margin-bottom: var(--space-sm);
+    }
+    .ark-footer-menu,
+    .ark-footer-support-list {
+        text-align: center;
+    }
+    .ark-footer-menu li,
+    .ark-footer-support-list li {
+        margin-bottom: var(--space-xs);
+    }
+    .ark-footer-newsletter input[type="email"] {
+        max-width: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .ark-footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--space-md) var(--space-sm) 0;
+        gap: var(--space-xs);
+        font-size: 0.8125rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .ark-footer-grid {
+        padding: 0 var(--space-sm);
+    }
+    .ark-footer-newsletter input[type="email"] {
+        max-width: none;
+    }
+}
+
+/* Main content padding for fixed header (inner pages only) */
+.ark-content {
+    padding-top: var(--header-height);
+}
+
+/* Fly page: NO padding-top for content wrapper */
+body.page-fly .ark-content,
+body.page-fly #content.ark-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Front page: no top/bottom padding so hero fills viewport with no gap */
+.front-page .ark-content,
+.home .ark-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+/* Fly page: same as front page – no top/bottom padding so hero fills viewport with no gap */
+.page-fly .ark-content,
+body.page-fly .ark-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+/* Fly page: no top padding so hero starts at top (no white gap) */
+body.page-fly .ark-content,
+body.page-fly #content,
+body.page-fly .site-content,
+body.page-fly div#content.ark-content.site-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Ensure main element inside content has no top spacing */
+body.page-fly #content > main,
+body.page-fly .ark-content > main,
+body.page-fly .site-content > main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Fly page: no top padding so hero fills viewport from absolute top */
+body.page-fly,
+body.page-fly html {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Remove WordPress admin bar spacing on fly page */
+body.page-fly.admin-bar {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+body.page-fly.admin-bar .ark-header {
+    top: 0 !important;
+}
+
+body.page-fly.admin-bar #wpadminbar {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: absolute !important;
+    top: -9999px !important;
+}
+
+body.page-fly .ark-content,
+body.page-fly #content,
+body.page-fly .site-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Ensure content wrapper starts at absolute top */
+body.page-fly #content.ark-content.site-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+body.page-fly #page,
+body.page-fly .site,
+body.page-fly .site-main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Main element - no extra top padding; hero in normal flow */
+body.page-fly .ark-main,
+body.page-fly #main,
+body.page-fly main.ark-main-fly {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    position: relative;
+}
+
+/* Ensure no spacing before hero banner */
+body.page-fly main > section:first-child,
+body.page-fly #main > section:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* 404 */
+.ark-main-404 {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xl);
+    background: var(--color-bg-primary);
+}
+
+.ark-404-content {
+    text-align: center;
+    max-width: 480px;
+}
+
+.ark-404-title {
+    font-family: var(--font-heading);
+    font-size: clamp(5rem, 20vw, 120px);
+    font-weight: 300;
+    margin: 0;
+    color: var(--color-accent);
+    line-height: 1;
+}
+
+.ark-404-heading {
+    margin: var(--space-sm) 0 var(--space-xs);
+    font-size: 1.5rem;
+}
+
+.ark-404-text {
+    margin: 0 0 var(--space-md);
+    color: var(--color-text-secondary);
+}
+
+.ark-404-search {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ark-404-search input {
+    flex: 1;
+    padding: var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+}
+
+.ark-404-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.ark-404-links a {
+    color: var(--color-accent);
+}
+
+.ark-404-links a:hover {
+    text-decoration: underline;
+}
+
+/* Reduced motion – shorten animations; keep nav/modal transitions usable */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.12s !important;
+    }
+    .ark-nav,
+    .polaroid-modal {
+        transition-duration: 0.2s !important;
+    }
+}

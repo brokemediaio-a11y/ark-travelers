@@ -1,0 +1,575 @@
+/**
+ * About Us – unique, modern, elegant layout and animations
+ * Uses .ark-reveal + .ark-reveal-visible (main.js) for scroll reveals
+ */
+
+/* ----- Scroll reveal base ----- */
+.ark-main-about .ark-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ark-main-about .ark-reveal.ark-reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ark-main-about .ark-reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.ark-main-about .ark-reveal-stagger.ark-reveal-visible > *:nth-child(1) { transition-delay: 0.05s; }
+.ark-main-about .ark-reveal-stagger.ark-reveal-visible > *:nth-child(2) { transition-delay: 0.12s; }
+.ark-main-about .ark-reveal-stagger.ark-reveal-visible > *:nth-child(3) { transition-delay: 0.19s; }
+.ark-main-about .ark-reveal-stagger.ark-reveal-visible > *:nth-child(4) { transition-delay: 0.26s; }
+.ark-main-about .ark-reveal-stagger.ark-reveal-visible > *:nth-child(5) { transition-delay: 0.33s; }
+.ark-main-about .ark-reveal-stagger.ark-reveal-visible > *:nth-child(6) { transition-delay: 0.4s; }
+
+.ark-main-about .ark-reveal-stagger.ark-reveal-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ----- Hero ----- */
+.ark-about-hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.ark-about-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.05);
+    transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ark-about-hero:hover .ark-about-hero-bg {
+    transform: scale(1.12);
+}
+
+.ark-about-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 14, 20, 0.5) 0%,
+        rgba(10, 14, 20, 0.75) 50%,
+        rgba(10, 14, 20, 0.9) 100%
+    );
+}
+
+.ark-about-hero-inner {
+    position: relative;
+    z-index: 1;
+    padding: var(--header-height, 80px) var(--space-md) var(--space-2xl);
+}
+
+.ark-about-hero-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-sm);
+}
+
+.ark-about-hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--color-white);
+    margin: 0 0 var(--space-md);
+    max-width: 18ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ark-about-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 32ch;
+    margin: 0 auto;
+}
+
+.ark-about-hero-scroll {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ark-about-hero-scroll-line {
+    display: block;
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+    animation: ark-about-scroll-pulse 2s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    .ark-about-hero {
+        min-height: 70vh;
+    }
+    .ark-about-hero-inner {
+        padding: calc(var(--header-height) + var(--space-lg)) var(--space-sm) var(--space-xl);
+    }
+    .ark-about-hero-title {
+        font-size: clamp(1.75rem, 6vw, 2.5rem);
+    }
+    .ark-about-hero-subtitle {
+        font-size: 0.9375rem;
+    }
+    .ark-main-about .ark-section {
+        padding: var(--space-xl) 0;
+    }
+    .ark-about-story-inner {
+        gap: var(--space-lg);
+    }
+    .ark-about-story-title {
+        font-size: clamp(1.5rem, 4vw, 1.75rem);
+    }
+    .ark-about-why-title,
+    .ark-about-journey-title {
+        font-size: clamp(1.5rem, 4vw, 1.75rem);
+    }
+}
+
+@keyframes ark-about-scroll-pulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(0.8); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+}
+
+/* ----- Section spacing ----- */
+.ark-main-about .ark-section {
+    padding: var(--space-2xl) 0;
+}
+
+@media (min-width: 768px) {
+    .ark-main-about .ark-section {
+        padding: clamp(64px, 10vw, 120px) 0;
+    }
+}
+
+/* ----- Story ----- */
+.ark-about-story {
+    background: var(--color-bg-primary);
+}
+
+.ark-about-story-inner {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+}
+
+@media (min-width: 900px) {
+    .ark-about-story-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2xl);
+    }
+}
+
+.ark-about-story-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-md);
+}
+
+.ark-about-story-text p {
+    margin: 0 0 var(--space-sm);
+    color: var(--color-text-secondary);
+}
+
+.ark-about-story-text p:last-child {
+    margin-bottom: 0;
+}
+
+.ark-about-story-image-wrap {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+}
+
+.ark-about-story-image-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--color-accent);
+    border-radius: 12px;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.ark-about-story-image-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ark-about-story-visual.ark-reveal-visible .ark-about-story-image-wrap img {
+    transform: scale(1.02);
+}
+
+/* ----- Why ARK ----- */
+.ark-about-why {
+    background: var(--color-white);
+}
+
+.ark-about-why-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-sm);
+}
+
+.ark-about-why-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-xl);
+}
+
+.ark-about-why-grid {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+    .ark-about-why-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .ark-about-why-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-lg);
+    }
+
+    .ark-about-why-card-featured {
+        grid-column: span 2;
+    }
+}
+
+.ark-about-why-card {
+    padding: var(--space-lg);
+    border-radius: 12px;
+    background: var(--color-bg-primary);
+    border: 1px solid transparent;
+    transition: border-color var(--transition-base),
+                box-shadow var(--transition-base),
+                transform var(--transition-base);
+}
+
+.ark-about-why-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 12px 32px rgba(74, 144, 164, 0.12);
+    transform: translateY(-4px);
+}
+
+.ark-about-why-card-featured {
+    background: linear-gradient(135deg, rgba(74, 144, 164, 0.08), rgba(74, 144, 164, 0.02));
+    border-color: rgba(74, 144, 164, 0.25);
+}
+
+.ark-about-why-card-featured:hover {
+    border-color: var(--color-accent);
+}
+
+.ark-about-why-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--color-accent);
+    color: var(--color-white);
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+    transition: transform var(--transition-base);
+}
+
+.ark-about-why-card:hover .ark-about-why-icon {
+    transform: scale(1.08);
+}
+
+.ark-about-why-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-xs);
+}
+
+.ark-about-why-card p {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ----- Journey (milestones) ----- */
+.ark-about-journey {
+    background: var(--color-bg-primary);
+}
+
+.ark-about-journey-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-sm);
+}
+
+.ark-about-journey-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-xl);
+}
+
+.ark-about-journey-track {
+    position: relative;
+    padding: var(--space-md) 0;
+}
+
+.ark-about-journey-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--color-accent) 15%,
+        var(--color-accent) 85%,
+        transparent 100%
+    );
+    opacity: 0.4;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 767px) {
+    .ark-about-journey-line {
+        left: 16px;
+        right: auto;
+        width: 2px;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        transform: none;
+        background: linear-gradient(
+            180deg,
+            transparent 0%,
+            var(--color-accent) 10%,
+            var(--color-accent) 90%,
+            transparent 100%
+        );
+    }
+}
+
+.ark-about-journey-milestones {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    align-items: start;
+}
+
+@media (max-width: 767px) {
+    .ark-about-journey-milestones {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+        padding-left: var(--space-md);
+    }
+}
+
+.ark-about-milestone {
+    text-align: center;
+    padding: 0 var(--space-sm);
+}
+
+@media (max-width: 767px) {
+    .ark-about-milestone {
+        text-align: left;
+        padding-left: var(--space-lg);
+        position: relative;
+    }
+}
+
+.ark-about-milestone-dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    margin-bottom: var(--space-sm);
+    box-shadow: 0 0 0 4px rgba(74, 144, 164, 0.2);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.ark-about-milestone.ark-reveal-visible .ark-about-milestone-dot {
+    animation: ark-about-dot-pop 0.5s ease-out forwards;
+}
+
+@keyframes ark-about-dot-pop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.ark-about-milestone-year {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+}
+
+.ark-about-milestone p {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ----- Trust / Certifications ----- */
+.ark-about-trust {
+    background: var(--color-white);
+}
+
+.ark-about-trust-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-lg);
+    text-align: center;
+}
+
+.ark-about-trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.ark-about-badge {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: rgba(74, 144, 164, 0.1);
+    border: 1px solid rgba(74, 144, 164, 0.3);
+    border-radius: 999px;
+    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.ark-about-badge:hover {
+    background: var(--color-accent);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+/* ----- CTA ----- */
+.ark-about-cta {
+    position: relative;
+    text-align: center;
+    padding: var(--space-2xl) var(--space-md);
+}
+
+.ark-about-cta-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-charcoal) 0%, var(--color-dark) 100%);
+}
+
+.ark-about-cta-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.ark-about-cta-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    margin: 0 0 var(--space-sm);
+}
+
+.ark-about-cta-text {
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 var(--space-lg);
+    max-width: 36ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ark-about-cta-btn {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-lg);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-white);
+    background: var(--color-accent);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background var(--transition-base), transform var(--transition-base);
+}
+
+.ark-about-cta-btn:hover {
+    background: var(--color-accent-dark);
+    transform: translateY(-2px);
+}
+
+/* ----- Responsive tweaks ----- */
+@media (max-width: 599px) {
+    .ark-about-hero {
+        min-height: 75vh;
+    }
+
+    .ark-about-why-card-featured {
+        grid-column: span 1;
+    }
+
+    .ark-about-trust-badges {
+        justify-content: flex-start;
+    }
+}

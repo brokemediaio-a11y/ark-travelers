@@ -1,0 +1,1458 @@
+/**
+ * ARK Travelers – Single Umrah package: modern, elegant, advanced layout
+ * Scroll reveals, sticky booking CTA, refined details and animations.
+ */
+
+/* Page-level: subtle gradient background with elegant pattern */
+.ark-main-single-umrah {
+    background: 
+        linear-gradient(180deg, #f8fafb 0%, #ffffff 12%, #fafbfc 50%, #ffffff 100%),
+        radial-gradient(circle at 20% 30%, rgba(74, 144, 164, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(74, 144, 164, 0.02) 0%, transparent 50%);
+    min-height: 100vh;
+    position: relative;
+}
+
+.ark-main-single-umrah::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(74, 144, 164, 0.02) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(74, 144, 164, 0.015) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    animation: fadeInBackground 1s ease-out 0.5s forwards;
+}
+
+@keyframes fadeInBackground {
+    to { opacity: 1; }
+}
+
+/* ----- Sticky booking CTA bar (appears when hero card scrolls out of view) ----- */
+.ark-sticky-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: var(--space-sm) var(--space-lg);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(74, 144, 164, 0.12);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.08), 0 -2px 8px rgba(0, 0, 0, 0.04);
+    transform: translateY(100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, visibility 0.35s;
+}
+
+.ark-sticky-cta.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.ark-sticky-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+.ark-sticky-cta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.ark-sticky-cta-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-charcoal);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ark-sticky-cta-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: -0.02em;
+}
+
+.ark-sticky-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+}
+
+.ark-sticky-cta-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    border: 1px solid rgba(74, 144, 164, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-accent);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.ark-sticky-cta-icon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(74, 144, 164, 0.2);
+    background: var(--color-accent);
+    color: var(--color-white);
+}
+
+.ark-sticky-cta-wa:hover {
+    background: #25D366;
+    border-color: #25D366;
+    color: var(--color-white);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+}
+
+.ark-sticky-cta-btn {
+    white-space: nowrap;
+}
+
+.ark-sticky-cta .btn-primary {
+    min-width: 160px;
+}
+
+@media (max-width: 768px) {
+    .ark-sticky-cta-inner {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    .ark-sticky-cta-info {
+        width: 100%;
+        order: -1;
+    }
+    .ark-sticky-cta-title {
+        font-size: 0.9rem;
+    }
+    .ark-sticky-cta-price {
+        font-size: 1.1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ark-sticky-cta {
+        transition: opacity 0.2s ease, visibility 0.2s;
+    }
+}
+
+/* ----- Primary CTA button (hero + sticky): modern gradient, hover glow ----- */
+.ark-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--color-white);
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(74, 144, 164, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, filter 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.ark-cta-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ark-cta-primary:hover {
+    color: var(--color-white);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(74, 144, 164, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.ark-cta-primary:hover::before {
+    opacity: 1;
+}
+
+.ark-cta-primary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 164, 0.4);
+}
+
+/* ----- Scroll reveal: sections animate in when in view ----- */
+.ark-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ark-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ark-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .ark-reveal.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.ark-single-hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    padding: var(--space-2xl) var(--space-lg);
+    overflow: hidden;
+}
+
+.ark-single-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .ark-main-single-umrah .ark-single-hero-bg {
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+}
+
+.ark-single-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(10, 14, 20, 0.35) 0%, rgba(10, 14, 20, 0.5) 50%, rgba(10, 14, 20, 0.72) 100%);
+}
+
+/* Elegant vignette + geometric accent on banner */
+.ark-single-hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+    pointer-events: none;
+}
+
+.ark-single-hero-inner {
+    position: relative;
+    z-index: 1;
+    color: var(--color-white);
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    align-items: center;
+    gap: var(--space-2xl);
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+.ark-hero-text {
+    min-width: 0;
+    position: relative;
+}
+
+.ark-hero-text::after {
+    content: '';
+    display: block;
+    width: 56px;
+    height: 2px;
+    background: var(--color-accent);
+    margin-top: var(--space-sm);
+    opacity: 0.95;
+}
+
+/* Hero booking card – appears with animation */
+.ark-hero-booking-wrap {
+    justify-self: end;
+    width: 100%;
+    max-width: 400px;
+}
+
+.ark-hero-booking-animate {
+    opacity: 0;
+    transform: translateY(32px);
+    animation: arkHeroBookingIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+}
+
+@keyframes arkHeroBookingIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Booking card – clear box, home-page style; matches .card + accent border */
+.ark-hero-booking-card {
+    position: relative;
+    padding: var(--space-xl);
+    padding-top: calc(var(--space-xl) + 10px);
+    background: var(--color-white);
+    border-radius: 16px;
+    border: 1px solid rgba(74, 144, 164, 0.2);
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        0 24px 56px rgba(74, 144, 164, 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.4s ease, transform 0.4s ease, border-color 0.3s ease;
+}
+
+.ark-hero-booking-card:hover {
+    border-color: rgba(74, 144, 164, 0.35);
+    box-shadow:
+        0 0 0 1px rgba(74, 144, 164, 0.06),
+        0 12px 40px rgba(0, 0, 0, 0.08),
+        0 32px 64px rgba(74, 144, 164, 0.15);
+}
+
+.ark-booking-card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-dark));
+    opacity: 0.95;
+}
+
+.ark-hero-booking-title {
+    margin: 0 0 var(--space-xs);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1d21;
+}
+
+.ark-hero-booking-card .ark-booking-price {
+    margin: 0 0 var(--space-lg);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: -0.02em;
+}
+
+/* Request Booking: same as home page .btn-primary – solid button, full width in card */
+.ark-hero-booking-card .ark-booking-cta.btn-primary {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
+    text-align: center;
+    color: var(--color-white) !important;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%) !important;
+    border: none !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 16px rgba(74, 144, 164, 0.35);
+}
+
+.ark-hero-booking-card .ark-booking-cta.btn-primary:hover {
+    color: var(--color-white) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(74, 144, 164, 0.5);
+}
+
+.ark-hero-booking-card .ark-booking-phone {
+    margin: 0 0 var(--space-sm);
+    font-size: 0.9rem;
+    color: #1a1d21;
+}
+
+.ark-hero-booking-card .ark-booking-phone a {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+/* WhatsApp: secondary button, same height/radius as .btn-primary */
+.ark-hero-booking-card .ark-whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    padding: 0 28px;
+    background: #25D366;
+    color: var(--color-white);
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ark-hero-booking-card .ark-whatsapp-btn:hover {
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+}
+
+@media (max-width: 992px) {
+    .ark-single-hero-inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+        text-align: center;
+    }
+    .ark-hero-text {
+        text-align: center;
+    }
+    .ark-hero-booking-wrap {
+        justify-self: center;
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ark-single-hero {
+        padding: var(--space-xl) var(--space-md);
+    }
+    .ark-hero-booking-card {
+        padding: var(--space-lg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ark-hero-booking-animate {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.ark-single-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 10px;
+    margin-bottom: var(--space-sm);
+    box-shadow: 0 4px 12px rgba(74, 144, 164, 0.3);
+}
+
+.ark-single-hero-title {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    margin: 0 0 var(--space-sm);
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    line-height: 1.2;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+.ark-single-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    font-size: 1rem;
+}
+
+.ark-single-hero-price {
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.ark-single-layout {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: var(--space-2xl) 0;
+}
+
+.ark-single-content {
+    min-width: 0;
+    padding: 0 var(--space-md);
+}
+
+.ark-single-section {
+    margin-bottom: var(--space-2xl);
+    padding: var(--space-xl) var(--space-md);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: relative;
+}
+
+.ark-single-section:nth-child(odd) {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 251, 0.6) 100%);
+}
+
+.ark-single-section:nth-child(even) {
+    background: linear-gradient(180deg, rgba(248, 250, 251, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    padding: var(--space-xl) var(--space-md);
+    border-radius: 36px;
+    box-shadow: 
+        0 8px 48px rgba(0, 0, 0, 0.06),
+        0 2px 12px rgba(74, 144, 164, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(74, 144, 164, 0.1);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ark-single-section:nth-child(even):hover {
+    box-shadow: 
+        0 12px 64px rgba(74, 144, 164, 0.12),
+        0 4px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    border-color: rgba(74, 144, 164, 0.2);
+}
+
+/* Package Overview – Bento-style grid like "Why Book With Us" */
+.ark-package-overview {
+    margin-bottom: var(--space-2xl);
+    padding: var(--space-xl) 0;
+    background: linear-gradient(180deg, #f0f4f8 0%, var(--color-bg-primary) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.ark-package-overview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    opacity: 0.6;
+}
+
+.ark-package-overview .ark-overview-header {
+    margin-bottom: var(--space-xl);
+    position: relative;
+    z-index: 1;
+}
+
+.ark-package-overview .ark-overview-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-sm);
+}
+
+.ark-package-overview .ark-overview-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-xl);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+}
+
+.ark-overview-body {
+    position: relative;
+    z-index: 1;
+}
+
+.ark-overview-body p {
+    color: var(--color-text-primary);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+    font-size: 1rem;
+}
+
+.ark-overview-body p:last-child {
+    margin-bottom: 0;
+}
+
+.ark-package-overview .ark-overview-body ul {
+    list-style: none;
+    margin: var(--space-xl) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(140px, auto);
+    gap: var(--space-md);
+    max-width: 1000px;
+}
+
+.ark-package-overview .ark-overview-body li {
+    background: var(--color-white);
+    border-radius: 16px;
+    padding: var(--space-lg);
+    border: 1px solid rgba(74, 144, 164, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+}
+
+.ark-package-overview .ark-overview-body li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--color-accent);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.ark-package-overview .ark-overview-body li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    border-color: rgba(74, 144, 164, 0.25);
+}
+
+.ark-package-overview .ark-overview-body li:hover::before {
+    opacity: 1;
+}
+
+.ark-package-overview .ark-overview-body li a {
+    font-weight: 500;
+    color: var(--color-charcoal);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.ark-package-overview .ark-overview-body li a:hover {
+    color: var(--color-accent);
+}
+
+.ark-package-overview .ark-overview-body li:not(:has(a)) {
+    font-weight: 500;
+    color: var(--color-charcoal);
+}
+
+@media (max-width: 768px) {
+    .ark-package-overview .ark-overview-body ul {
+        grid-template-columns: 1fr;
+    }
+    .ark-fly-benefits-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.ark-single-body p {
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+    color: #2a2d31;
+    font-size: 1.05rem;
+}
+
+.ark-single-body p:last-child {
+    margin-bottom: 0;
+}
+
+.ark-single-body a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.ark-single-body a:hover {
+    color: var(--color-accent-dark);
+    border-bottom-color: var(--color-accent);
+}
+
+/* What's Included – Icon cards with checkmarks (different from overview) */
+.ark-included-section {
+    margin-bottom: var(--space-2xl);
+    padding: var(--space-xl) 0;
+    background: var(--color-white);
+}
+
+.ark-included-section .ark-included-header {
+    margin-bottom: var(--space-xl);
+}
+
+.ark-included-section .ark-included-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-sm);
+}
+
+.ark-included-section .ark-included-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-xl);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+}
+
+.ark-included-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-md);
+}
+
+.ark-included-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin: 0;
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border-radius: 16px;
+    border: 1px solid rgba(74, 144, 164, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.ark-included-list li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--color-accent);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.ark-included-list li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    border-color: rgba(74, 144, 164, 0.25);
+}
+
+.ark-included-list li:hover::before {
+    opacity: 1;
+}
+
+.ark-included-list li::after {
+    content: '✓';
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(74, 144, 164, 0.1);
+    color: var(--color-accent);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.ark-included-item-text {
+    font-weight: 500;
+    color: var(--color-charcoal);
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+@media (max-width: 640px) {
+    .ark-included-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Itinerary – Timeline style accordion */
+.ark-single-section:has(.ark-accordion) {
+    padding: var(--space-xl) 0;
+    background: var(--color-bg-primary);
+}
+
+.ark-accordion {
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.ark-accordion-item {
+    border: none;
+    border-bottom: none;
+    background: var(--color-white);
+    border-radius: 16px;
+    border: 1px solid rgba(74, 144, 164, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    overflow: hidden;
+    position: relative;
+}
+
+.ark-accordion-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--color-accent);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.ark-accordion-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    border-color: rgba(74, 144, 164, 0.25);
+}
+
+.ark-accordion-item:hover::before,
+.ark-accordion-item.is-open::before {
+    opacity: 1;
+}
+
+.ark-accordion-item.is-open {
+    border-color: rgba(74, 144, 164, 0.25);
+    box-shadow: 0 8px 24px rgba(74, 144, 164, 0.12);
+}
+
+.ark-accordion-head {
+    width: 100%;
+    padding: var(--space-lg);
+    text-align: left;
+    background: var(--color-white);
+    border: none;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-charcoal);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+    transition: color var(--transition-fast);
+}
+
+.ark-accordion-head:hover {
+    color: var(--color-accent);
+}
+
+.ark-accordion-item.is-open .ark-accordion-head {
+    color: var(--color-accent);
+}
+
+.ark-accordion-head::after {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--color-accent);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74, 144, 164, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.ark-accordion-item.is-open .ark-accordion-head::after {
+    content: '−';
+    background: var(--color-accent);
+    color: var(--color-white);
+    transform: rotate(0deg);
+}
+
+/* Accordion body: collapsed by default, only open when parent has .is-open */
+.ark-accordion-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    max-height: 0;
+    padding: 0 var(--space-lg);
+    background: var(--color-white);
+    transition: grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1), max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow: hidden;
+}
+
+.ark-accordion-item:not(.is-open) .ark-accordion-body {
+    grid-template-rows: 0fr;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.ark-accordion-item.is-open .ark-accordion-body {
+    grid-template-rows: 1fr;
+    max-height: 1200px;
+}
+
+.ark-accordion-body > * {
+    overflow: hidden;
+    min-height: 0;
+}
+
+.ark-accordion-body p {
+    padding: 0 0 var(--space-lg);
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Itinerary – responsive */
+@media (max-width: 768px) {
+    .ark-single-section:has(.ark-accordion) {
+        padding: var(--space-md) var(--space-md);
+    }
+    .ark-accordion {
+        gap: var(--space-sm);
+    }
+    .ark-accordion-item {
+        border-radius: 12px;
+    }
+    .ark-accordion-head {
+        padding: var(--space-md) var(--space-sm);
+        font-size: 0.95rem;
+        gap: var(--space-sm);
+    }
+    .ark-accordion-head::after {
+        width: 28px;
+        height: 28px;
+        font-size: 1.25rem;
+    }
+    .ark-accordion-body {
+        padding: 0 var(--space-md);
+    }
+    .ark-accordion-body p {
+        padding: 0 0 var(--space-md);
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ark-accordion-head {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.9rem;
+    }
+}
+
+.ark-link-more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+}
+
+.ark-link-more::after {
+    content: '→';
+    transition: transform 0.3s ease;
+}
+
+.ark-link-more:hover {
+    background: rgba(74, 144, 164, 0.1);
+    color: var(--color-accent-dark);
+    transform: translateX(4px);
+}
+
+.ark-link-more:hover::after {
+    transform: translateX(4px);
+}
+
+/* FAQ Section – Different accordion style */
+.ark-faq-section {
+    padding: var(--space-xl) 0;
+    background: linear-gradient(180deg, #f0f4f8 0%, var(--color-bg-primary) 100%);
+    position: relative;
+}
+
+.ark-faq-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    opacity: 0.6;
+}
+
+.ark-faq-section h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-xl);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+}
+
+#ark-faq-accordion {
+    gap: var(--space-sm);
+}
+
+#ark-faq-accordion .ark-accordion-item {
+    background: var(--color-white);
+}
+
+#ark-faq-accordion .ark-accordion-head {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* FAQ – responsive */
+@media (max-width: 768px) {
+    .ark-faq-section {
+        padding: var(--space-md) var(--space-md);
+    }
+    .ark-faq-section h2 {
+        font-size: clamp(1.35rem, 4vw, 1.75rem);
+        margin-bottom: var(--space-lg);
+    }
+    #ark-faq-accordion .ark-accordion-head {
+        padding: var(--space-md) var(--space-sm);
+        font-size: 0.9rem;
+    }
+    #ark-faq-accordion .ark-accordion-item .ark-accordion-body p {
+        padding: 0 0 var(--space-md);
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ark-faq-section h2 {
+        margin-bottom: var(--space-md);
+    }
+    #ark-faq-accordion .ark-accordion-head {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.85rem;
+    }
+}
+
+/* CTA strip – premium contact prompt with soft effects */
+.ark-single-cta-strip {
+    margin-top: var(--space-2xl);
+    padding: var(--space-2xl);
+    background: linear-gradient(135deg, var(--color-charcoal) 0%, #1a1f24 100%);
+    color: var(--color-white);
+    text-align: center;
+    border-radius: 28px;
+    box-shadow: 
+        0 20px 64px rgba(0, 0, 0, 0.2),
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ark-single-cta-strip::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(74, 144, 164, 0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+.ark-single-cta-strip:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 24px 80px rgba(0, 0, 0, 0.25),
+        0 12px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.ark-single-cta-strip:hover::before {
+    opacity: 1;
+}
+
+.ark-cta-strip-text {
+    margin: 0 0 var(--space-lg);
+    font-size: 1.1rem;
+    opacity: 0.95;
+    position: relative;
+    z-index: 1;
+    font-weight: 500;
+}
+
+.ark-cta-strip-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.ark-cta-strip-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md) var(--space-xl);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ark-cta-strip-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ark-cta-strip-btn:hover::before {
+    opacity: 1;
+}
+
+.ark-cta-strip-btn.ark-cta-call {
+    background: var(--color-white);
+    color: var(--color-charcoal);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ark-cta-strip-btn.ark-cta-call:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(255, 255, 255, 0.3);
+    color: var(--color-charcoal);
+}
+
+.ark-cta-strip-btn.ark-cta-whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #20BA5A 100%);
+    color: var(--color-white);
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+}
+
+.ark-cta-strip-btn.ark-cta-whatsapp:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5);
+    color: var(--color-white);
+}
+
+.ark-booking-price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-md);
+    letter-spacing: -0.02em;
+}
+
+.ark-form-group {
+    margin-bottom: var(--space-md);
+}
+
+.ark-form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+    color: #1a1d21;
+}
+
+.ark-form-group select {
+    width: 100%;
+    height: 48px;
+    padding: 0 var(--space-md);
+    border: 1px solid rgba(74, 144, 164, 0.25);
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: #1a1d21;
+    background: var(--color-white);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ark-form-group select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(74, 144, 164, 0.15);
+}
+
+.ark-booking-phone {
+    margin: var(--space-md) 0 var(--space-sm);
+    font-size: 0.95rem;
+}
+
+.ark-whatsapp-btn {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-md);
+    background: #25D366;
+    color: var(--color-white);
+    border-radius: 12px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ark-whatsapp-btn:hover {
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+}
+
+/* Important Information – same spacing as What's Included section */
+.ark-single-section:has(.ark-important-info) {
+    padding: var(--space-xl) var(--space-lg);
+    background: var(--color-white);
+}
+
+.ark-single-section:has(.ark-important-info) h2 {
+    font-size: clamp(1.5rem, 3vw, 1.875rem);
+    font-weight: 600;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-xl);
+    letter-spacing: -0.02em;
+}
+
+.ark-important-info {
+    padding: var(--space-lg) var(--space-xl);
+    padding-left: 56px;
+    background: linear-gradient(135deg, rgba(74, 144, 164, 0.06) 0%, rgba(74, 144, 164, 0.02) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(74, 144, 164, 0.2);
+    border-left: 5px solid var(--color-accent);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    position: relative;
+}
+
+.ark-important-info::before {
+    content: 'ℹ';
+    position: absolute;
+    left: var(--space-md);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent);
+    color: var(--color-white);
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.ark-important-info p {
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    padding-left: 0;
+}
+
+.ark-important-info p:last-child {
+    margin-bottom: 0;
+}
+
+.ark-important-info ul,
+.ark-important-info ol {
+    margin: var(--space-md) 0;
+    padding-left: var(--space-xl);
+    line-height: 1.7;
+}
+
+.ark-important-info li {
+    margin-bottom: var(--space-xs);
+    color: var(--color-text-primary);
+}
+
+@media (max-width: 768px) {
+    .ark-single-section:has(.ark-important-info) {
+        padding: var(--space-md) var(--space-lg);
+    }
+    .ark-important-info {
+        padding: var(--space-md) var(--space-lg);
+        padding-left: 52px;
+    }
+    .ark-important-info::before {
+        left: var(--space-sm);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ark-single-section:has(.ark-important-info) {
+        padding: var(--space-md) var(--space-md);
+    }
+    .ark-important-info {
+        padding: var(--space-sm) var(--space-md);
+        padding-left: 48px;
+    }
+    .ark-important-info::before {
+        width: 26px;
+        height: 26px;
+        left: var(--space-sm);
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.85rem;
+    }
+    .ark-important-info p,
+    .ark-important-info li {
+        font-size: 0.9rem;
+    }
+}
+
+/* Terms & Conditions – Document/Legal style */
+.ark-terms-section {
+    margin-bottom: var(--space-2xl);
+    padding: var(--space-xl) 0;
+    background: var(--color-white);
+}
+
+.ark-terms-section .ark-terms-header {
+    margin-bottom: var(--space-xl);
+}
+
+.ark-terms-section .ark-terms-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    color: var(--color-charcoal);
+    margin: 0 0 var(--space-xl);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+}
+
+.ark-terms-content {
+    padding: var(--space-xl);
+    padding-left: calc(var(--space-xl) + 8px);
+    background: var(--color-white);
+    border-radius: 16px;
+    border: 1px solid rgba(74, 144, 164, 0.15);
+    border-left: 5px solid var(--color-accent);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    position: relative;
+}
+
+.ark-terms-content p {
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    font-size: 0.95rem;
+}
+
+.ark-terms-content p:last-child {
+    margin-bottom: 0;
+}
+
+.ark-terms-content ul,
+.ark-terms-content ol {
+    margin: var(--space-md) 0;
+    padding-left: var(--space-xl);
+    line-height: 1.7;
+}
+
+.ark-terms-content li {
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-primary);
+}
+
+.ark-terms-content strong {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.ark-terms-content h3,
+.ark-terms-content h4 {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    color: var(--color-charcoal);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.ark-terms-content h3:first-child,
+.ark-terms-content h4:first-child {
+    margin-top: 0;
+}
+
+/* Terms & Conditions – responsive */
+@media (max-width: 768px) {
+    .ark-terms-section {
+        padding: var(--space-md) var(--space-md);
+    }
+    .ark-terms-section .ark-terms-title {
+        font-size: clamp(1.35rem, 4vw, 1.75rem);
+        margin-bottom: var(--space-lg);
+    }
+    .ark-terms-content {
+        padding: var(--space-lg);
+        padding-left: calc(var(--space-lg) + 8px);
+    }
+}
+
+@media (max-width: 480px) {
+    .ark-terms-content {
+        padding: var(--space-md);
+        padding-left: calc(var(--space-md) + 8px);
+    }
+    .ark-terms-content p,
+    .ark-terms-content li {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .ark-single-section:nth-child(even) {
+        padding: var(--space-md) var(--space-md);
+        border-radius: 24px;
+    }
+}
+
+@media (max-width: 992px) {
+    .ark-single-content {
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+    }
+}
