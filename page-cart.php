@@ -15,8 +15,8 @@ get_header();
 <main id="main" class="ark-main ark-main-cart site-main">
 	<section class="ark-woo-hero ark-cart-hero">
 		<div class="ark-container">
-			<h1 class="ark-woo-hero-title"><?php echo esc_html( function_exists( 'ark_t' ) ? ark_t( 'cart_hero_title' ) : __( 'Your cart', 'ark-travelers' ) ); ?></h1>
-			<p class="ark-woo-hero-subtitle"><?php echo esc_html( function_exists( 'ark_t' ) ? ark_t( 'cart_hero_subtitle' ) : __( 'Review your items and proceed to checkout.', 'ark-travelers' ) ); ?></p>
+			<h1 class="ark-woo-hero-title"><?php echo esc_html__( 'Your Cart', 'ark-travelers' ); ?></h1>
+			<p class="ark-woo-hero-subtitle"><?php echo esc_html__( 'Review your items and proceed to checkout', 'ark-travelers' ); ?></p>
 		</div>
 	</section>
 	<?php

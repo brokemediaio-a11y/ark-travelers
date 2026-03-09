@@ -11,55 +11,55 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <form id="ark-fly-form" class="ark-fly-form card ark-fly-hero-form" action="#" method="get">
     <div class="ark-fly-trip-type">
-        <label class="ark-radio"><input type="radio" name="trip" value="roundtrip" checked> <?php echo esc_html( ark_t( 'form_roundtrip' ) ); ?></label>
-        <label class="ark-radio"><input type="radio" name="trip" value="oneway"> <?php echo esc_html( ark_t( 'form_oneway' ) ); ?></label>
+        <label class="ark-radio"><input type="radio" name="trip" value="roundtrip" checked> <?php echo esc_html( ark_t( 'Round-trip' ) ); ?></label>
+        <label class="ark-radio"><input type="radio" name="trip" value="oneway"> <?php echo esc_html( ark_t( 'One-way' ) ); ?></label>
     </div>
     <div class="ark-fly-form-row">
         <div class="ark-fly-field">
-            <label for="ark-origin"><?php echo esc_html( ark_t( 'form_from' ) ); ?></label>
-            <input type="text" id="ark-origin" name="origin" placeholder="<?php echo esc_attr( ark_t( 'form_origin_placeholder' ) ); ?>" autocomplete="off" required>
+            <label for="ark-origin"><?php echo esc_html( ark_t( 'From' ) ); ?></label>
+            <input type="text" id="ark-origin" name="origin" placeholder="<?php echo esc_attr( ark_t( 'City or airport' ) ); ?>" autocomplete="off" required>
         </div>
         <div class="ark-fly-field">
-            <label for="ark-destination"><?php echo esc_html( ark_t( 'form_to' ) ); ?></label>
-            <input type="text" id="ark-destination" name="destination" placeholder="<?php echo esc_attr( ark_t( 'form_destination_placeholder' ) ); ?>" autocomplete="off" required>
+            <label for="ark-destination"><?php echo esc_html( ark_t( 'To' ) ); ?></label>
+            <input type="text" id="ark-destination" name="destination" placeholder="<?php echo esc_attr( ark_t( 'City or airport' ) ); ?>" autocomplete="off" required>
         </div>
     </div>
     <div class="ark-fly-form-row">
         <div class="ark-fly-field">
-            <label for="ark-depart"><?php echo esc_html( ark_t( 'form_departure' ) ); ?></label>
+            <label for="ark-depart"><?php echo esc_html( ark_t( 'Departure' ) ); ?></label>
             <input type="date" id="ark-depart" name="depart" required>
         </div>
         <div class="ark-fly-field ark-return-wrap">
-            <label for="ark-return"><?php echo esc_html( ark_t( 'form_return' ) ); ?></label>
+            <label for="ark-return"><?php echo esc_html( ark_t( 'Return' ) ); ?></label>
             <input type="date" id="ark-return" name="return">
         </div>
         <div class="ark-fly-field">
-            <label for="ark-class"><?php echo esc_html( ark_t( 'form_class' ) ); ?></label>
+            <label for="ark-class"><?php echo esc_html( ark_t( 'Class' ) ); ?></label>
             <select id="ark-class" name="class">
-                <option value="economy"><?php echo esc_html( ark_t( 'form_economy' ) ); ?></option>
-                <option value="premium"><?php echo esc_html( ark_t( 'form_premium' ) ); ?></option>
-                <option value="business"><?php echo esc_html( ark_t( 'form_business' ) ); ?></option>
-                <option value="first"><?php echo esc_html( ark_t( 'form_first' ) ); ?></option>
+                <option value="economy"><?php echo esc_html( ark_t( 'Economy' ) ); ?></option>
+                <option value="premium"><?php echo esc_html( ark_t( 'Premium Economy' ) ); ?></option>
+                <option value="business"><?php echo esc_html( ark_t( 'Business' ) ); ?></option>
+                <option value="first"><?php echo esc_html( ark_t( 'First' ) ); ?></option>
             </select>
         </div>
     </div>
     <div class="ark-fly-form-row ark-fly-contact">
         <div class="ark-fly-field">
-            <label for="ark-fly-name"><?php echo esc_html( ark_t( 'form_name' ) ); ?></label>
-            <input type="text" id="ark-fly-name" name="contact_name" placeholder="<?php echo esc_attr( ark_t( 'form_name_placeholder' ) ); ?>" autocomplete="name" required>
+            <label for="ark-fly-name"><?php echo esc_html( ark_t( 'Name' ) ); ?></label>
+            <input type="text" id="ark-fly-name" name="contact_name" placeholder="<?php echo esc_attr( ark_t( 'Full name' ) ); ?>" autocomplete="name" required>
         </div>
     </div>
     <div class="ark-fly-form-row ark-fly-contact">
         <div class="ark-fly-field">
-            <label for="ark-fly-email"><?php echo esc_html( ark_t( 'form_email' ) ); ?></label>
-            <input type="email" id="ark-fly-email" name="contact_email" placeholder="<?php echo esc_attr( ark_t( 'form_email_placeholder' ) ); ?>" autocomplete="email" required>
+            <label for="ark-fly-email"><?php echo esc_html( ark_t( 'Email' ) ); ?></label>
+            <input type="email" id="ark-fly-email" name="contact_email" placeholder="<?php echo esc_attr( ark_t( 'you@example.com' ) ); ?>" autocomplete="email" required>
         </div>
     </div>
     <div class="ark-fly-form-row">
         <div class="ark-fly-field ark-fly-phone-field">
-            <label for="ark-fly-phone"><?php echo esc_html( ark_t( 'form_phone' ) ); ?></label>
+            <label for="ark-fly-phone"><?php echo esc_html( ark_t( 'Phone' ) ); ?></label>
             <div class="ark-fly-phone-inline">
-                <select id="ark-fly-country" name="contact_country_code" class="ark-fly-country-code" aria-label="<?php echo esc_attr( ark_t( 'form_country_code' ) ); ?>">
+                <select id="ark-fly-country" name="contact_country_code" class="ark-fly-country-code" aria-label="<?php echo esc_attr( ark_t( 'Country code' ) ); ?>">
                     <option value="+46" data-flag="se" selected>+46</option>
                     <option value="+47" data-flag="no">+47</option>
                     <option value="+45" data-flag="dk">+45</option>
@@ -99,13 +99,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <option value="+234" data-flag="ng">+234</option>
                     <option value="+27" data-flag="za">+27</option>
                 </select>
-                <input type="tel" id="ark-fly-phone" name="contact_phone" placeholder="<?php echo esc_attr( ark_t( 'form_phone_placeholder' ) ); ?>" autocomplete="tel" required>
+                <input type="tel" id="ark-fly-phone" name="contact_phone" placeholder="<?php echo esc_attr( ark_t( 'Phone number' ) ); ?>" autocomplete="tel" required>
             </div>
         </div>
     </div>
     <div class="ark-fly-form-row ark-fly-passengers">
         <div class="ark-fly-field">
-            <label for="ark-adults"><?php echo esc_html( ark_t( 'form_adults' ) ); ?></label>
+            <label for="ark-adults"><?php echo esc_html( ark_t( 'Adults' ) ); ?></label>
             <select id="ark-adults" name="adults">
                 <?php for ( $i = 1; $i <= 9; $i++ ) : ?>
                     <option value="<?php echo (int) $i; ?>"><?php echo (int) $i; ?></option>
@@ -113,7 +113,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </select>
         </div>
         <div class="ark-fly-field">
-            <label for="ark-children"><?php echo esc_html( ark_t( 'form_children' ) ); ?></label>
+            <label for="ark-children"><?php echo esc_html( ark_t( 'Children' ) ); ?></label>
             <select id="ark-children" name="children">
                 <?php for ( $i = 0; $i <= 9; $i++ ) : ?>
                     <option value="<?php echo (int) $i; ?>"><?php echo (int) $i; ?></option>
@@ -121,7 +121,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </select>
         </div>
         <div class="ark-fly-field">
-            <label for="ark-infants"><?php echo esc_html( ark_t( 'form_infants' ) ); ?></label>
+            <label for="ark-infants"><?php echo esc_html( ark_t( 'Infants' ) ); ?></label>
             <select id="ark-infants" name="infants">
                 <?php for ( $i = 0; $i <= 4; $i++ ) : ?>
                     <option value="<?php echo (int) $i; ?>"><?php echo (int) $i; ?></option>
@@ -130,6 +130,6 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
     </div>
     <div class="ark-fly-form-actions">
-        <button type="submit" class="btn-primary"><?php echo esc_html( ark_t( 'form_search_flights' ) ); ?></button>
+        <button type="submit" class="btn-primary"><?php echo esc_html( ark_t( 'Search Flights' ) ); ?></button>
     </div>
 </form>

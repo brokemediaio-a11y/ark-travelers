@@ -15,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section id="hero-video-scrub" class="hero-video-scrubbing">
     <!-- Loading Screen -->
     <div class="video-scrub-loading" id="videoScrubLoading">
-        <div class="loading-content">
+            <div class="loading-content">
             <div class="loading-spinner"></div>
-            <p class="loading-text"><?php echo esc_html( ark_t( 'loading_experience' ) ); ?></p>
+            <p class="loading-text"><?php echo esc_html( ark_t( 'Loading Experience' ) ); ?></p>
             <div class="loading-progress">
                 <div class="progress-bar" id="loadingProgress"></div>
             </div>
@@ -35,24 +35,24 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="video-overlay-content airplane-scroll-hero-cta" id="heroContentFinal">
             <div class="airplane-hero-cta-content">
                 <p class="airplane-hero-eyebrow">
-                    <?php echo esc_html( ark_t( 'hero_journey_window' ) ); ?>
+                    <?php echo esc_html( ark_t( 'Your journey begins at the window.' ) ); ?>
                 </p>
                 <h1 class="airplane-hero-title">
-                    <?php echo esc_html( ark_t( 'hero_book_your' ) ); ?>
+                    <?php echo esc_html( ark_t( 'Book Your' ) ); ?>
                     <span class="airplane-hero-highlight">
-                        <?php echo esc_html( ark_t( 'hero_flight' ) ); ?>
+                        <?php echo esc_html( ark_t( 'Flight' ) ); ?>
                     </span>
-                    <?php echo esc_html( ark_t( 'hero_travel_confidence' ) ); ?>
+                    <?php echo esc_html( ark_t( '& Travel with Confidence' ) ); ?>
                 </h1>
                 <p class="airplane-hero-subtitle">
-                    <?php echo esc_html( ark_t( 'hero_subtitle' ) ); ?>
+                    <?php echo esc_html( ark_t( 'Seamless flight bookings, Umrah packages, and 24/7 support. Your journey starts here.' ) ); ?>
                 </p>
                 <div class="airplane-hero-ctas">
                     <a href="<?php echo esc_url( ark_url( '/fly/' ) ); ?>" class="btn-airplane-primary">
-                        <?php echo esc_html( ark_t( 'hero_book_flights' ) ); ?>
+                        <?php echo esc_html( ark_t( 'Book Flights' ) ); ?>
                     </a>
                     <a href="<?php echo esc_url( ark_url( '/umrah/' ) ); ?>" class="btn-airplane-outline">
-                        <?php echo esc_html( ark_t( 'hero_umrah_packages' ) ); ?>
+                        <?php echo esc_html( ark_t( 'Umrah Packages' ) ); ?>
                     </a>
                 </div>
             </div>

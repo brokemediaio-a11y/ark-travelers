@@ -76,8 +76,8 @@ while ( have_posts() ) {
                 <?php endif; ?>
                 <h1 class="ark-single-hero-title"><?php echo esc_html( $title ); ?></h1>
                 <div class="ark-single-hero-meta">
-                    <span><?php echo esc_html( $duration . ' ' . ark_t( 'umrah_days' ) ); ?></span>
-                    <span><?php echo esc_html( $stars . ' ' . ark_t( 'umrah_stars' ) ); ?></span>
+                    <span><?php echo esc_html( $duration . ' ' . ark_t( 'days' ) ); ?></span>
+                    <span><?php echo esc_html( $stars . ' ' . ark_t( 'stars' ) ); ?></span>
                     <span class="ark-single-hero-price">SEK <?php echo esc_html( $price ); ?></span>
                 </div>
             </div>

@@ -24,7 +24,6 @@ get_header();
         <div class="ark-contact-main">
             <form id="ark-contact-form" class="ark-contact-form card" aria-label="<?php echo esc_attr( ark_t( 'contact_form_aria' ) ); ?>">
                 <?php wp_nonce_field( 'ark_nonce', 'ark_contact_nonce' ); ?>
-                <input type="hidden" name="ark_lang" value="<?php echo esc_attr( ark_lang() ); ?>">
                 <div class="ark-form-row">
                     <div class="ark-form-group">
                         <label for="ark-contact-name"><?php echo esc_html( ark_t( 'contact_name' ) ); ?> <span class="required">*</span></label>

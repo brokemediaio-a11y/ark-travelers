@@ -30,16 +30,16 @@ $testimonials = array(
     </div>
     <div class="ark-container">
         <header class="testimonials-header">
-            <h2 id="testimonials-heading" class="testimonials-title"><?php echo esc_html( ark_t( 'testimonials_title' ) ); ?></h2>
-            <p class="testimonials-subtitle"><?php echo esc_html( ark_t( 'testimonials_subtitle' ) ); ?></p>
+            <h2 id="testimonials-heading" class="testimonials-title"><?php echo esc_html( ark_t( 'Stories From The Holy Journey' ) ); ?></h2>
+            <p class="testimonials-subtitle"><?php echo esc_html( ark_t( 'Real experiences from 15,000+ pilgrims' ) ); ?></p>
         </header>
 
-        <div class="testimonials-filters testimonials-filters-desktop" role="tablist" aria-label="<?php echo esc_attr( ark_t( 'testimonials_filter_aria' ) ); ?>">
-            <button type="button" class="testimonials-filter is-active" data-filter="all" aria-pressed="true"><?php echo esc_html( ark_t( 'testimonials_all' ) ); ?></button>
-            <button type="button" class="testimonials-filter" data-filter="ramadan" aria-pressed="false"><?php echo esc_html( ark_t( 'testimonials_ramadan' ) ); ?></button>
-            <button type="button" class="testimonials-filter" data-filter="family" aria-pressed="false"><?php echo esc_html( ark_t( 'testimonials_family' ) ); ?></button>
-            <button type="button" class="testimonials-filter" data-filter="first-time" aria-pressed="false"><?php echo esc_html( ark_t( 'testimonials_first_time' ) ); ?></button>
-            <button type="button" class="testimonials-filter" data-filter="hajj-prep" aria-pressed="false"><?php echo esc_html( ark_t( 'testimonials_hajj_prep' ) ); ?></button>
+        <div class="testimonials-filters testimonials-filters-desktop" role="tablist" aria-label="<?php echo esc_attr( ark_t( 'Filter testimonials' ) ); ?>">
+            <button type="button" class="testimonials-filter is-active" data-filter="all" aria-pressed="true"><?php echo esc_html( ark_t( 'All' ) ); ?></button>
+            <button type="button" class="testimonials-filter" data-filter="ramadan" aria-pressed="false"><?php echo esc_html( ark_t( 'Ramadan' ) ); ?></button>
+            <button type="button" class="testimonials-filter" data-filter="family" aria-pressed="false"><?php echo esc_html( ark_t( 'Family' ) ); ?></button>
+            <button type="button" class="testimonials-filter" data-filter="first-time" aria-pressed="false"><?php echo esc_html( ark_t( 'First-Time' ) ); ?></button>
+            <button type="button" class="testimonials-filter" data-filter="hajj-prep" aria-pressed="false"><?php echo esc_html( ark_t( 'Hajj Prep' ) ); ?></button>
         </div>
 
         <!-- Desktop: masonry, 2 rows visible, Show more -->
@@ -73,9 +73,9 @@ $testimonials = array(
                             <div class="polaroid-footer">
                                 <span class="polaroid-stars" aria-label="5 stars">★★★★★</span>
                                 <?php if ( ! empty( $t['verified'] ) ) : ?>
-                                <span class="polaroid-verified" title="<?php echo esc_attr( ark_t( 'testimonials_verified' ) ); ?>">
+                                <span class="polaroid-verified" title="<?php echo esc_attr( ark_t( 'Verified Journey' ) ); ?>">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                    <?php echo esc_html( ark_t( 'testimonials_verified' ) ); ?>
+                                    <?php echo esc_html( ark_t( 'Verified Journey' ) ); ?>
                                 </span>
                                 <?php endif; ?>
                             </div>
@@ -85,7 +85,7 @@ $testimonials = array(
                 </div>
             </div>
             <div class="testimonials-show-more-wrap">
-                <button type="button" class="testimonials-show-more btn-polaroid-outline" id="testimonials-show-more" aria-expanded="false" data-more="<?php echo esc_attr( ark_t( 'testimonials_show_more' ) ); ?>" data-less="<?php echo esc_attr( ark_t( 'testimonials_show_less' ) ); ?>"><?php echo esc_html( ark_t( 'testimonials_show_more' ) ); ?></button>
+                <button type="button" class="testimonials-show-more btn-polaroid-outline" id="testimonials-show-more" aria-expanded="false" data-more="<?php echo esc_attr( ark_t( 'Show more stories' ) ); ?>" data-less="<?php echo esc_attr( ark_t( 'Show less' ) ); ?>"><?php echo esc_html( ark_t( 'Show more stories' ) ); ?></button>
             </div>
         </div>
 
@@ -117,7 +117,7 @@ $testimonials = array(
                                 <div class="polaroid-footer">
                                     <span class="polaroid-stars">★★★★★</span>
                                     <?php if ( ! empty( $t['verified'] ) ) : ?>
-                                    <span class="polaroid-verified"><?php echo esc_html( ark_t( 'testimonials_verified' ) ); ?></span>
+                                    <span class="polaroid-verified"><?php echo esc_html( ark_t( 'Verified Journey' ) ); ?></span>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -135,14 +135,14 @@ $testimonials = array(
         </div>
 
         <div class="testimonials-cta">
-            <a href="<?php echo esc_url( ark_url( '/contact/' ) ); ?>" class="btn-polaroid-outline"><?php echo esc_html( ark_t( 'testimonials_share' ) ); ?></a>
+            <a href="<?php echo esc_url( ark_url( '/contact/' ) ); ?>" class="btn-polaroid-outline"><?php echo esc_html( ark_t( 'Share Your Story' ) ); ?></a>
         </div>
     </div>
 
     <div id="testimonial-modal" class="polaroid-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
         <div class="polaroid-modal-backdrop" aria-hidden="true"></div>
         <div class="polaroid-modal-content">
-            <button type="button" class="polaroid-modal-close" aria-label="<?php echo esc_attr( ark_t( 'testimonials_close' ) ); ?>">&times;</button>
+            <button type="button" class="polaroid-modal-close" aria-label="<?php echo esc_attr( ark_t( 'Close' ) ); ?>">&times;</button>
             <h3 id="modal-title" class="polaroid-modal-title"></h3>
             <p class="polaroid-modal-location"></p>
             <div class="polaroid-modal-body"></div>

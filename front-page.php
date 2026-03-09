@@ -17,24 +17,24 @@ get_header();
     <?php get_template_part( 'template-parts/airplane-scroll' ); ?>
 
     <!-- GIF Section (panel for GSAP pin + snap) -->
-    <section class="ark-video-section panel ark-section-parallax" id="ark-video-section" aria-label="<?php echo esc_attr( ark_t( 'home_travel_aria' ) ); ?>" data-parallax-section>
+    <section class="ark-video-section panel ark-section-parallax" id="ark-video-section" aria-label="<?php echo esc_attr( ark_t( 'Travel animation' ) ); ?>" data-parallax-section>
         <div class="ark-video-wrapper">
-            <img class="ark-video-parallax" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/ark video gif.gif' ); ?>" alt="<?php echo esc_attr( ark_t( 'home_office_alt' ) ); ?>" />
+            <img class="ark-video-parallax" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/ark video gif.gif' ); ?>" alt="<?php echo esc_attr( ark_t( 'ARK Travelers office scene' ) ); ?>" />
         </div>
     </section>
 
     <!-- Trust credentials marquee -->
-    <section class="ark-section ark-trust-bar ark-section-parallax" aria-label="<?php echo esc_attr( ark_t( 'home_trust_aria' ) ); ?>" data-parallax-section>
+    <section class="ark-section ark-trust-bar ark-section-parallax" aria-label="<?php echo esc_attr( ark_t( 'Trust credentials' ) ); ?>" data-parallax-section>
         <div class="ark-marquee">
             <div class="ark-marquee-inner">
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'home_iata' ) ); ?></span>
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'home_pilgrims' ) ); ?></span>
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'home_24_7_support' ) ); ?></span>
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'home_hajj_approved' ) ); ?></span>
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'home_gdpr' ) ); ?></span>
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'home_award' ) ); ?></span>
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'home_iata' ) ); ?></span>
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'home_pilgrims' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'IATA Certified' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( '15,000+ Satisfied Pilgrims' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( '24/7 Swedish Support' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'Ministry of Hajj Approved' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'GDPR Compliance' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'Award-Winning' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'IATA Certified' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( '15,000+ Satisfied Pilgrims' ) ); ?></span>
             </div>
         </div>
     </section>
@@ -42,41 +42,41 @@ get_header();
     <!-- Our Services – three cards with scroll parallax (1 & 3: bottom→up, 2: up→down) -->
     <section class="ark-section ark-services ark-services-parallax ark-section-parallax" id="ark-services" aria-labelledby="services-heading" data-parallax-section>
         <div class="ark-container">
-            <h2 id="services-heading" class="ark-section-title"><?php echo esc_html( ark_t( 'home_our_services' ) ); ?></h2>
+            <h2 id="services-heading" class="ark-section-title"><?php echo esc_html( ark_t( 'Our Services' ) ); ?></h2>
             <div class="ark-services-parallax-grid">
                 <article class="ark-service-parallax-card ark-service-parallax-card-up ark-service-card-1" data-parallax="up">
                     <div class="ark-service-parallax-card-inner">
                         <div class="ark-service-parallax-icon"><i class="fa-solid fa-plane" aria-hidden="true"></i></div>
-                        <h3><?php echo esc_html( ark_t( 'home_flight_easy' ) ); ?></h3>
-                        <p><?php echo esc_html( ark_t( 'home_flight_desc' ) ); ?></p>
+                        <h3><?php echo esc_html( ark_t( 'Flight Booking Made Easy' ) ); ?></h3>
+                        <p><?php echo esc_html( ark_t( 'Search and book flights to destinations worldwide. Best prices, flexible dates, and instant confirmations.' ) ); ?></p>
                         <ul class="ark-service-parallax-features">
-                            <li><?php echo esc_html( ark_t( 'home_best_price' ) ); ?></li>
-                            <li><?php echo esc_html( ark_t( 'home_etickets' ) ); ?></li>
-                            <li><?php echo esc_html( ark_t( 'home_booking_support' ) ); ?></li>
+                            <li><?php echo esc_html( ark_t( 'Best price guarantee' ) ); ?></li>
+                            <li><?php echo esc_html( ark_t( 'Instant e-tickets' ) ); ?></li>
+                            <li><?php echo esc_html( ark_t( '24/7 booking support' ) ); ?></li>
                         </ul>
                     </div>
                 </article>
                 <article class="ark-service-parallax-card ark-service-parallax-card-down ark-service-card-2" data-parallax="down">
                     <div class="ark-service-parallax-card-inner">
                         <div class="ark-service-parallax-icon"><i class="fa-solid fa-ticket" aria-hidden="true"></i></div>
-                        <h3><?php echo esc_html( ark_t( 'home_etickets_docs' ) ); ?></h3>
-                        <p><?php echo esc_html( ark_t( 'home_etickets_desc' ) ); ?></p>
+                        <h3><?php echo esc_html( ark_t( 'E-Tickets & Travel Documents' ) ); ?></h3>
+                        <p><?php echo esc_html( ark_t( 'Receive your e-tickets instantly. Visa assistance, travel insurance, and all documents handled seamlessly.' ) ); ?></p>
                         <ul class="ark-service-parallax-features">
-                            <li><?php echo esc_html( ark_t( 'home_etickets' ) ); ?></li>
-                            <li><?php echo esc_html( ark_t( 'home_visa_assist' ) ); ?></li>
-                            <li><?php echo esc_html( ark_t( 'home_travel_insurance' ) ); ?></li>
+                            <li><?php echo esc_html( ark_t( 'Instant e-tickets' ) ); ?></li>
+                            <li><?php echo esc_html( ark_t( 'Visa assistance' ) ); ?></li>
+                            <li><?php echo esc_html( ark_t( 'Travel insurance' ) ); ?></li>
                         </ul>
                     </div>
                 </article>
                 <article class="ark-service-parallax-card ark-service-parallax-card-up ark-service-card-3" data-parallax="up">
                     <div class="ark-service-parallax-card-inner">
                         <div class="ark-service-parallax-icon"><i class="fa-solid fa-mosque" aria-hidden="true"></i></div>
-                        <h3><?php echo esc_html( ark_t( 'home_umrah_spiritual' ) ); ?></h3>
-                        <p><?php echo esc_html( ark_t( 'home_umrah_desc' ) ); ?></p>
+                        <h3><?php echo esc_html( ark_t( 'Umrah & Spiritual Journeys' ) ); ?></h3>
+                        <p><?php echo esc_html( ark_t( 'Complete Umrah packages with flights, hotels near Haram, expert guides, and full spiritual support.' ) ); ?></p>
                         <ul class="ark-service-parallax-features">
-                            <li><?php echo esc_html( ark_t( 'home_complete_packages' ) ); ?></li>
-                            <li><?php echo esc_html( ark_t( 'home_hotels_haram' ) ); ?></li>
-                            <li><?php echo esc_html( ark_t( 'home_expert_guides' ) ); ?></li>
+                            <li><?php echo esc_html( ark_t( 'Complete packages' ) ); ?></li>
+                            <li><?php echo esc_html( ark_t( 'Hotels near Haram' ) ); ?></li>
+                            <li><?php echo esc_html( ark_t( 'Expert guides' ) ); ?></li>
                         </ul>
                     </div>
                 </article>
@@ -88,12 +88,12 @@ get_header();
     <section class="ark-section ark-featured-package ark-parallax ark-section-parallax" data-parallax-section>
         <div class="ark-parallax-layer ark-parallax-speed-mid"></div>
         <div class="ark-container ark-featured-inner">
-            <span class="ark-badge"><?php echo esc_html( ark_t( 'home_umrah_section_badge' ) ); ?></span>
-            <h2 class="ark-featured-title"><?php echo esc_html( ark_t( 'home_umrah_section_title' ) ); ?></h2>
-            <p class="ark-featured-highlights"><?php echo esc_html( ark_t( 'home_umrah_section_desc' ) ); ?></p>
+            <span class="ark-badge"><?php echo esc_html( ark_t( 'Umrah Packages' ) ); ?></span>
+            <h2 class="ark-featured-title"><?php echo esc_html( ark_t( 'Umrah Packages for Every Pilgrim' ) ); ?></h2>
+            <p class="ark-featured-highlights"><?php echo esc_html( ark_t( 'From spiritual retreats to group pilgrimages—flights, hotels near the Haram, and expert guidance.' ) ); ?></p>
             <div class="ark-featured-ctas">
-                <a href="<?php echo esc_url( ark_url( '/fly/' ) ); ?>" class="btn-primary"><?php echo esc_html( ark_t( 'home_book_flights_now' ) ); ?></a>
-                <a href="<?php echo esc_url( ark_url( '/umrah/' ) ); ?>" class="btn-glass"><?php echo esc_html( ark_t( 'home_view_umrah' ) ); ?></a>
+                <a href="<?php echo esc_url( ark_url( '/fly/' ) ); ?>" class="btn-primary"><?php echo esc_html( ark_t( 'Book Flights Now' ) ); ?></a>
+                <a href="<?php echo esc_url( ark_url( '/umrah/' ) ); ?>" class="btn-glass"><?php echo esc_html( ark_t( 'View Umrah Packages' ) ); ?></a>
             </div>
         </div>
     </section>
@@ -101,35 +101,35 @@ get_header();
     <!-- Why Choose ARK -->
     <section class="ark-section ark-why ark-section-parallax" data-parallax-section>
         <div class="ark-container">
-            <h2 class="ark-section-title"><?php echo esc_html( ark_t( 'home_why_choose' ) ); ?></h2>
+            <h2 class="ark-section-title"><?php echo esc_html( ark_t( 'Why Choose ARK' ) ); ?></h2>
             <div class="ark-why-grid">
                 <article class="ark-why-card ark-why-card-1 ark-reveal">
                     <span class="ark-why-number" aria-hidden="true">01</span>
                     <span class="ark-why-icon ark-why-icon-shield" aria-hidden="true"></span>
                     <div class="ark-why-fold" aria-hidden="true"></div>
-                    <h3><?php echo esc_html( ark_t( 'home_swedish_standards' ) ); ?></h3>
-                    <p><?php echo esc_html( ark_t( 'home_swedish_standards_desc' ) ); ?></p>
+                    <h3><?php echo esc_html( ark_t( 'Swedish Standards + Islamic Values' ) ); ?></h3>
+                    <p><?php echo esc_html( ark_t( 'We combine Nordic reliability with deep respect for your faith and traditions.' ) ); ?></p>
                 </article>
                 <article class="ark-why-card ark-why-card-2 ark-reveal">
                     <span class="ark-why-number" aria-hidden="true">02</span>
                     <span class="ark-why-icon ark-why-icon-tag" aria-hidden="true"></span>
                     <div class="ark-why-fold" aria-hidden="true"></div>
-                    <h3><?php echo esc_html( ark_t( 'home_no_hidden' ) ); ?></h3>
-                    <p><?php echo esc_html( ark_t( 'home_no_hidden_desc' ) ); ?></p>
+                    <h3><?php echo esc_html( ark_t( 'No Hidden Costs Ever' ) ); ?></h3>
+                    <p><?php echo esc_html( ark_t( 'Transparent pricing with no surprise fees. What you see is what you pay.' ) ); ?></p>
                 </article>
                 <article class="ark-why-card ark-why-card-3 ark-reveal">
                     <span class="ark-why-number" aria-hidden="true">03</span>
                     <span class="ark-why-icon ark-why-icon-globe" aria-hidden="true"></span>
                     <div class="ark-why-fold" aria-hidden="true"></div>
-                    <h3><?php echo esc_html( ark_t( 'home_multilingual' ) ); ?></h3>
-                    <p><?php echo esc_html( ark_t( 'home_multilingual_desc' ) ); ?></p>
+                    <h3><?php echo esc_html( ark_t( 'Multilingual Support' ) ); ?></h3>
+                    <p><?php echo esc_html( ark_t( 'Swedish, English, and Arabic so you can communicate in comfort.' ) ); ?></p>
                 </article>
                 <article class="ark-why-card ark-why-card-4 ark-reveal">
                     <span class="ark-why-number" aria-hidden="true">04</span>
                     <span class="ark-why-icon ark-why-icon-lock" aria-hidden="true"></span>
                     <div class="ark-why-fold" aria-hidden="true"></div>
-                    <h3><?php echo esc_html( ark_t( 'home_insured_gdpr' ) ); ?></h3>
-                    <p><?php echo esc_html( ark_t( 'home_insured_gdpr_desc' ) ); ?></p>
+                    <h3><?php echo esc_html( ark_t( 'Fully Insured & GDPR Protected' ) ); ?></h3>
+                    <p><?php echo esc_html( ark_t( 'Your data and your journey are protected to the highest standards.' ) ); ?></p>
                 </article>
             </div>
         </div>
@@ -141,12 +141,12 @@ get_header();
     <section class="ark-section ark-cta-final ark-section-parallax" data-parallax-section>
         <div class="ark-cta-final-bg"></div>
         <div class="ark-container ark-cta-final-inner">
-            <h2 class="ark-cta-final-title"><?php echo esc_html( ark_t( 'home_begin_journey' ) ); ?></h2>
+            <h2 class="ark-cta-final-title"><?php echo esc_html( ark_t( 'Begin Your Journey Today' ) ); ?></h2>
             <div class="ark-cta-final-buttons">
-                <a href="<?php echo esc_url( ark_url( '/fly/' ) ); ?>" class="btn-primary"><?php echo esc_html( ark_t( 'home_book_flight' ) ); ?></a>
-                <a href="<?php echo esc_url( ark_url( '/contact/' ) ); ?>" class="btn-glass"><?php echo esc_html( ark_t( 'home_contact_us' ) ); ?></a>
+                <a href="<?php echo esc_url( ark_url( '/fly/' ) ); ?>" class="btn-primary"><?php echo esc_html( ark_t( 'Book Your Flight' ) ); ?></a>
+                <a href="<?php echo esc_url( ark_url( '/contact/' ) ); ?>" class="btn-glass"><?php echo esc_html( ark_t( 'Contact Us' ) ); ?></a>
             </div>
-            <p class="ark-cta-final-trust"><?php echo esc_html( ark_t( 'home_fully_protected' ) ); ?> &middot; <?php echo esc_html( ark_t( 'home_gdpr_compliant' ) ); ?> &middot; <?php echo esc_html( ark_t( 'home_no_obligations' ) ); ?></p>
+            <p class="ark-cta-final-trust"><?php echo esc_html( ark_t( 'Fully protected' ) ); ?> &middot; <?php echo esc_html( ark_t( 'GDPR compliant' ) ); ?> &middot; <?php echo esc_html( ark_t( 'No obligations' ) ); ?></p>
         </div>
     </section>
 </main>

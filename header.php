@@ -20,10 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <body <?php body_class( 'ark-body' ); ?>>
 <?php wp_body_open(); ?>
 
-<header id="masthead" class="ark-header" role="banner" aria-label="<?php echo esc_attr( function_exists( 'ark_t' ) ? ark_t( 'header_aria' ) : __( 'Site header', 'ark-travelers' ) ); ?>">
+<header id="masthead" class="ark-header" role="banner" aria-label="<?php echo esc_attr__( 'Site header', 'ark-travelers' ); ?>">
     <div class="ark-header-inner">
         <div class="ark-header-logo">
-            <a href="<?php echo esc_url( function_exists( 'ark_url' ) ? ark_url( '/' ) : home_url( '/' ) ); ?>" rel="home" class="ark-logo-link">
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="ark-logo-link">
                 <?php if ( has_custom_logo() ) : ?>
                     <?php the_custom_logo(); ?>
                 <?php else : ?>
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </a>
         </div>
 
-        <nav id="ark-primary-nav" class="ark-nav" aria-label="<?php echo esc_attr( function_exists( 'ark_t' ) ? ark_t( 'nav_aria' ) : __( 'Primary navigation', 'ark-travelers' ) ); ?>">
+        <nav id="ark-primary-nav" class="ark-nav" aria-label="<?php echo esc_attr__( 'Primary navigation', 'ark-travelers' ); ?>">
             <?php
             if ( has_nav_menu( 'primary' ) ) {
                 wp_nav_menu( array(
@@ -53,27 +53,14 @@ if ( ! defined( 'ABSPATH' ) ) {
         </nav>
 
         <div class="ark-header-actions">
-            <?php if ( function_exists( 'ark_switch_url' ) && function_exists( 'ark_lang' ) && function_exists( 'ark_t' ) ) :
-                $current_lang = ark_lang();
-                $en_url = ark_switch_url( 'en' );
-                $sv_url = ark_switch_url( 'sv' );
-            ?>
-            <div class="ark-lang-switcher" role="group" aria-label="<?php esc_attr_e( 'Language', 'ark-travelers' ); ?>">
-                <label for="ark-lang-select" class="screen-reader-text"><?php esc_html_e( 'Select language', 'ark-travelers' ); ?></label>
-                <select id="ark-lang-select" class="ark-lang-select" aria-label="<?php esc_attr_e( 'Language', 'ark-travelers' ); ?>">
-                    <option value="<?php echo esc_url( $en_url ); ?>" data-flag="gb" <?php selected( $current_lang, 'en' ); ?>>English</option>
-                    <option value="<?php echo esc_url( $sv_url ); ?>" data-flag="se" <?php selected( $current_lang, 'sv' ); ?>>Svenska</option>
-                </select>
-            </div>
-            <?php endif; ?>
-            <a href="<?php echo esc_url( function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : '#' ); ?>" class="ark-header-cart" aria-label="<?php echo esc_attr( function_exists( 'ark_t' ) ? ark_t( 'cart_aria' ) : __( 'Shopping cart', 'ark-travelers' ) ); ?>">
+            <a href="<?php echo esc_url( function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : '#' ); ?>" class="ark-header-cart" aria-label="<?php echo esc_attr__( 'Shopping cart', 'ark-travelers' ); ?>">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                 </svg>
                 <span class="ark-cart-count" aria-live="polite">0</span>
             </a>
 
-            <button type="button" class="ark-nav-toggle" aria-label="<?php echo esc_attr( function_exists( 'ark_t' ) ? ark_t( 'menu_toggle_aria' ) : __( 'Toggle menu', 'ark-travelers' ) ); ?>" aria-expanded="false" aria-controls="ark-primary-nav">
+            <button type="button" class="ark-nav-toggle" aria-label="<?php echo esc_attr__( 'Toggle menu', 'ark-travelers' ); ?>" aria-expanded="false" aria-controls="ark-primary-nav">
                 <span class="ark-nav-toggle-bar"></span>
                 <span class="ark-nav-toggle-bar"></span>
                 <span class="ark-nav-toggle-bar"></span>

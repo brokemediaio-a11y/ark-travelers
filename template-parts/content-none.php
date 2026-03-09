@@ -10,5 +10,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <section class="ark-no-results">
-	<p><?php echo esc_html( function_exists( 'ark_t' ) ? ark_t( 'nothing_found' ) : __( 'Nothing found.', 'ark-travelers' ) ); ?></p>
+	<p><?php echo esc_html__( 'Nothing found.', 'ark-travelers' ); ?></p>
 </section>

@@ -147,5 +147,5 @@ if ( ! isset( $available_gateways ) ) {
 <?php do_action( 'woocommerce_review_order_after_payment' ); ?>
 
 <div class="ark-trust-badges" aria-hidden="true">
-	<p class="ark-trust-badges-text"><?php echo esc_html( function_exists( 'ark_t' ) ? ark_t( 'wc_trust_secure' ) : __( 'Secure checkout', 'ark-travelers' ) ); ?> &bull; <?php echo esc_html( function_exists( 'ark_t' ) ? ark_t( 'wc_trust_ssl' ) : __( 'SSL encrypted', 'ark-travelers' ) ); ?></p>
+	<p class="ark-trust-badges-text"><?php echo esc_html__( 'Secure checkout', 'ark-travelers' ); ?> &bull; <?php echo esc_html__( 'SSL encrypted', 'ark-travelers' ); ?></p>
 </div>

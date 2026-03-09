@@ -3,13 +3,14 @@
  * ARK Travelers Child Theme Functions
  *
  * @package ARK_Travelers
- * @version 2.3.74
+ * @version 2.3.75
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Legacy multilingual helpers (now language-neutral) for backwards compatibility.
 require_once get_stylesheet_directory() . '/inc/ark-multilang.php';
 
 /**
@@ -529,16 +530,13 @@ add_action( 'init', 'ark_backfill_umrah_overview_content', 26 );
  * Fallback navigation menu (uses ark_url and ark_t for multilingual)
  */
 function ark_fallback_menu() {
-    if ( ! function_exists( 'ark_url' ) || ! function_exists( 'ark_t' ) ) {
-        return;
-    }
     ?>
     <ul class="nav-menu" id="navMenu">
-        <li><a href="<?php echo esc_url( ark_url( '/' ) ); ?>" class="nav-link"><?php echo esc_html( ark_t( 'nav_home' ) ); ?></a></li>
-        <li><a href="<?php echo esc_url( ark_url( '/fly/' ) ); ?>" class="nav-link"><?php echo esc_html( ark_t( 'nav_fly' ) ); ?></a></li>
-        <li><a href="<?php echo esc_url( ark_url( '/umrah/' ) ); ?>" class="nav-link"><?php echo esc_html( ark_t( 'nav_umrah' ) ); ?></a></li>
-        <li><a href="<?php echo esc_url( ark_url( '/about/' ) ); ?>" class="nav-link"><?php echo esc_html( ark_t( 'nav_about' ) ); ?></a></li>
-        <li><a href="<?php echo esc_url( ark_url( '/contact/' ) ); ?>" class="nav-link"><?php echo esc_html( ark_t( 'nav_contact' ) ); ?></a></li>
+        <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="nav-link"><?php echo esc_html__( 'Home', 'ark-travelers' ); ?></a></li>
+        <li><a href="<?php echo esc_url( home_url( '/fly/' ) ); ?>" class="nav-link"><?php echo esc_html__( 'FLY', 'ark-travelers' ); ?></a></li>
+        <li><a href="<?php echo esc_url( home_url( '/umrah/' ) ); ?>" class="nav-link"><?php echo esc_html__( 'Umrah Packages', 'ark-travelers' ); ?></a></li>
+        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="nav-link"><?php echo esc_html__( 'About Us', 'ark-travelers' ); ?></a></li>
+        <li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="nav-link"><?php echo esc_html__( 'Contact', 'ark-travelers' ); ?></a></li>
     </ul>
     <?php
 }
@@ -549,14 +547,6 @@ function ark_fallback_menu() {
 function ark_handle_contact_form() {
     check_ajax_referer( 'ark_nonce', 'nonce' );
 
-    $ark_lang = isset( $_POST['ark_lang'] ) ? sanitize_text_field( wp_unslash( $_POST['ark_lang'] ) ) : 'en';
-    if ( $ark_lang === 'sv' && ! defined( 'ARK_LANG' ) ) {
-        define( 'ARK_LANG', 'sv' );
-    }
-    $ark_message = function( $key ) {
-        return function_exists( 'ark_t' ) ? ark_t( $key ) : $key;
-    };
-
     $name    = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
     $email   = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
     $phone   = isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '';
@@ -565,11 +555,19 @@ function ark_handle_contact_form() {
     $privacy = isset( $_POST['privacy'] ) ? (bool) $_POST['privacy'] : false;
 
     if ( empty( $name ) || empty( $email ) || empty( $message ) || ! $privacy ) {
-        wp_send_json_error( array( 'message' => $ark_message( 'form_error_required' ) ) );
+        wp_send_json_error(
+            array(
+                'message' => __( 'Please fill all required fields and accept the privacy policy.', 'ark-travelers' ),
+            )
+        );
     }
 
     if ( ! is_email( $email ) ) {
-        wp_send_json_error( array( 'message' => $ark_message( 'form_error_email' ) ) );
+        wp_send_json_error(
+            array(
+                'message' => __( 'Please enter a valid email address.', 'ark-travelers' ),
+            )
+        );
     }
 
     $to          = get_option( 'admin_email' );
@@ -586,9 +584,17 @@ function ark_handle_contact_form() {
     $sent = wp_mail( $to, $email_subject, $email_body );
 
     if ( $sent ) {
-        wp_send_json_success( array( 'message' => $ark_message( 'form_success' ) ) );
+        wp_send_json_success(
+            array(
+                'message' => __( 'Thank you! We\'ll get back to you soon.', 'ark-travelers' ),
+            )
+        );
     } else {
-        wp_send_json_error( array( 'message' => $ark_message( 'form_error_generic' ) ) );
+        wp_send_json_error(
+            array(
+                'message' => __( 'Something went wrong. Please try again.', 'ark-travelers' ),
+            )
+        );
     }
 }
 add_action( 'wp_ajax_ark_contact_form', 'ark_handle_contact_form' );
@@ -878,7 +884,7 @@ function ark_get_umrah_request_booking_url( $post_id ) {
             return wc_get_cart_url() . '?add-to-cart=' . $product_id . '&ark_checkout=1';
         }
     }
-    return ark_url( '/contact/' ) . '?package=' . rawurlencode( $title );
+    return home_url( '/contact/' ) . '?package=' . rawurlencode( $title );
 }
 
 /**
@@ -990,7 +996,7 @@ function ark_empty_cart_browse_packages_script() {
             var links = block.querySelectorAll('p a, a');
             links.forEach(function(a) {
                 if ( a.textContent.trim().toLowerCase() === 'browse store' || a.href.indexOf('/shop') !== -1 ) {
-                    a.textContent = '<?php echo esc_js( function_exists( 'ark_t' ) ? ark_t( 'browse_packages' ) : 'Browse packages' ); ?>';
+                    a.textContent = '<?php echo esc_js( __( 'Browse packages', 'ark-travelers' ) ); ?>';
                     a.href = '<?php echo $umrah_url; ?>';
                 }
             });
