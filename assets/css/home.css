@@ -1174,6 +1174,15 @@ section.testimonials-polaroid,
     opacity: 1;
 }
 
+/* Fix mobile testimonial images - ensure they're visible */
+@media (max-width: 768px) {
+    .testimonials-mobile .polaroid-photo,
+    .testimonials-mobile .polaroid-photo.polaroid-photo-develop {
+        opacity: 1 !important;
+        transition: none !important;
+    }
+}
+
 @keyframes polaroidDevelop {
     0% { opacity: 0; background-color: #fff; }
     70% { opacity: 0.3; }

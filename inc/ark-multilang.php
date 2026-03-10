@@ -2,13 +2,9 @@
 /**
  * ARK Travelers – Legacy multilingual helpers (now neutral for TranslatePress)
  *
- * The original version of this file implemented a full URL-based multilingual
- * system (/sv/ prefix, custom rewrite rules, hreflang, body classes, etc.).
- * That logic has been removed so that language handling is delegated entirely
- * to a dedicated translation plugin (e.g. TranslatePress).
- *
- * What remains here are very small, language-neutral helpers so existing
- * templates that call ark_url() or ark_t() continue to work without errors.
+ * This file previously contained a custom URL-based multilingual system.
+ * It has been refactored to provide compatibility functions that wrap
+ * standard WordPress i18n, allowing TranslatePress to manage translations.
  *
  * @package ARK_Travelers
  */
@@ -18,26 +14,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Current language code.
+ * Current language code: always 'en' for TranslatePress to take over.
  *
- * Historically returned 'en' or 'sv'. Now always returns 'en' so that
- * templates relying on ark_lang() remain safe, while actual language
- * switching is handled by the translation plugin.
- *
- * @return string
+ * @return string Always returns 'en'.
  */
 function ark_lang() {
     return 'en';
 }
 
 /**
- * Language-agnostic URL helper for internal links.
+ * Current page path without the language prefix (now always returns raw path).
  *
- * Previously added /sv prefixes based on the current language. It is now a
- * thin wrapper around home_url() with no language-aware behaviour so that
- * translation plugins can manage URL structures themselves.
+ * @return string Current page path.
+ */
+function ark_current_path() {
+    $uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '';
+    $path = (string) parse_url( $uri, PHP_URL_PATH );
+    $home_path = trim( (string) parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+    if ( $home_path !== '' ) {
+        if ( $path === $home_path ) {
+            return '';
+        }
+        if ( strpos( $path, $home_path . '/' ) === 0 ) {
+            return trim( substr( $path, strlen( $home_path ) + 1 ), '/' );
+        }
+    }
+    return trim( $path, '/' );
+}
+
+/**
+ * Language-prefixed URL for internal links (now just home_url()).
+ * TranslatePress will handle URL rewriting.
  *
- * @param string $path e.g. '/', '/fly/', '/about/'.
+ * @param string $path e.g. '/', '/fly/', '/about/'
  * @return string
  */
 function ark_url( $path ) {
@@ -46,15 +55,21 @@ function ark_url( $path ) {
 }
 
 /**
- * Backwards-compatible translation helper.
+ * URL for the other language (now just home_url() for current page).
+ * TranslatePress will handle language switching.
  *
- * The original implementation loaded large translation arrays from
- * languages/en.php and languages/sv.php. Since language handling is now
- * offloaded to a plugin, this helper simply returns the given key as a
- * human-readable string using WordPress i18n, allowing plugins like
- * TranslatePress to translate the rendered output.
+ * @param string $lang 'en' or 'sv'
+ * @return string
+ */
+function ark_switch_url( $lang ) {
+    return home_url( ark_current_path() );
+}
+
+/**
+ * Translations helper (now uses standard WordPress i18n).
+ * This wraps __() so TranslatePress can detect and translate strings.
  *
- * Usage example in templates:
+ * Example:
  *   echo esc_html( ark_t( 'Home' ) );
  *
  * @param string $key Human-readable English string.
@@ -63,18 +78,3 @@ function ark_url( $path ) {
 function ark_t( $key ) {
     return __( $key, 'ark-travelers' );
 }
-
-/**
- * Backwards-compatible switch URL helper.
- *
- * Kept only so existing calls do not fatal. Now simply returns home_url()
- * for the requested language code without applying any custom routing.
- *
- * @param string $lang Language code like 'en' or 'sv'.
- * @return string
- */
-function ark_switch_url( $lang ) {
-    // Let the translation plugin handle language-specific URLs.
-    return home_url( '/' );
-}
-
