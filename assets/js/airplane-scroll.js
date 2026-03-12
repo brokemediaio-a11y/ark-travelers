@@ -7,19 +7,21 @@
 (function() {
     'use strict';
 
-    const FRAME_BASE = '/airplane zip/ezgif-frame-';
     const FRAME_EXT = '.jpg';
-    const MAX_FRAMES = 93; // Actual frame count in airplane zip folder
+    const MOBILE_FRAME_EXT = '.png'; // Portrait frames are PNG
+    const MAX_FRAMES = 93;           // Desktop landscape frame count
+    const MOBILE_BREAKPOINT = 1024;  // px – portrait frames on mobile + tablet
     const WHEEL_SENSITIVITY = 0.0022;
     const SCROLL_TOP_THRESHOLD = 24; // px from top - only then allow reverse
-    const MIN_FRAMES_TO_START = 10; // Show content after loading first 10 frames (optimized for speed)
-    const MAX_LOAD_TIME_MS = 1500; // Maximum 1.5 seconds before showing content (optimized for speed)
-    const PARALLEL_LOADS = 10; // Load 10 frames in parallel for faster loading
+    const END_UNLOCK_PROGRESS = 0.985; // start passing native scroll before exact final frame
+    const MIN_FRAMES_TO_START = 10;  // Desktop minimum frames before revealing
+    const MAX_LOAD_TIME_MS = 1500;   // Desktop maximum wait before reveal
+    const PARALLEL_LOADS = 10;       // Load 10 frames in parallel for faster loading
 
     // Get frame source URL
-    function getFrameSrc(index, framesFolder) {
+    function getFrameSrc(index, framesFolder, ext) {
         const num = String(index + 1).padStart(3, '0');
-        return framesFolder + 'ezgif-frame-' + num + FRAME_EXT;
+        return framesFolder + 'ezgif-frame-' + num + (ext || FRAME_EXT);
     }
 
     function clamp(x, a, b) {
@@ -64,7 +66,18 @@
             this.loadStartTime = performance.now();
             this.loadingPromises = [];
             this.framesLoaded = false;
-            this.isMobile = window.matchMedia('(max-width: 768px)').matches;
+            this.isMobile = window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
+
+            // On mobile/tablet: switch to portrait frames and scroll-driven animation
+            if (this.isMobile && config.mobileFramesFolder) {
+                this.config.framesFolder = config.mobileFramesFolder;
+                this.config.frameCount   = config.mobileFrameCount || config.frameCount;
+                this.config.frameExt     = MOBILE_FRAME_EXT;
+            } else {
+                this.config.frameExt = FRAME_EXT;
+            }
+            this.minFramesToStart = this.isMobile ? 20 : MIN_FRAMES_TO_START;
+            this.maxLoadTimeMs = this.isMobile ? 2200 : MAX_LOAD_TIME_MS;
 
             // Overlay elements
             this.copy0 = document.getElementById('airplane-copy-0');
@@ -177,8 +190,8 @@
                         const elapsed = performance.now() - startTime;
                         if (!contentShown && (
                             (index === 0 && loaded > 0) || // First frame loaded - show immediately
-                            (loaded >= MIN_FRAMES_TO_START) || 
-                            (elapsed >= MAX_LOAD_TIME_MS)
+                            (loaded >= this.minFramesToStart) || 
+                            (elapsed >= this.maxLoadTimeMs)
                         )) {
                             showContent();
                         }
@@ -215,7 +228,7 @@
                         
                         // Show content if timeout reached (even with some failed frames)
                         const elapsed = performance.now() - startTime;
-                        if (!contentShown && elapsed >= MAX_LOAD_TIME_MS) {
+                        if (!contentShown && elapsed >= this.maxLoadTimeMs) {
                             showContent();
                         }
                         
@@ -230,7 +243,7 @@
                     // Decode URL-encoded spaces if present
                     folderPath = folderPath.replace(/%20/g, ' ');
                     
-                    img.src = getFrameSrc(index, folderPath);
+                    img.src = getFrameSrc(index, folderPath, this.config.frameExt);
                 });
             };
 
@@ -270,12 +283,12 @@
                 loadBatch(1);
             });
             
-            // Timeout fallback - show content after MAX_LOAD_TIME_MS regardless
+            // Timeout fallback - reveal content after device-specific wait regardless
             setTimeout(() => {
                 if (!contentShown) {
                     showContent();
                 }
-            }, MAX_LOAD_TIME_MS);
+            }, this.maxLoadTimeMs);
         }
 
         updateLoadingProgress() {
@@ -330,11 +343,10 @@
         }
 
         setupEventListeners() {
-            // Use the wheel + touch handler for all devices.
-            // This restores the original behavior that worked well on mobile.
+            // Keep the same frame-scroll interaction model as desktop on all devices.
             this.setupWheelAndTouch();
 
-            // Resize handler – keep canvas in sync with container
+            // Resize handler – keep canvas and scroll progress in sync
             window.addEventListener('resize', () => {
                 this.setupCanvas();
                 if (this.frames.length > 0) {
@@ -359,27 +371,16 @@
             return rect.top <= 120 && rect.bottom >= winH - 80;
         }
 
-        /** Mobile: drive animation from scroll position – no preventDefault, native smooth scroll */
-        setupScrollDrivenMobile() {
-            const onScroll = () => {
-                const rect = this.container.getBoundingClientRect();
-                const sectionTop = this.container.offsetTop;
-                const sectionHeight = this.container.offsetHeight;
-                const winH = window.innerHeight;
-                const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-                const scrollRange = Math.max(1, sectionHeight - winH);
-                const scrolled = Math.max(0, scrollY - sectionTop);
-                this.targetProgress = clamp(scrolled / scrollRange, 0, 1);
-            };
-            window.addEventListener('scroll', onScroll, { passive: true });
-            onScroll();
-        }
-
         /** Desktop: wheel + touch drive animation (can preventDefault) */
         setupWheelAndTouch() {
             const onWheel = (e) => {
                 const cur = this.targetProgress;
                 const scrollY = window.scrollY;
+                if (e.deltaY > 0 && cur >= END_UNLOCK_PROGRESS) {
+                    // Near the end: don't trap scroll; complete animation and let page continue.
+                    this.targetProgress = 1;
+                    return;
+                }
                 if (cur >= 1) {
                     if (scrollY > SCROLL_TOP_THRESHOLD) return;
                     if (window.scrollY <= SCROLL_TOP_THRESHOLD && e.deltaY < 0) {
@@ -408,9 +409,14 @@
                 touchY = y;
                 const cur = this.targetProgress;
                 const scrollY = window.scrollY;
+                if (delta > 0 && cur >= END_UNLOCK_PROGRESS) {
+                    // Near the end: don't trap touch scroll; allow immediate pass-through.
+                    this.targetProgress = 1;
+                    return;
+                }
                 if (cur >= 1) {
                     if (scrollY > SCROLL_TOP_THRESHOLD) return;
-                    if (window.scrollY <= SCROLL_TOP_THRESHOLD && delta > 0) {
+                    if (window.scrollY <= SCROLL_TOP_THRESHOLD && delta < 0) {
                         e.preventDefault();
                         this.targetProgress = clamp(cur + delta * WHEEL_SENSITIVITY, 0, 1);
                     }
@@ -509,17 +515,31 @@
             ctx.fillStyle = '#14171A';
             ctx.fillRect(0, 0, w, h);
             
-            // Crop left black border (~2.5% of image width) for all frames except last
+            // Crop left black border on desktop source frames only
             const isLastFrame = i >= this.frames.length - 1;
-            const blackBorderPixels = isLastFrame ? 0 : Math.floor(img.naturalWidth * 0.025);
+            const blackBorderPixels = (this.isMobile || isLastFrame) ? 0 : Math.floor(img.naturalWidth * 0.025);
             const sourceX = blackBorderPixels;
             const sourceWidth = img.naturalWidth - blackBorderPixels;
-            
-            // Scale to fill canvas height
-            const scale = h / img.naturalHeight;
-            
-            // Draw cropped image - use willReadFrequently: false for better performance
-            ctx.drawImage(img, sourceX, 0, sourceWidth, img.naturalHeight, 0, 0, w, h);
+
+            // Preserve source aspect ratio and cover the canvas (avoid stretched/blurry frames).
+            const sourceAspect = sourceWidth / img.naturalHeight;
+            const canvasAspect = w / h;
+            let sx = sourceX;
+            let sy = 0;
+            let sw = sourceWidth;
+            let sh = img.naturalHeight;
+
+            if (canvasAspect > sourceAspect) {
+                // Canvas is wider: crop top/bottom from source.
+                sh = Math.max(1, sourceWidth / canvasAspect);
+                sy = Math.max(0, (img.naturalHeight - sh) / 2);
+            } else {
+                // Canvas is taller: crop left/right from source.
+                sw = Math.max(1, img.naturalHeight * canvasAspect);
+                sx = Math.max(sourceX, sourceX + (sourceWidth - sw) / 2);
+            }
+
+            ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
             this.lastFrameDrawAt = performance.now();
         }
 
@@ -586,7 +606,7 @@
 
         animate() {
             // Faster, more responsive interpolation for smoother feel
-            const smoothFactor = 0.25; // Increased from 0.15 for faster response
+            const smoothFactor = 0.25;
             this.progress = lerp(this.progress, this.targetProgress, smoothFactor);
 
             // Map progress to frame index
@@ -665,6 +685,8 @@
                 const fallbackConfig = {
                     frameCount: 93,
                     framesFolder: window.location.origin + '/wp-content/themes/ark-travelers/assets/images/airplane zip/',
+                    mobileFrameCount: 240,
+                    mobileFramesFolder: window.location.origin + '/wp-content/themes/ark-travelers/assets/images/airplane mobile zip/',
                 };
                 try {
                     window.airplaneScrollInstance = new AirplaneScroll(fallbackConfig);

@@ -3,7 +3,7 @@
  * ARK Travelers Child Theme Functions
  *
  * @package ARK_Travelers
- * @version 2.3.76
+ * @version 2.3.82
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -92,9 +92,11 @@ function ark_enqueue_child_assets() {
         
         // Localize script with frame count and folder path (reuse Fly page config)
         wp_localize_script( 'airplane-scroll', 'airplaneScrollConfig', array(
-            'frameCount' => 93, // Actual frame count in airplane zip folder
-            'framesFolder' => $uri . '/assets/images/airplane%20zip/',
-            'themeUrl' => $uri,
+            'frameCount'         => 93,  // Desktop landscape frames
+            'framesFolder'       => $uri . '/assets/images/airplane%20zip/',
+            'mobileFrameCount'   => 240, // Portrait frames for mobile/tablet
+            'mobileFramesFolder' => $uri . '/assets/images/airplane%20mobile%20zip/',
+            'themeUrl'           => $uri,
         ) );
     }
     if ( is_page( 'umrah' ) ) {

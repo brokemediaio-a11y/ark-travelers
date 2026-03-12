@@ -67,23 +67,22 @@ get_header();
             <div class="ark-contact-info card">
                 <h3><?php echo esc_html( ark_t( 'Contact Info' ) ); ?></h3>
                 <p class="ark-contact-address">
-                    <?php echo esc_html( ark_t( 'Street Address (placeholder)' ) ); ?><br>
-                    <?php echo esc_html( ark_t( 'City, Postal Code' ) ); ?><br>
-                    <?php echo esc_html( ark_t( 'Sweden' ) ); ?>
+                    <?php echo esc_html( ark_t( 'Stockholm, Sweden' ) ); ?><br>
+                    <?php echo esc_html( ark_t( 'Kopparbacken 11, 163 46' ) ); ?>
                 </p>
-                <p><strong><?php echo esc_html( ark_t( 'Phone:' ) ); ?></strong> <a href="tel:+46000000000">+46 XX XXX XX XX</a></p>
+                <p><strong><?php echo esc_html( ark_t( 'Phone:' ) ); ?></strong> <a href="tel:+46700101401">+46 700 101 401</a></p>
                 <p><strong><?php echo esc_html( ark_t( 'Email:' ) ); ?></strong> <a href="mailto:info@arktravelers.com">info@arktravelers.com</a></p>
                 <p><strong><?php echo esc_html( ark_t( 'Business Hours:' ) ); ?></strong><br>
                     <?php echo esc_html( ark_t( 'Mon–Fri: 9:00 – 18:00' ) ); ?><br>
                     <?php echo esc_html( ark_t( 'Sat: 10:00 – 16:00' ) ); ?><br>
                     <?php echo esc_html( ark_t( 'Sun: Closed' ) ); ?><br>
-                    <?php echo esc_html( ark_t( '24/7 Emergency Line: +46 XX XXX XX XX' ) ); ?>
+                    <?php echo esc_html( ark_t( '24/7 Emergency Line: +46 700 101 401' ) ); ?>
                 </p>
-                <a href="https://wa.me/46000000000" class="ark-whatsapp-btn" target="_blank" rel="noopener">WhatsApp</a>
+                <a href="https://wa.me/46700101401" class="ark-whatsapp-btn" target="_blank" rel="noopener">WhatsApp</a>
             </div>
 
             <div class="ark-contact-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2032.991381559888!2d18.06894831533406!3d59.32932348166224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f9d6796555555%3A0x52963c60b481386!2sStockholm%2C%20Sweden!5e0!3m2!1sen!2s!4v1640000000000!5m2!1sen!2s" width="100%" height="200" style="border:0;border-radius:12px;" allowfullscreen="" loading="lazy" title="Map"></iframe>
+                <iframe src="https://www.google.com/maps?q=Kopparbacken+11,+163+46+Stockholm,+Sweden&output=embed" width="100%" height="200" style="border:0;border-radius:12px;" allowfullscreen="" loading="lazy" title="Map"></iframe>
             </div>
         </aside>
     </div>

@@ -1159,6 +1159,16 @@ body.page-fly #colophon.ark-footer {
         width: 100%;
         max-width: 320px;
     }
+    /* Homepage mobile: keep Umrah button readable by default (same as hover style) */
+    .home .btn-airplane-outline,
+    .front-page .btn-airplane-outline {
+        background-color: rgba(255, 255, 255, 0.95);
+        color: #2C3E50;
+        border-color: var(--color-white);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
 }
 
 .airplane-scroll-title {
@@ -1330,6 +1340,37 @@ body.page-fly #colophon.ark-footer {
     .airplane-scroll-sticky {
         position: relative;
         height: 100vh;
+    }
+}
+
+/* ──────────────────────────────────────────────────────────
+   Mobile / tablet: portrait-frame, scroll-driven animation
+   The JS adds .airplane-scroll--mobile when viewport ≤ 1024 px.
+   – Container is made tall so the user scrolls through frames naturally.
+   – The inner panel becomes position:sticky so the canvas stays in view.
+   – No touch events are hijacked → zero scroll-lock on mobile.
+   ────────────────────────────────────────────────────────── */
+.airplane-scroll.airplane-scroll--mobile {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    overflow: hidden !important;
+}
+
+.airplane-scroll.airplane-scroll--mobile .airplane-scroll-sticky {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    /* Keep GPU-compositing hints */
+    transform: translateZ(0);
+    contain: layout style paint;
+}
+
+@media (max-width: 767px) {
+    .airplane-scroll.airplane-scroll--mobile {
+        height: 100vh !important;
+        min-height: 100vh !important;
     }
 }
 

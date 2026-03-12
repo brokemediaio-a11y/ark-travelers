@@ -21,7 +21,7 @@ get_header();
         <div class="ark-container ark-fly-cta-inner">
             <h2 class="ark-fly-cta-heading"><?php echo esc_html( ark_t( 'Ready to book your flight?' ) ); ?></h2>
             <p class="ark-fly-cta-text"><?php echo esc_html( ark_t( 'Use the search form above or explore popular destinations below.' ) ); ?></p>
-            <a href="#ark-fly-form" class="btn-primary ark-fly-cta-btn"><?php echo esc_html( ark_t( 'Back to search form' ) ); ?></a>
+            <a href="#ark-fly-form" class="btn-primary ark-fly-cta-btn"><?php echo esc_html( ark_t( 'Search flights' ) ); ?></a>
         </div>
     </section>
 

@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <h4><?php echo esc_html__( 'Support', 'ark-travelers' ); ?></h4>
             <ul class="ark-footer-support-list">
                 <li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php echo esc_html__( 'Customer Service', 'ark-travelers' ); ?></a></li>
-                <li><a href="tel:+46000000000"><?php echo esc_html__( 'Emergency Contact', 'ark-travelers' ); ?></a></li>
+                <li><a href="tel:+46700101401"><?php echo esc_html__( 'Emergency Contact', 'ark-travelers' ); ?>: +46 700 101 401</a></li>
                 <li><a href="<?php echo esc_url( home_url( '/gdpr/' ) ); ?>"><?php echo esc_html__( 'GDPR Info', 'ark-travelers' ); ?></a></li>
                 <li><a href="<?php echo esc_url( home_url( '/contact/?subject=complaint' ) ); ?>"><?php echo esc_html__( 'Complaint Form', 'ark-travelers' ); ?></a></li>
             </ul>
@@ -74,8 +74,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
 
     <div class="ark-footer-bottom">
-        <span>&copy; 2026 ARK Travelers AB &middot; <?php echo esc_html__( 'Org.nr: 556XXX-XXXX', 'ark-travelers' ); ?></span>
-        <span><?php echo esc_html__( 'Street 12, Stockholm, Sweden', 'ark-travelers' ); ?></span>
+        <span>&copy; 2026 ARK Travelers AB</span>
+        <span><?php echo esc_html__( 'Stockholm, Sweden · Kopparbacken 11, 163 46', 'ark-travelers' ); ?></span>
     </div>
 </footer>
 
