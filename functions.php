@@ -1015,3 +1015,16 @@ function ark_empty_cart_browse_packages_script() {
     <?php
 }
 add_action( 'wp_footer', 'ark_empty_cart_browse_packages_script', 20 );
+
+/**
+ * Add language switcher to mobile menu
+ */
+function ark_add_language_switcher_to_menu( $items, $args ) {
+    // Only add to primary menu
+    if ( isset( $args->theme_location ) && $args->theme_location === 'primary' ) {
+        $lang_switcher = '<li class="menu-item ark-lang-switcher-mobile">' . do_shortcode( '[language-switcher]' ) . '</li>';
+        $items .= $lang_switcher;
+    }
+    return $items;
+}
+add_filter( 'wp_nav_menu_items', 'ark_add_language_switcher_to_menu', 10, 2 );

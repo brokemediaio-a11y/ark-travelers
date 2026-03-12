@@ -685,6 +685,17 @@ body.page-fly .ark-header:not(.scrolled) {
     gap: var(--space-sm);
 }
 
+/* TranslatePress language switcher placement */
+.ark-lang-switcher-desktop {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ark-lang-switcher-mobile {
+    display: none;
+}
+
 .ark-nav-toggle {
     display: none;
     flex-direction: column;
@@ -749,6 +760,23 @@ body.page-fly .ark-header:not(.scrolled) {
     }
     .ark-header-actions {
         gap: var(--space-xs);
+    }
+
+    /* On mobile: hide desktop switcher, show menu-item switcher inside burger menu */
+    .ark-lang-switcher-desktop {
+        display: none !important;
+    }
+
+    .ark-lang-switcher-mobile {
+        display: block !important;
+    }
+    
+    /* Ensure the mobile language switcher is visible in the nav menu */
+    .ark-nav .nav-menu .ark-lang-switcher-mobile,
+    .ark-nav.is-open .nav-menu .ark-lang-switcher-mobile {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     .ark-lang-switcher {
         font-size: 0.75rem;
@@ -859,6 +887,67 @@ body.page-fly .ark-header:not(.scrolled) {
         color: var(--color-white);
         border-color: var(--color-accent);
         transform: none;
+    }
+
+    /* Style language switcher in mobile menu to match other menu items */
+    .ark-nav .nav-menu .ark-lang-switcher-mobile,
+    .ark-nav.is-open .nav-menu .ark-lang-switcher-mobile {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100%;
+        padding: var(--space-md) var(--space-sm);
+        margin-bottom: var(--space-xs);
+        margin-top: 0;
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        min-height: 48px;
+    }
+    
+    /* Ensure any content inside the mobile language switcher is visible */
+    .ark-nav .nav-menu .ark-lang-switcher-mobile *,
+    .ark-nav.is-open .nav-menu .ark-lang-switcher-mobile * {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .ark-nav .nav-menu .ark-lang-switcher-mobile .ark-lang-switcher {
+        width: 100%;
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 1.0625rem;
+        font-weight: 500;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .ark-nav .nav-menu .ark-lang-switcher-mobile .ark-lang-select,
+    .ark-nav .nav-menu .ark-lang-switcher-mobile .ark-lang-select-wrapper {
+        width: 100%;
+        position: relative;
+    }
+
+    .ark-nav .nav-menu .ark-lang-switcher-mobile .ark-lang-select-button {
+        width: 100%;
+        justify-content: space-between;
+        padding: 8px 12px;
+        font-size: 1.0625rem;
+        font-weight: 500;
+        background: transparent;
+        border: none;
+        color: var(--color-text-primary);
+    }
+
+    /* Ensure dropdown menu appears correctly in mobile menu */
+    .ark-nav .nav-menu .ark-lang-switcher-mobile .ark-lang-select-menu {
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        left: 0;
+        z-index: 1003;
+        width: 100%;
     }
 
     .ark-header-cart {

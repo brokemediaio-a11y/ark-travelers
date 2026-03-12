@@ -50,6 +50,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                 ark_fallback_menu();
             }
             ?>
+            <?php // Language switcher for mobile burger menu ?>
+            <ul class="nav-menu">
+                <li class="menu-item ark-lang-switcher-mobile">
+                    <?php echo do_shortcode( '[language-switcher]' ); ?>
+                </li>
+            </ul>
         </nav>
 
         <div class="ark-header-actions">
@@ -59,6 +65,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </svg>
                 <span class="ark-cart-count" aria-live="polite">0</span>
             </a>
+
+            <?php // Desktop language switcher – position to the right of the cart button ?>
+            <div class="ark-lang-switcher-desktop">
+                <?php echo do_shortcode( '[language-switcher]' ); ?>
+            </div>
 
             <button type="button" class="ark-nav-toggle" aria-label="<?php echo esc_attr__( 'Toggle menu', 'ark-travelers' ); ?>" aria-expanded="false" aria-controls="ark-primary-nav">
                 <span class="ark-nav-toggle-bar"></span>
