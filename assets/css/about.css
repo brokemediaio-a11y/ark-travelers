@@ -236,14 +236,16 @@
     pointer-events: none;
 }
 
-.ark-about-story-image-wrap img {
+.ark-about-story-image-wrap img,
+.ark-about-story-image-wrap video.ark-about-story-video {
     display: block;
     width: 100%;
     height: auto;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.ark-about-story-visual.ark-reveal-visible .ark-about-story-image-wrap img {
+.ark-about-story-visual.ark-reveal-visible .ark-about-story-image-wrap img,
+.ark-about-story-visual.ark-reveal-visible .ark-about-story-image-wrap video.ark-about-story-video {
     transform: scale(1.02);
 }
 

@@ -2120,3 +2120,367 @@ section.ark-video-section {
         transform: none;
     }
 }
+
+/* ============================================================
+   GOOGLE REVIEWS SECTION
+   ============================================================ */
+.ark-google-reviews {
+    background: var(--color-bg-primary, #F8F9FA);
+    padding: var(--space-2xl, 80px) 0;
+}
+
+/* ── Header ──────────────────────────────────────── */
+.ark-gr-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md, 24px);
+    text-align: center;
+    margin-bottom: var(--space-2xl, 80px);
+}
+
+.ark-gr-header-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    justify-content: center;
+}
+
+.ark-gr-google-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    flex-shrink: 0;
+}
+
+.ark-gr-header-text {
+    text-align: left;
+}
+
+.ark-gr-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-charcoal, #2C3E50);
+    margin: 0 0 2px;
+    line-height: 1.2;
+}
+
+.ark-gr-place {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary, #6B7280);
+    margin: 0;
+}
+
+/* ── Rating summary row ──────────────────────────── */
+.ark-gr-rating-summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md, 24px);
+    flex-wrap: wrap;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid rgba(209,213,219,0.7);
+    border-radius: 16px;
+    padding: 18px 28px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.ark-gr-big-score {
+    font-family: var(--font-heading);
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: var(--color-charcoal, #2C3E50);
+    line-height: 1;
+}
+
+.ark-gr-rating-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+}
+
+.ark-gr-stars {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.ark-gr-review-count {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary, #6B7280);
+    white-space: nowrap;
+}
+
+.ark-gr-powered-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary, #6B7280);
+    text-decoration: none;
+    background: var(--color-bg-primary, #F8F9FA);
+    border: 1px solid #E5E7EB;
+    border-radius: 999px;
+    padding: 5px 12px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+.ark-gr-powered-badge:hover {
+    border-color: var(--color-accent, #468a99);
+    color: var(--color-accent, #468a99);
+}
+
+/* ── Live reviews grid ───────────────────────────── */
+.ark-gr-grid {
+    display: grid;
+    gap: var(--space-md, 24px);
+    grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+    .ark-gr-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+    .ark-gr-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.ark-gr-card {
+    background: #fff;
+    border: 1px solid rgba(209,213,219,0.6);
+    border-radius: 16px;
+    padding: var(--space-lg, 32px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.ark-gr-card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    border-color: rgba(74,144,164,0.3);
+    transform: translateY(-3px);
+}
+
+.ark-gr-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ark-gr-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-accent, #468a99);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ark-gr-card-meta {
+    flex: 1;
+    min-width: 0;
+}
+.ark-gr-reviewer-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-charcoal, #2C3E50);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ark-gr-review-date {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary, #6B7280);
+}
+
+.ark-gr-card-google-icon {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.ark-gr-card-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.ark-gr-card-text {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary, #6B7280);
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+}
+
+/* ── Coming-soon state ───────────────────────────── */
+.ark-gr-coming-soon {
+    display: grid;
+    gap: var(--space-xl, 48px);
+    align-items: center;
+}
+@media (min-width: 960px) {
+    .ark-gr-coming-soon {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Ghost skeleton cards */
+.ark-gr-cs-cards {
+    display: grid;
+    gap: var(--space-md, 24px);
+    grid-template-columns: 1fr;
+    pointer-events: none;
+    user-select: none;
+}
+@media (min-width: 480px) {
+    .ark-gr-cs-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+    .ark-gr-cs-cards { grid-template-columns: 1fr; }
+}
+
+.ark-gr-placeholder-card {
+    background: #fff;
+    border: 1px solid #F3F4F6;
+    border-radius: 16px;
+    padding: var(--space-md, 24px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0.7;
+}
+
+.ark-gr-ph-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.ark-gr-ph-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #E5E7EB;
+    flex-shrink: 0;
+    animation: ark-gr-shimmer 1.8s ease-in-out infinite;
+}
+.ark-gr-ph-lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.ark-gr-ph-line {
+    display: block;
+    height: 10px;
+    border-radius: 6px;
+    background: #E5E7EB;
+    animation: ark-gr-shimmer 1.8s ease-in-out infinite;
+}
+.ark-gr-ph-line-name { width: 60%; }
+.ark-gr-ph-line-date { width: 40%; background: #EFEFEF; }
+.ark-gr-ph-line-short { width: 50%; }
+.ark-gr-ph-line-med   { width: 75%; }
+.ark-gr-ph-stars {
+    display: flex;
+    gap: 3px;
+}
+.ark-gr-ph-text-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+@keyframes ark-gr-shimmer {
+    0%, 100% { opacity: 0.7; }
+    50%       { opacity: 0.4; }
+}
+
+/* Message panel */
+.ark-gr-cs-message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md, 24px);
+    padding: var(--space-xl, 48px) var(--space-lg, 32px);
+    background: #fff;
+    border: 1px solid rgba(209,213,219,0.6);
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.ark-gr-cs-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    background: var(--color-bg-primary, #F8F9FA);
+    border-radius: 50%;
+    border: 1px solid #E5E7EB;
+}
+
+.ark-gr-cs-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-charcoal, #2C3E50);
+    margin: 0;
+    line-height: 1.25;
+}
+
+.ark-gr-cs-body {
+    font-size: 1rem;
+    color: var(--color-text-secondary, #6B7280);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 420px;
+}
+
+/* Review CTA button */
+.ark-gr-review-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: var(--space-sm, 12px);
+}
+
+/* ── Mobile adjustments ──────────────────────────── */
+@media (max-width: 639px) {
+    .ark-google-reviews {
+        padding: var(--space-xl, 48px) 0;
+    }
+    .ark-gr-header {
+        margin-bottom: var(--space-xl, 48px);
+    }
+    .ark-gr-header-top {
+        flex-direction: column;
+        text-align: center;
+    }
+    .ark-gr-header-text { text-align: center; }
+    .ark-gr-rating-summary {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .ark-gr-rating-detail { align-items: center; }
+    .ark-gr-cs-message {
+        align-items: center;
+        text-align: center;
+        padding: var(--space-lg, 32px) var(--space-md, 24px);
+    }
+    .ark-gr-cs-body { max-width: 100%; }
+}

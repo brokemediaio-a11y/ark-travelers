@@ -97,7 +97,6 @@ get_header();
                 </article>
             </div>
             <div class="ark-fly-why-trust">
-                <span class="ark-trust-badge">IATA</span>
                 <span class="ark-trust-badge"><?php echo esc_html( ark_t( 'Secure payment' ) ); ?></span>
             </div>
         </div>

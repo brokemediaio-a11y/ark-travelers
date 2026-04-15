@@ -16,24 +16,17 @@ get_header();
     <!-- Hero: Airplane Scroll Animation (same as Fly page) -->
     <?php get_template_part( 'template-parts/airplane-scroll' ); ?>
 
-    <!-- GIF Section (panel for GSAP pin + snap) -->
-    <section class="ark-video-section panel ark-section-parallax" id="ark-video-section" aria-label="<?php echo esc_attr( ark_t( 'Travel animation' ) ); ?>" data-parallax-section>
-        <div class="ark-video-wrapper">
-            <img class="ark-video-parallax" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/ark video gif.gif' ); ?>" alt="<?php echo esc_attr( ark_t( 'ARK Travelers office scene' ) ); ?>" />
-        </div>
-    </section>
-
     <!-- Trust credentials marquee -->
     <section class="ark-section ark-trust-bar ark-section-parallax" aria-label="<?php echo esc_attr( ark_t( 'Trust credentials' ) ); ?>" data-parallax-section>
         <div class="ark-marquee">
             <div class="ark-marquee-inner">
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'IATA Certified' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'Trusted Since 2016' ) ); ?></span>
                 <span class="ark-marquee-item"><?php echo esc_html( ark_t( '15,000+ Satisfied Pilgrims' ) ); ?></span>
                 <span class="ark-marquee-item"><?php echo esc_html( ark_t( '24/7 Swedish Support' ) ); ?></span>
                 <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'Ministry of Hajj Approved' ) ); ?></span>
                 <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'GDPR Compliance' ) ); ?></span>
                 <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'Award-Winning' ) ); ?></span>
-                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'IATA Certified' ) ); ?></span>
+                <span class="ark-marquee-item"><?php echo esc_html( ark_t( 'Trusted Since 2016' ) ); ?></span>
                 <span class="ark-marquee-item"><?php echo esc_html( ark_t( '15,000+ Satisfied Pilgrims' ) ); ?></span>
             </div>
         </div>
@@ -135,7 +128,7 @@ get_header();
         </div>
     </section>
 
-    <?php get_template_part( 'template-parts/testimonial-polaroid' ); ?>
+    <?php get_template_part( 'template-parts/google-reviews' ); ?>
 
     <!-- Final CTA -->
     <section class="ark-section ark-cta-final ark-section-parallax" data-parallax-section>

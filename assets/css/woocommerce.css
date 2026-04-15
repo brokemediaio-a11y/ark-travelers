@@ -1461,6 +1461,61 @@ body.woocommerce-checkout .woocommerce-order-comments {
     .ark-main-checkout .wc-block-components-radio-control__option {
         padding: 14px 16px !important;
     }
+
+    /* Order summary item alignment fix on narrow phones */
+    .ark-main-checkout .wc-block-components-order-summary,
+    .ark-main-checkout .wp-block-woocommerce-checkout-totals-block .wc-block-components-sidebar-layout__sidebar {
+        padding: var(--space-md) !important;
+        overflow: hidden !important;
+    }
+    .ark-main-checkout .wc-block-components-order-summary-item {
+        display: grid !important;
+        grid-template-columns: 56px minmax(0, 1fr) !important;
+        column-gap: 12px !important;
+        row-gap: 6px !important;
+        align-items: start !important;
+    }
+    .ark-main-checkout .wc-block-components-order-summary-item__image {
+        grid-column: 1 !important;
+        grid-row: 1 / span 2 !important;
+        width: 56px !important;
+        min-width: 56px !important;
+        margin: 0 !important;
+    }
+    .ark-main-checkout .wc-block-components-order-summary-item__description {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        line-height: 1.35 !important;
+        letter-spacing: normal !important;
+        text-transform: none !important;
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: anywhere !important;
+    }
+    .ark-main-checkout .wc-block-components-order-summary-item__description .wc-block-components-product-name,
+    .ark-main-checkout .wc-block-components-order-summary-item__description .wc-block-components-product-metadata {
+        display: block !important;
+        writing-mode: horizontal-tb !important;
+        text-orientation: mixed !important;
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: anywhere !important;
+        letter-spacing: normal !important;
+        text-transform: none !important;
+    }
+    .ark-main-checkout .wc-block-components-order-summary-item__total-price,
+    .ark-main-checkout .wc-block-components-order-summary-item .wc-block-components-product-price {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+        justify-self: start !important;
+        align-self: start !important;
+        margin: 0 !important;
+        text-align: left !important;
+        white-space: nowrap !important;
+        font-weight: 700 !important;
+    }
 }
 
 /* ============================================================

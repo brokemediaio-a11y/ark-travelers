@@ -47,7 +47,20 @@ get_header();
             </div>
             <div class="ark-about-story-visual ark-reveal">
                 <div class="ark-about-story-image-wrap">
-                    <img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/arkoffice.jpg' ); ?>" alt="<?php echo esc_attr( ark_t( 'ARK Travelers office' ) ); ?>" width="800" height="533" loading="lazy">
+                    <?php
+                    $ark_about_video_url = get_stylesheet_directory_uri() . '/assets/images/ark video.mp4';
+                    ?>
+                    <video
+                        class="ark-about-story-video"
+                        playsinline
+                        controls
+                        preload="metadata"
+                        width="800"
+                        height="450"
+                        aria-label="<?php echo esc_attr( ark_t( 'ARK Travelers office' ) ); ?>"
+                    >
+                        <source src="<?php echo esc_url( $ark_about_video_url ); ?>" type="video/mp4" />
+                    </video>
                 </div>
             </div>
         </div>
@@ -96,8 +109,8 @@ get_header();
                     </div>
                     <div class="ark-about-milestone ark-reveal">
                         <span class="ark-about-milestone-dot"></span>
-                        <span class="ark-about-milestone-year"><?php echo esc_html( ark_t( 'IATA Certified' ) ); ?></span>
-                        <p><?php echo esc_html( ark_t( 'Official recognition and airline partnerships for your peace of mind.' ) ); ?></p>
+                        <span class="ark-about-milestone-year"><?php echo esc_html( ark_t( 'Established in Sweden' ) ); ?></span>
+                        <p><?php echo esc_html( ark_t( 'Officially registered in Sweden, bringing our mission to the wider European community.' ) ); ?></p>
                     </div>
                     <div class="ark-about-milestone ark-reveal">
                         <span class="ark-about-milestone-dot"></span>
@@ -113,7 +126,6 @@ get_header();
         <div class="ark-container">
             <h2 id="about-trust-heading" class="ark-about-trust-title ark-reveal"><?php echo esc_html( ark_t( 'Certifications & Trust' ) ); ?></h2>
             <div class="ark-about-trust-badges">
-                <span class="ark-about-badge ark-reveal"><?php echo esc_html( ark_t( 'IATA Certified' ) ); ?></span>
                 <span class="ark-about-badge ark-reveal"><?php echo esc_html( ark_t( 'Ministry of Hajj Approved' ) ); ?></span>
                 <span class="ark-about-badge ark-reveal"><?php echo esc_html( ark_t( 'Airline partnerships' ) ); ?></span>
                 <span class="ark-about-badge ark-reveal"><?php echo esc_html( ark_t( 'Secure booking' ) ); ?></span>
