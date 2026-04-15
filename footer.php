@@ -79,6 +79,26 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
 </footer>
 
+<?php
+// Floating WhatsApp button (site-wide)
+$ark_whatsapp_phone = '46700101401'; // +46 700 101 401
+$ark_whatsapp_text  = rawurlencode( "Hi ARK Travelers! I'm interested in international flight tickets and/or visa assistance. Can you help me?" );
+$ark_whatsapp_url   = 'https://wa.me/' . $ark_whatsapp_phone . '?text=' . $ark_whatsapp_text;
+?>
+<a
+    class="ark-whatsapp-float"
+    href="<?php echo esc_url( $ark_whatsapp_url ); ?>"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="<?php echo esc_attr__( 'Chat with ARK Travelers on WhatsApp', 'ark-travelers' ); ?>"
+>
+    <span class="screen-reader-text"><?php echo esc_html__( 'Chat on WhatsApp', 'ark-travelers' ); ?></span>
+    <svg class="ark-whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M19.11 17.73c-.26-.13-1.55-.77-1.79-.86-.24-.09-.41-.13-.59.13-.18.26-.68.86-.84 1.03-.15.18-.31.2-.57.07-.26-.13-1.11-.41-2.11-1.31-.78-.7-1.31-1.56-1.46-1.82-.15-.26-.02-.4.11-.53.12-.12.26-.31.39-.46.13-.15.18-.26.26-.44.09-.18.04-.33-.02-.46-.07-.13-.59-1.43-.81-1.96-.21-.51-.43-.44-.59-.44-.15 0-.33-.02-.5-.02-.18 0-.46.07-.7.33-.24.26-.92.9-.92 2.2s.94 2.55 1.07 2.73c.13.18 1.86 2.84 4.5 3.98.63.27 1.12.43 1.5.55.63.2 1.2.17 1.65.1.5-.07 1.55-.63 1.77-1.23.22-.6.22-1.12.15-1.23-.07-.11-.24-.18-.5-.31z"/>
+        <path fill="currentColor" d="M16.02 3C8.84 3 3 8.84 3 16.02c0 2.31.61 4.56 1.77 6.55L3 29l6.61-1.69c1.9 1.04 4.04 1.59 6.41 1.59C23.2 28.9 29 23.06 29 16.02 29 8.84 23.2 3 16.02 3zm0 23.48c-2.08 0-4.06-.56-5.79-1.61l-.41-.24-3.92 1 1.05-3.82-.27-.43a10.33 10.33 0 0 1-1.6-5.36c0-5.73 4.68-10.41 10.94-10.41 6.03 0 10.57 4.68 10.57 10.41 0 5.73-4.54 10.46-10.57 10.46z"/>
+    </svg>
+</a>
+
 <?php wp_footer(); ?>
 </body>
 </html>
