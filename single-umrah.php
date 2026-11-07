@@ -25,6 +25,7 @@ while ( have_posts() ) {
     }
     $stars = get_post_meta( $post_id, 'ark_stars', true ) ?: '5';
     $badge = get_post_meta( $post_id, 'ark_badge', true ) ?: '';
+    $price_unavailable = (bool) get_post_meta( $post_id, 'ark_price_unavailable', true );
     $departures = get_post_meta( $post_id, 'ark_departures', true );
     $linked_product_id = function_exists( 'get_field' ) ? get_field( 'linked_product_id', $post_id ) : get_post_meta( $post_id, 'linked_product_id', true );
     $linked_product_id = (int) $linked_product_id;
@@ -48,7 +49,11 @@ while ( have_posts() ) {
         <div class="ark-container ark-sticky-cta-inner">
             <div class="ark-sticky-cta-info">
                 <span class="ark-sticky-cta-title"><?php echo esc_html( $title ); ?></span>
-                <span class="ark-sticky-cta-price">SEK <?php echo esc_html( $price ); ?></span>
+                <?php if ( $price_unavailable ) : ?>
+                    <span class="ark-sticky-cta-price ark-price-call"><?php echo esc_html( ark_t( 'Call for Details' ) ); ?></span>
+                <?php else : ?>
+                    <span class="ark-sticky-cta-price">SEK <?php echo esc_html( $price ); ?></span>
+                <?php endif; ?>
             </div>
             <div class="ark-sticky-cta-actions">
                 <a href="tel:+46700101401" class="ark-sticky-cta-icon-btn ark-sticky-cta-call" aria-label="<?php echo esc_attr( ark_t( 'Call us' ) ); ?>">
@@ -78,14 +83,25 @@ while ( have_posts() ) {
                 <div class="ark-single-hero-meta">
                     <span><?php echo esc_html( $duration . ' ' . ark_t( 'days' ) ); ?></span>
                     <span><?php echo esc_html( $stars . ' ' . ark_t( 'stars' ) ); ?></span>
-                    <span class="ark-single-hero-price">SEK <?php echo esc_html( $price ); ?></span>
+                    <?php if ( $price_unavailable ) : ?>
+                        <span class="ark-single-hero-price ark-price-call"><?php echo esc_html( ark_t( 'Call for Details' ) ); ?></span>
+                    <?php else : ?>
+                        <span class="ark-single-hero-price">SEK <?php echo esc_html( $price ); ?></span>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="ark-hero-booking-wrap ark-hero-booking-animate">
                 <div class="ark-hero-booking-card card">
                     <div class="ark-booking-card-accent"></div>
                     <h3 class="ark-hero-booking-title"><?php echo esc_html( ark_t( 'Book this package' ) ); ?></h3>
-                    <p class="ark-booking-price">SEK <span class="ark-booking-price-value"><?php echo esc_html( $price ); ?></span></p>
+                    <?php if ( $price_unavailable ) : ?>
+                        <div class="ark-booking-price ark-booking-price-unavailable">
+                            <span class="ark-price-unavail-badge"><?php echo esc_html( ark_t( 'Call for Details' ) ); ?></span>
+                            <small><?php echo esc_html( ark_t( 'Contact us for current pricing' ) ); ?></small>
+                        </div>
+                    <?php else : ?>
+                        <p class="ark-booking-price">SEK <span class="ark-booking-price-value"><?php echo esc_html( $price ); ?></span></p>
+                    <?php endif; ?>
                     <form class="ark-booking-form" aria-label="<?php echo esc_attr( ark_t( 'Booking form' ) ); ?>">
                         <div class="ark-form-group">
                             <label for="ark-hero-departure-select"><?php echo esc_html( ark_t( 'Departure date' ) ); ?></label>

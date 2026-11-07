@@ -87,6 +87,10 @@
             this.heroCta = document.getElementById('airplane-hero-cta');
             this.darkOverlay = document.getElementById('airplane-dark-overlay');
             this.formOverlay = document.getElementById('airplane-form-overlay');
+            this.hintEl     = document.getElementById('airplane-scroll-hint');
+
+            this.autoPlaying    = false;
+            this.autoPlaySpeed  = 0.009; // progress units per frame (~1.8 s total at 60 fps)
 
             this.init();
         }
@@ -340,6 +344,14 @@
 
         showSticky() {
             if (this.stickyEl) this.stickyEl.style.display = 'flex';
+            // Reveal hint after a brief pause so the first frame is already painted
+            if (this.hintEl) {
+                setTimeout(() => {
+                    if (this.progress < 0.05 && !this.autoPlaying) {
+                        this.hintEl.classList.remove('is-hidden');
+                    }
+                }, 600);
+            }
         }
 
         setupEventListeners() {
@@ -361,6 +373,15 @@
                 if (!document.hidden) this.ensureHeroVisible();
             });
 
+            // Scroll/tap hint – click or tap drives the auto-play
+            if (this.hintEl) {
+                this.hintEl.addEventListener('click', () => this.startAutoPlay());
+                this.hintEl.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    this.startAutoPlay();
+                }, { passive: false });
+            }
+
             // Initial progress event so header state is correct on load
             this.dispatchProgress();
         }
@@ -374,6 +395,7 @@
         /** Desktop: wheel + touch drive animation (can preventDefault) */
         setupWheelAndTouch() {
             const onWheel = (e) => {
+                this.autoPlaying = false; // manual interaction cancels auto-play
                 const cur = this.targetProgress;
                 const scrollY = window.scrollY;
                 if (e.deltaY > 0 && cur >= END_UNLOCK_PROGRESS) {
@@ -404,6 +426,7 @@
             let touchY = 0;
             const onTouchStart = (e) => { touchY = e.touches[0].clientY; };
             const onTouchMove = (e) => {
+                this.autoPlaying = false; // manual interaction cancels auto-play
                 const y = e.touches[0].clientY;
                 const delta = touchY - y;
                 touchY = y;
@@ -437,6 +460,13 @@
             window.addEventListener('wheel', onWheel, { passive: false });
             this.container.addEventListener('touchstart', onTouchStart, { passive: true });
             this.container.addEventListener('touchmove', onTouchMove, { passive: false });
+        }
+
+        startAutoPlay() {
+            if (this.autoPlaying || this.targetProgress >= 1) return;
+            this.autoPlaying = true;
+            // Hide the hint immediately on click
+            if (this.hintEl) this.hintEl.classList.add('is-hidden');
         }
 
         dispatchProgress() {
@@ -591,6 +621,15 @@
             const heroCtaOpacity = p >= 0.75 ? Math.min(1, (p - 0.75) / 0.15) : 0;
             if (this.heroCta) this.heroCta.style.opacity = heroCtaOpacity;
 
+            // Hint arrow: hide once user has scrolled/auto-played past 5%
+            if (this.hintEl) {
+                if (p > 0.05) {
+                    this.hintEl.classList.add('is-hidden');
+                } else if (!this.autoPlaying && p < 0.02) {
+                    this.hintEl.classList.remove('is-hidden');
+                }
+            }
+
             // Dark overlay: fade in at 76-88%
             const darkOverlayOpacity = p >= 0.76 ? Math.min(1, (p - 0.76) / 0.12) : 0;
             if (this.darkOverlay) this.darkOverlay.style.opacity = darkOverlayOpacity;
@@ -605,6 +644,15 @@
         }
 
         animate() {
+            // Auto-play: drive targetProgress to 1 smoothly when triggered
+            if (this.autoPlaying) {
+                this.targetProgress = Math.min(1, this.targetProgress + this.autoPlaySpeed);
+                if (this.targetProgress >= 1) {
+                    this.targetProgress = 1;
+                    this.autoPlaying = false;
+                }
+            }
+
             // Faster, more responsive interpolation for smoother feel
             const smoothFactor = 0.25;
             this.progress = lerp(this.progress, this.targetProgress, smoothFactor);

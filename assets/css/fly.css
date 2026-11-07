@@ -1301,6 +1301,144 @@ body.page-fly #colophon.ark-footer {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* ── Scroll / Tap hint pill ───────────────────────────────────────
+   Sits at the bottom-center of the hero animation, frosted-glass
+   semi-transparent pill with a bouncing V-chevron. Clicking it
+   triggers the auto-play in airplane-scroll.js.
+   ──────────────────────────────────────────────────────────────── */
+/* Hint sits OUTSIDE .airplane-scroll-sticky, directly inside the section.
+   Positioned relative to section (.airplane-scroll has position:relative).
+   This avoids contain:paint clipping and WebKit backdrop-filter bugs on mobile. */
+button.airplane-scroll-hint {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 36px !important;
+    top: auto !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    z-index: 50 !important;
+
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: 12px 22px 10px !important;
+
+    /* Solid fallback first, then enhanced with backdrop-filter */
+    background: rgba(10, 15, 22, 0.72) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-radius: 999px !important;
+    color: #fff !important;
+
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    backdrop-filter: blur(12px) saturate(150%);
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.55s ease, background 0.25s ease,
+                border-color 0.25s ease, transform 0.25s ease;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: inherit;
+    line-height: 1;
+}
+
+button.airplane-scroll-hint.is-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) translateY(14px) !important;
+}
+
+button.airplane-scroll-hint:hover,
+button.airplane-scroll-hint:focus-visible {
+    background: rgba(10, 15, 22, 0.88) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    transform: translateX(-50%) translateY(-2px) !important;
+    outline: none;
+}
+
+button.airplane-scroll-hint:active {
+    transform: translateX(-50%) translateY(0) scale(0.97) !important;
+}
+
+.airplane-scroll-hint-label {
+    display: block !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+    white-space: nowrap !important;
+    margin: 0 !important;
+}
+
+.airplane-scroll-hint-chevron {
+    display: block !important;
+    width: 34px !important;
+    height: 18px !important;
+    color: #fff !important;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+    animation: ark-hint-bounce 1.7s ease-in-out infinite;
+    flex-shrink: 0 !important;
+}
+
+@keyframes ark-hint-bounce {
+    0%, 100% { transform: translateY(0);    opacity: 1;    }
+    50%      { transform: translateY(7px);  opacity: 0.65; }
+}
+
+button.airplane-scroll-hint:hover .airplane-scroll-hint-chevron,
+button.airplane-scroll-hint:focus-visible .airplane-scroll-hint-chevron {
+    animation-play-state: paused;
+}
+
+@media (max-width: 1024px) {
+    /* On mobile/tablet: use a solid opaque background so the hint
+       is always visible regardless of backdrop-filter support */
+    button.airplane-scroll-hint {
+        background: rgba(8, 12, 20, 0.88) !important;
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+        bottom: 32px !important;
+        /* Respect iPhone safe area (home bar) */
+        bottom: max(32px, env(safe-area-inset-bottom, 32px)) !important;
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.65),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    button.airplane-scroll-hint {
+        padding: 10px 18px 8px !important;
+    }
+    .airplane-scroll-hint-chevron {
+        width: 28px !important;
+        height: 16px !important;
+    }
+    .airplane-scroll-hint-label {
+        font-size: 0.68rem !important;
+        letter-spacing: 0.16em !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .airplane-scroll-hint-chevron {
+        animation: none;
+    }
+}
+
 @media (max-width: 1024px) {
     .airplane-scroll-copy-30,
     .airplane-scroll-copy-60 {

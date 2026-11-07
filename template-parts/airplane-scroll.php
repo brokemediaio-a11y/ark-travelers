@@ -72,5 +72,19 @@ if ( ! defined( 'ABSPATH' ) ) {
             <!-- Copy at 90% (reserved for optional copy) -->
             <div class="airplane-scroll-copy airplane-scroll-copy-90" id="airplane-copy-90" style="opacity: 0;" aria-hidden="true"></div>
         </div>
+
     </div>
+
+    <!-- Scroll / tap hint arrow — outside the sticky div to avoid contain:paint clipping -->
+    <button
+        class="airplane-scroll-hint is-hidden"
+        id="airplane-scroll-hint"
+        aria-label="<?php echo esc_attr( ark_t( 'Play animation' ) ); ?>"
+        type="button"
+    >
+        <span class="airplane-scroll-hint-label"><?php echo esc_html( ark_t( 'Press to explore' ) ); ?></span>
+        <svg class="airplane-scroll-hint-chevron" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polyline points="4,4 20,20 36,4" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
 </section>

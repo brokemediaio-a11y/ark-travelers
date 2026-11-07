@@ -1185,6 +1185,58 @@
     letter-spacing: -0.02em;
 }
 
+/* ── Price "Call for Details" state ── */
+.ark-price-call {
+    font-style: italic;
+    letter-spacing: 0.01em;
+    opacity: 0.95;
+}
+
+.ark-booking-price-unavailable {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0 0 var(--space-md);
+}
+
+.ark-price-unavail-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    background: rgba(74, 144, 164, 0.12);
+    border: 1px solid rgba(74, 144, 164, 0.4);
+    border-radius: 999px;
+    color: var(--color-accent, #4A90A4);
+    font-family: var(--font-heading, 'Sora'), sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    width: fit-content;
+}
+
+.ark-price-unavail-badge::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent, #4A90A4);
+    animation: ark-price-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes ark-price-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+.ark-booking-price-unavailable small {
+    display: block;
+    font-size: 0.83rem;
+    color: rgba(255, 255, 255, 0.6);
+    padding-left: 2px;
+}
+
 .ark-form-group {
     margin-bottom: var(--space-md);
 }

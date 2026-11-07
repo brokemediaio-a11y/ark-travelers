@@ -3,7 +3,7 @@
  * ARK Travelers Child Theme Functions
  *
  * @package ARK_Travelers
- * @version 2.3.94
+ * @version 2.4.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -92,7 +92,8 @@ function ark_enqueue_child_assets() {
         wp_enqueue_script( 'airplane-scroll', $uri . '/assets/js/airplane-scroll.js', array( 'ark-main' ), $theme_version, true );
         wp_enqueue_script( 'ark-video-overlap', $uri . '/assets/js/video-overlap-parallax.js', array( 'ark-main', 'gsap', 'gsap-scrolltrigger' ), $theme_version, true );
         wp_enqueue_script( 'ark-animations', $uri . '/assets/js/animations.js', array( 'ark-main', 'airplane-scroll' ), $theme_version, true );
-        
+        wp_enqueue_script( 'ark-destinations-carousel', $uri . '/assets/js/destinations-carousel.js', array( 'ark-main' ), $theme_version, true );
+
         // Localize script with frame count and folder path (reuse Fly page config)
         wp_localize_script( 'airplane-scroll', 'airplaneScrollConfig', array(
             'frameCount'         => 93,  // Desktop landscape frames
@@ -109,7 +110,6 @@ function ark_enqueue_child_assets() {
         // Load animations.js for parallax effects (no airplane-scroll animation)
         wp_enqueue_script( 'ark-animations', $uri . '/assets/js/animations.js', array( 'ark-main' ), $theme_version, true );
         wp_enqueue_script( 'ark-fly-js', $uri . '/assets/js/fly.js', array( 'ark-main' ), $theme_version, true );
-    }
         wp_localize_script( 'ark-fly-js', 'arkFly', array(
             'ajaxUrl' => admin_url( 'admin-ajax.php' ),
             'nonce'   => wp_create_nonce( 'ark_nonce' ),
@@ -142,6 +142,7 @@ function ark_enqueue_child_assets() {
                 'waFlights'     => __( 'Flights', 'ark-travelers' ),
             ),
         ) );
+    }
     if ( is_singular( 'umrah' ) ) {
         wp_enqueue_script( 'ark-single-umrah', $uri . '/assets/js/single-umrah.js', array( 'ark-main' ), $theme_version, true );
     }
@@ -690,6 +691,14 @@ function ark_add_umrah_meta_boxes() {
         'default'
     );
     add_meta_box(
+        'ark_package_pricing',
+        __( 'Price Availability', 'ark-travelers' ),
+        'ark_render_pricing_meta_box',
+        'umrah',
+        'side',
+        'high'
+    );
+    add_meta_box(
         'ark_package_product',
         __( 'WooCommerce Product', 'ark-travelers' ),
         'ark_render_product_meta_box',
@@ -699,6 +708,50 @@ function ark_add_umrah_meta_boxes() {
     );
 }
 add_action( 'add_meta_boxes', 'ark_add_umrah_meta_boxes' );
+
+/**
+ * Render "Price Availability" meta box — toggle to replace price with "Call for Details"
+ */
+function ark_render_pricing_meta_box( $post ) {
+    wp_nonce_field( 'ark_save_meta', 'ark_meta_nonce' );
+    $unavailable = get_post_meta( $post->ID, 'ark_price_unavailable', true );
+    ?>
+    <style>
+    .ark-price-toggle-wrap{display:flex;align-items:center;gap:12px;padding:6px 0 10px}
+    .ark-toggle-switch{position:relative;display:inline-block;width:46px;height:26px;flex-shrink:0}
+    .ark-toggle-switch input{opacity:0;width:0;height:0;position:absolute}
+    .ark-toggle-slider{position:absolute;cursor:pointer;inset:0;background:#bbb;border-radius:999px;transition:background .25s}
+    .ark-toggle-slider::before{content:'';position:absolute;left:3px;top:3px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:transform .25s}
+    .ark-toggle-switch input:checked+.ark-toggle-slider{background:#d63638}
+    .ark-toggle-switch input:checked+.ark-toggle-slider::before{transform:translateX(20px)}
+    .ark-toggle-label{font-size:13px;color:#3c434a;line-height:1.4}
+    .ark-toggle-label strong{display:block;font-size:13px;font-weight:600}
+    .ark-toggle-label small{color:#646970}
+    .ark-price-unavail-note{margin-top:8px;padding:8px 10px;background:#fff3cd;border-left:3px solid #d63638;border-radius:3px;font-size:12px;color:#3c434a;display:none}
+    .ark-price-unavail-note.is-visible{display:block}
+    </style>
+    <div class="ark-price-toggle-wrap">
+        <label class="ark-toggle-switch" title="<?php esc_attr_e( 'Toggle price availability', 'ark-travelers' ); ?>">
+            <input
+                type="checkbox"
+                id="ark_price_unavailable"
+                name="ark_price_unavailable"
+                value="1"
+                <?php checked( $unavailable, '1' ); ?>
+                onchange="document.getElementById('ark-price-unavail-note').classList.toggle('is-visible',this.checked)"
+            />
+            <span class="ark-toggle-slider"></span>
+        </label>
+        <span class="ark-toggle-label">
+            <strong><?php esc_html_e( 'Price Not Available', 'ark-travelers' ); ?></strong>
+            <small><?php esc_html_e( 'Replaces price with "Call for Details"', 'ark-travelers' ); ?></small>
+        </span>
+    </div>
+    <div class="ark-price-unavail-note <?php echo $unavailable ? 'is-visible' : ''; ?>" id="ark-price-unavail-note">
+        &#9888; <?php esc_html_e( 'Price is hidden. Visitors will see "Call for Details" and be directed to contact you.', 'ark-travelers' ); ?>
+    </div>
+    <?php
+}
 
 /**
  * Render "Package Overview" meta box
@@ -1001,6 +1054,10 @@ function ark_save_umrah_meta_boxes( $post_id ) {
         $pid = absint( $_POST['ark_product_id'] );
         update_post_meta( $post_id, 'ark_product_id', $pid ? $pid : '' );
     }
+
+    // Save price unavailable toggle (checkbox — present = 1, absent = '')
+    $price_unavailable = isset( $_POST['ark_price_unavailable'] ) ? '1' : '';
+    update_post_meta( $post_id, 'ark_price_unavailable', $price_unavailable );
 
     // Save package overview (if custom overview is provided, it overrides post content)
     if ( isset( $_POST['ark_package_overview'] ) ) {
