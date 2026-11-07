@@ -16,6 +16,12 @@ get_header();
     <!-- Hero Banner with Parallax -->
     <?php get_template_part( 'template-parts/fly-hero' ); ?>
 
+    <section class="ark-section ark-fly-results" id="ark-fly-results" aria-live="polite" aria-hidden="true" tabindex="-1">
+        <div class="ark-container">
+            <div id="ark-fly-results-list"></div>
+        </div>
+    </section>
+
     <!-- CTA section: heading + scroll to form -->
     <section class="ark-section ark-fly-search ark-fly-cta-section" data-parallax-section>
         <div class="ark-container ark-fly-cta-inner">
@@ -29,37 +35,41 @@ get_header();
         <div class="ark-container">
             <h2 class="ark-section-title"><?php echo esc_html( ark_t( 'Popular Destinations' ) ); ?></h2>
             <div class="ark-fly-routes-grid">
-                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-dest="Dubai" style="--route-bg:url('https://images.unsplash.com/photo-1751473058035-3b7ef98d0367?w=1200&q=85&fit=crop');">
+                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-origin-iata="STO" data-dest="Dubai" data-dest-iata="DXB" style="--route-bg:url('https://images.unsplash.com/photo-1751473058035-3b7ef98d0367?w=1200&q=85&fit=crop');">
                     <span class="ark-route-city"><?php echo esc_html( ark_t( 'Dubai' ) ); ?></span>
                     <span class="ark-route-country"><?php echo esc_html( ark_t( 'United Arab Emirates' ) ); ?></span>
                 </a>
-                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-dest="Riyadh" style="--route-bg:url('https://images.unsplash.com/photo-1674822858255-fcc093a1ef43?w=1200&q=85&fit=crop');">
+                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-origin-iata="STO" data-dest="Riyadh" data-dest-iata="RUH" style="--route-bg:url('https://images.unsplash.com/photo-1674822858255-fcc093a1ef43?w=1200&q=85&fit=crop');">
                     <span class="ark-route-city"><?php echo esc_html( ark_t( 'Riyadh' ) ); ?></span>
                     <span class="ark-route-country"><?php echo esc_html( ark_t( 'Saudi Arabia' ) ); ?></span>
                 </a>
-                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-dest="Athens" style="--route-bg:url('https://images.unsplash.com/photo-1767907573610-6f1d6c501d6f?w=1200&q=85&fit=crop');">
+                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-origin-iata="STO" data-dest="Athens" data-dest-iata="ATH" style="--route-bg:url('https://images.unsplash.com/photo-1767907573610-6f1d6c501d6f?w=1200&q=85&fit=crop');">
                     <span class="ark-route-city"><?php echo esc_html( ark_t( 'Athens' ) ); ?></span>
                     <span class="ark-route-country"><?php echo esc_html( ark_t( 'Greece' ) ); ?></span>
                 </a>
-                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-dest="Cairo" style="--route-bg:url('https://images.unsplash.com/photo-1630201187972-dc4136076c6c?w=1200&q=85&fit=crop');">
+                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-origin-iata="STO" data-dest="Cairo" data-dest-iata="CAI" style="--route-bg:url('https://images.unsplash.com/photo-1630201187972-dc4136076c6c?w=1200&q=85&fit=crop');">
                     <span class="ark-route-city"><?php echo esc_html( ark_t( 'Cairo' ) ); ?></span>
                     <span class="ark-route-country"><?php echo esc_html( ark_t( 'Egypt' ) ); ?></span>
                 </a>
-                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-dest="Makkah" style="--route-bg:url('https://images.unsplash.com/photo-1768001863885-fd5bad96ebfc?w=1200&q=85&fit=crop');">
+                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-origin-iata="STO" data-dest="Makkah" data-dest-iata="JED" style="--route-bg:url('https://images.unsplash.com/photo-1768001863885-fd5bad96ebfc?w=1200&q=85&fit=crop');">
                     <span class="ark-route-city"><?php echo esc_html( ark_t( 'Makkah' ) ); ?></span>
                     <span class="ark-route-country"><?php echo esc_html( ark_t( 'Saudi Arabia' ) ); ?></span>
                 </a>
-                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-dest="Medina" style="--route-bg:url('https://images.unsplash.com/photo-1742465294457-3c405ef99c23?w=1200&q=85&fit=crop');">
+                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-origin-iata="STO" data-dest="Medina" data-dest-iata="MED" style="--route-bg:url('https://images.unsplash.com/photo-1742465294457-3c405ef99c23?w=1200&q=85&fit=crop');">
                     <span class="ark-route-city"><?php echo esc_html( ark_t( 'Medina' ) ); ?></span>
                     <span class="ark-route-country"><?php echo esc_html( ark_t( 'Saudi Arabia' ) ); ?></span>
                 </a>
-                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-dest="Istanbul" style="--route-bg:url('https://images.unsplash.com/photo-1763965367191-6455ef032c79?w=1200&q=85&fit=crop');">
+                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-origin-iata="STO" data-dest="Istanbul" data-dest-iata="IST" style="--route-bg:url('https://images.unsplash.com/photo-1763965367191-6455ef032c79?w=1200&q=85&fit=crop');">
                     <span class="ark-route-city"><?php echo esc_html( ark_t( 'Istanbul' ) ); ?></span>
                     <span class="ark-route-country"><?php echo esc_html( ark_t( 'Turkiye' ) ); ?></span>
                 </a>
-                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-dest="Sydney" style="--route-bg:url('https://images.unsplash.com/photo-1760129744104-4802b1b1a017?w=1200&q=85&fit=crop');">
+                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-origin-iata="STO" data-dest="Sydney" data-dest-iata="SYD" style="--route-bg:url('https://images.unsplash.com/photo-1760129744104-4802b1b1a017?w=1200&q=85&fit=crop');">
                     <span class="ark-route-city"><?php echo esc_html( ark_t( 'Sydney' ) ); ?></span>
                     <span class="ark-route-country"><?php echo esc_html( ark_t( 'Australia' ) ); ?></span>
+                </a>
+                <a href="#ark-fly-form" class="ark-route-card card" data-origin="Stockholm" data-origin-iata="STO" data-dest="Kabul" data-dest-iata="KBL" style="--route-bg:url('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=1200&q=85&fit=crop');">
+                    <span class="ark-route-city"><?php echo esc_html( ark_t( 'Kabul' ) ); ?></span>
+                    <span class="ark-route-country"><?php echo esc_html( ark_t( 'Afghanistan' ) ); ?></span>
                 </a>
             </div>
         </div>
@@ -102,11 +112,6 @@ get_header();
         </div>
     </section>
 
-    <section class="ark-section ark-fly-results" id="ark-fly-results" aria-hidden="true">
-        <div class="ark-container">
-            <div id="ark-fly-results-list"></div>
-        </div>
-    </section>
 </main>
 
 <?php

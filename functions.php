@@ -13,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Legacy multilingual helpers (now language-neutral) for backwards compatibility.
 require_once get_stylesheet_directory() . '/inc/ark-multilang.php';
 
+// Flight finder (Duffel API): AJAX search + airport suggestions.
+require_once get_stylesheet_directory() . '/inc/ark-flights.php';
+
 /**
  * Enqueue parent theme
  */
@@ -107,6 +110,38 @@ function ark_enqueue_child_assets() {
         wp_enqueue_script( 'ark-animations', $uri . '/assets/js/animations.js', array( 'ark-main' ), $theme_version, true );
         wp_enqueue_script( 'ark-fly-js', $uri . '/assets/js/fly.js', array( 'ark-main' ), $theme_version, true );
     }
+        wp_localize_script( 'ark-fly-js', 'arkFly', array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'ark_nonce' ),
+            'contact' => ark_flights_contact(),
+            'i18n'    => array(
+                'searching'     => __( 'Searching airlines…', 'ark-travelers' ),
+                'searchingNote' => __( 'This can take up to 30 seconds.', 'ark-travelers' ),
+                'found'         => __( 'We found %1$s options for %2$s', 'ark-travelers' ),
+                'foundOne'      => __( 'We found 1 option for %2$s', 'ark-travelers' ),
+                'showing'       => __( 'Showing the first %s.', 'ark-travelers' ),
+                'priceNote'     => __( 'Fares change quickly. Contact us for today\'s price and to book.', 'ark-travelers' ),
+                'noResults'     => __( 'No flights found for these dates. Try other dates or nearby airports, or contact us and we\'ll search for you.', 'ark-travelers' ),
+                'error'         => __( 'We couldn\'t complete the search. Please try again, or contact us.', 'ark-travelers' ),
+                'chooseAirport' => __( 'Please choose an airport from the list.', 'ark-travelers' ),
+                'contactCta'    => __( 'Contact for price & booking', 'ark-travelers' ),
+                'callUs'        => __( 'Call us', 'ark-travelers' ),
+                'direct'        => __( 'Direct', 'ark-travelers' ),
+                'oneStop'       => __( '1 stop', 'ark-travelers' ),
+                'nStops'        => __( '%s stops', 'ark-travelers' ),
+                'via'           => __( 'via %s', 'ark-travelers' ),
+                'outbound'      => __( 'Outbound', 'ark-travelers' ),
+                'inbound'       => __( 'Return', 'ark-travelers' ),
+                'checkedBag'    => __( '%s checked bag(s)', 'ark-travelers' ),
+                'noCheckedBag'  => __( 'No checked bag', 'ark-travelers' ),
+                'allAirports'   => __( 'all airports', 'ark-travelers' ),
+                'noMatches'     => __( 'No matching airports', 'ark-travelers' ),
+                'waGreeting'    => __( 'Hi ARK Travelers! I searched for flights on your website and would like the price and to book:', 'ark-travelers' ),
+                'waName'        => __( 'Name', 'ark-travelers' ),
+                'waTravellers'  => __( 'Travellers', 'ark-travelers' ),
+                'waFlights'     => __( 'Flights', 'ark-travelers' ),
+            ),
+        ) );
     if ( is_singular( 'umrah' ) ) {
         wp_enqueue_script( 'ark-single-umrah', $uri . '/assets/js/single-umrah.js', array( 'ark-main' ), $theme_version, true );
     }

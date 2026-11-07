@@ -1420,3 +1420,271 @@ body.page-fly.admin-bar #wpadminbar {
 .fly-form-section .fly-form-box {
     margin: 0 auto;
 }
+
+/* ========== Flight finder: live results ========== */
+.ark-fly-results {
+    padding: var(--space-xl) 0 var(--space-lg);
+    background: var(--color-bg-primary);
+    scroll-margin-top: var(--header-height);
+}
+
+.ark-fly-results:focus {
+    outline: none;
+}
+
+/* Honeypot: off-screen, not display:none, so simple bots still fill it. */
+.ark-fly-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Airport suggestions */
+.ark-has-places {
+    position: relative;
+}
+
+.ark-places {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    margin: 4px 0 0;
+    padding: 4px;
+    max-height: 280px;
+    overflow-y: auto;
+    list-style: none;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(26, 29, 33, 0.16);
+}
+
+.ark-places[hidden] {
+    display: none;
+}
+
+.ark-place,
+.ark-places-empty {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: var(--color-text-primary);
+}
+
+.ark-place {
+    cursor: pointer;
+}
+
+.ark-place:hover,
+.ark-place.is-active {
+    background: rgba(74, 144, 164, 0.12);
+}
+
+.ark-place-sub,
+.ark-places-empty {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
+
+/* Searching state */
+.ark-fly-searching {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-lg) var(--space-md);
+    text-align: left;
+}
+
+.ark-fly-searching strong,
+.ark-fly-searching span:not(.ark-fly-spinner) {
+    display: block;
+}
+
+.ark-fly-searching span:not(.ark-fly-spinner) {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.ark-fly-spinner {
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border: 3px solid rgba(74, 144, 164, 0.25);
+    border-top-color: var(--color-accent);
+    border-radius: 50%;
+    animation: ark-fly-spin 0.9s linear infinite;
+}
+
+@keyframes ark-fly-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ark-fly-no-results .ark-flight-card-cta {
+    justify-content: center;
+    margin-top: var(--space-sm);
+}
+
+/* Result list */
+.ark-flight-results {
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+.ark-flight-results-title {
+    margin: 0 0 var(--space-xs);
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    color: var(--color-charcoal);
+    letter-spacing: -0.02em;
+}
+
+.ark-flight-results-note {
+    margin: 0 0 var(--space-sm);
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+.ark-flight-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+}
+
+.ark-flight-card-main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.ark-flight-airline {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    font-weight: 600;
+    color: var(--color-charcoal);
+}
+
+.ark-flight-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.ark-flight-cabin {
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-accent-dark);
+    background: rgba(74, 144, 164, 0.12);
+    border-radius: 999px;
+}
+
+.ark-flight-leg + .ark-flight-leg {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px dashed var(--color-border);
+}
+
+.ark-flight-leg-label {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
+
+.ark-flight-times {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 2px 0;
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+}
+
+.ark-flight-code {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.ark-flight-line {
+    flex: 0 1 64px;
+    min-width: 24px;
+    height: 0;
+    border-top: 2px solid var(--color-border);
+}
+
+.ark-flight-plus {
+    margin-left: -6px;
+    font-size: 0.7rem;
+    color: var(--color-accent-dark);
+}
+
+.ark-flight-leg-meta,
+.ark-flight-extras {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.ark-flight-extras {
+    margin-top: var(--space-xs);
+}
+
+.ark-flight-card-cta {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-xs);
+    text-align: center;
+}
+
+.ark-flight-card-cta .btn-primary.ark-flight-contact {
+    height: 48px;
+    padding: 0 20px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.ark-flight-call {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-accent-dark);
+}
+
+@media (max-width: 720px) {
+    .ark-flight-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ark-flight-times {
+        font-size: 1.1rem;
+    }
+
+    .ark-flight-card-cta .btn-primary.ark-flight-contact {
+        white-space: normal;
+        height: auto;
+        min-height: 48px;
+        padding: 12px 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ark-fly-spinner {
+        animation-duration: 2.4s;
+    }
+}

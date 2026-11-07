@@ -18,10 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="ark-fly-field">
             <label for="ark-origin"><?php echo esc_html( ark_t( 'From' ) ); ?></label>
             <input type="text" id="ark-origin" name="origin" placeholder="<?php echo esc_attr( ark_t( 'City or airport' ) ); ?>" autocomplete="off" required>
+            <input type="hidden" id="ark-origin-iata" name="origin_iata" value="">
         </div>
         <div class="ark-fly-field">
             <label for="ark-destination"><?php echo esc_html( ark_t( 'To' ) ); ?></label>
             <input type="text" id="ark-destination" name="destination" placeholder="<?php echo esc_attr( ark_t( 'City or airport' ) ); ?>" autocomplete="off" required>
+            <input type="hidden" id="ark-destination-iata" name="destination_iata" value="">
         </div>
     </div>
     <div class="ark-fly-form-row">
@@ -128,6 +130,10 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <?php endfor; ?>
             </select>
         </div>
+    </div>
+    <div class="ark-fly-hp" aria-hidden="true">
+        <label for="ark-fly-website">Website</label>
+        <input type="text" id="ark-fly-website" name="website" value="" tabindex="-1" autocomplete="off">
     </div>
     <div class="ark-fly-form-actions">
         <button type="submit" class="btn-primary"><?php echo esc_html( ark_t( 'Search Flights' ) ); ?></button>
